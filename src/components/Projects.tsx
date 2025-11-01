@@ -5,14 +5,14 @@ import { ExternalLink, Github } from "lucide-react";
 const projects = [
   {
     title: "Laboratori CCNA",
-    description: "Configurazioni pratiche di rete con Cisco Packet Tracer. Include setup di VLAN, routing statico e dinamico, ACL e protocolli di rete avanzati.",
-    tags: ["Networking", "Cisco", "CCNA"],
+    description: "Configurazioni pratiche con Cisco Packet Tracer: setup router e switch con host, tabelle di routing, architetture multi-rete con router interconnessi, server DHCP per gestione IP dinamica e server DNS basilare.",
+    tags: ["Networking", "Cisco", "Routing"],
     github: "#",
     live: "#",
   },
   {
     title: "Guida Arch Linux",
-    description: "Guida completa per l'installazione e configurazione di Arch Linux. Include partitioning, bootloader, desktop environment e ottimizzazioni di sistema.",
+    description: "Progetto in sviluppo: guida completa per l'installazione e configurazione di Arch Linux. Include partitioning, bootloader, desktop environment e ottimizzazioni di sistema. Futura pubblicazione su Gumroad.",
     tags: ["Linux", "Sistema", "Tutorial"],
     github: "#",
     live: "#",
@@ -23,13 +23,6 @@ const projects = [
     tags: ["Security", "CTF", "Pentesting"],
     github: "https://github.com/FedeContri/Cybersecurity-Project",
     live: "https://github.com/FedeContri/Cybersecurity-Project",
-  },
-  {
-    title: "Multi-Boot System",
-    description: "Configurazione avanzata di un sistema triple-boot con Windows, Arch Linux e Kali Linux. Include gestione di GRUB e partizionamento ottimizzato.",
-    tags: ["Linux", "Sistema", "Boot"],
-    github: "#",
-    live: "#",
   },
 ];
 
