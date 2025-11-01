@@ -12,7 +12,7 @@ const projects = [
   },
   {
     title: "Guida Arch Linux",
-    description: "Progetto in sviluppo: guida completa per l'installazione e configurazione di Arch Linux. Include partitioning, bootloader, desktop environment e ottimizzazioni di sistema. Futura pubblicazione su Gumroad.",
+    description: "Progetto in sviluppo: guida pratica per l'installazione di Arch Linux con GUI. Tutorial step-by-step per un setup semplificato e funzionale. Futura pubblicazione su Gumroad.",
     tags: ["Linux", "Sistema", "Tutorial"],
     github: "#",
     live: "#",
