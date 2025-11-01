@@ -2,10 +2,10 @@ import { useEffect, useRef } from "react";
 
 const skills = {
   networking: [
-    { name: "Cisco Packet Tracer", level: 85 },
+    { name: "Cisco Packet Tracer", level: 75 },
     { name: "CCNA 1 & 2", level: 80 },
     { name: "Routing & Switching", level: 75 },
-    { name: "Network Protocols", level: 70 },
+    { name: "Network Protocols", level: 75 },
   ],
   systems: [
     { name: "Arch Linux", level: 90 },
@@ -17,13 +17,13 @@ const skills = {
     { name: "Java", level: 70 },
     { name: "C", level: 65 },
     { name: "HTML/CSS", level: 75 },
-    { name: "Python", level: 50, learning: true },
-    { name: "Rust", level: 40, learning: true },
+    { name: "Python", level: 20, learning: true },
+    { name: "Rust", level: 10, learning: true },
   ],
   security: [
-    { name: "Security Fundamentals", level: 70 },
-    { name: "Penetration Testing", level: 60 },
-    { name: "Security Tools", level: 65 },
+    { name: "Security Fundamentals", level: 75 },
+    { name: "Penetration Testing", level: 65 },
+    { name: "Security Tools", level: 70 },
   ],
 };
 
