@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Mail, Github, Linkedin, Send } from "lucide-react";
+import { Mail, Github, Send } from "lucide-react";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -43,13 +43,13 @@ const Contact = () => {
             
             <div className="space-y-4">
               <a 
-                href="mailto:contatto@esempio.com" 
+                href="mailto:fd_cybernet@proton.me" 
                 className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-primary transition-colors hover:glow-primary group"
               >
                 <Mail className="h-5 w-5 text-primary" />
                 <div>
                   <p className="font-medium group-hover:gradient-text">Email</p>
-                  <p className="text-sm text-muted-foreground">contatto@esempio.com</p>
+                  <p className="text-sm text-muted-foreground">fd_cybernet@proton.me</p>
                 </div>
               </a>
               
@@ -63,19 +63,6 @@ const Contact = () => {
                 <div>
                   <p className="font-medium group-hover:gradient-text">GitHub</p>
                   <p className="text-sm text-muted-foreground">@FedeContri</p>
-                </div>
-              </a>
-              
-              <a 
-                href="https://linkedin.com" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-primary transition-colors hover:glow-primary group"
-              >
-                <Linkedin className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium group-hover:gradient-text">LinkedIn</p>
-                  <p className="text-sm text-muted-foreground">Profilo LinkedIn</p>
                 </div>
               </a>
             </div>
