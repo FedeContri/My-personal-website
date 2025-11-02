@@ -1,85 +1,30 @@
-import { useEffect, useRef } from "react";
-
-const skills = {
-  networking: [
-    { name: "Cisco Packet Tracer", level: 75 },
-    { name: "CCNA 1 & 2", level: 80 },
-    { name: "Routing & Switching", level: 75 },
-    { name: "Network Protocols", level: 75 },
-  ],
-  systems: [
-    { name: "Arch Linux", level: 90 },
-    { name: "Kali Linux", level: 85 },
-    { name: "Ubuntu", level: 85 },
-    { name: "Multi-boot Config", level: 80 },
-  ],
-  programming: [
-    { name: "Java", level: 70 },
-    { name: "C", level: 65 },
-    { name: "HTML/CSS", level: 75 },
-    { name: "Python", level: 20, learning: true },
-    { name: "Rust", level: 10, learning: true },
-  ],
-  security: [
-    { name: "Security Fundamentals", level: 75 },
-    { name: "Penetration Testing", level: 65 },
-    { name: "Security Tools", level: 70 },
-  ],
-};
-
-const SkillBar = ({ name, level, learning }: { name: string; level: number; learning?: boolean }) => {
-  const barRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const bar = entry.target.querySelector("div > div") as HTMLElement;
-            if (bar) {
-              bar.classList.add("!opacity-100");
-              setTimeout(() => {
-                bar.style.animation = "shimmer 3s ease-in-out infinite";
-              }, 1200);
-            }
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (barRef.current) {
-      observer.observe(barRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div className="space-y-2" ref={barRef}>
-      <div className="flex items-center gap-2">
-        <span className="text-sm font-medium flex-1">
-          {name}
-        </span>
-        {learning && (
-          <span className="text-accent text-xs font-semibold px-2 py-0.5 rounded-full bg-accent/10 border border-accent/20">
-            Learning
-          </span>
-        )}
-      </div>
-      <div className="relative h-2.5 bg-secondary/50 rounded-full overflow-hidden backdrop-blur-sm">
-        <div 
-          className="h-full bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] rounded-full opacity-0 shadow-[0_0_15px_rgba(var(--primary),0.5)] transition-all duration-1000 ease-out animate-[shimmer_3s_ease-in-out_infinite]"
-          style={{ 
-            width: `${level}%`,
-            transitionDelay: "200ms",
-            animation: "none"
-          }}
-        />
-      </div>
-    </div>
-  );
-};
+const skillsData = [
+  {
+    category: "Networking",
+    icon: "🌐",
+    color: "primary",
+    skills: ["Cisco Packet Tracer", "CCNA 1 & 2", "Routing & Switching", "Network Protocols", "TCP/IP"],
+  },
+  {
+    category: "Sistemi Operativi",
+    icon: "💻",
+    color: "accent",
+    skills: ["Arch Linux", "Kali Linux", "Ubuntu", "Multi-boot Config", "System Administration"],
+  },
+  {
+    category: "Programmazione",
+    icon: "⚡",
+    color: "primary",
+    skills: ["Java", "C", "HTML/CSS", "Python", "Rust"],
+    learning: ["Python", "Rust"],
+  },
+  {
+    category: "Cybersecurity",
+    icon: "🔐",
+    color: "accent",
+    skills: ["Security Fundamentals", "Penetration Testing", "Security Tools", "Network Security"],
+  },
+];
 
 const Skills = () => {
   return (
@@ -93,42 +38,41 @@ const Skills = () => {
         </p>
       </div>
       
-      <div className="grid md:grid-cols-2 gap-8">
-        <div className="card-glass p-8 rounded-lg space-y-6">
-          <h3 className="text-2xl font-semibold flex items-center gap-2">
-            <span className="text-primary">▪</span> Networking
-          </h3>
-          {skills.networking.map((skill) => (
-            <SkillBar key={skill.name} {...skill} />
-          ))}
-        </div>
-        
-        <div className="card-glass p-8 rounded-lg space-y-6">
-          <h3 className="text-2xl font-semibold flex items-center gap-2">
-            <span className="text-accent">▪</span> Sistemi Operativi
-          </h3>
-          {skills.systems.map((skill) => (
-            <SkillBar key={skill.name} {...skill} />
-          ))}
-        </div>
-        
-        <div className="card-glass p-8 rounded-lg space-y-6">
-          <h3 className="text-2xl font-semibold flex items-center gap-2">
-            <span className="text-primary">▪</span> Programmazione
-          </h3>
-          {skills.programming.map((skill) => (
-            <SkillBar key={skill.name} {...skill} />
-          ))}
-        </div>
-        
-        <div className="card-glass p-8 rounded-lg space-y-6">
-          <h3 className="text-2xl font-semibold flex items-center gap-2">
-            <span className="text-accent">▪</span> Cybersecurity
-          </h3>
-          {skills.security.map((skill) => (
-            <SkillBar key={skill.name} {...skill} />
-          ))}
-        </div>
+      <div className="grid md:grid-cols-2 gap-6">
+        {skillsData.map((category, index) => (
+          <div
+            key={category.category}
+            className="card-glass p-6 rounded-xl group hover:scale-[1.02] transition-all duration-300 hover:shadow-xl"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-4xl">{category.icon}</span>
+              <h3 className="text-2xl font-bold">{category.category}</h3>
+            </div>
+            
+            <div className="flex flex-wrap gap-2">
+              {category.skills.map((skill) => {
+                const isLearning = category.learning?.includes(skill);
+                return (
+                  <span
+                    key={skill}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                      isLearning
+                        ? "bg-accent/20 text-accent border border-accent/30 hover:bg-accent/30"
+                        : category.color === "primary"
+                        ? "bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20"
+                        : "bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20"
+                    } hover:scale-105 cursor-default`}
+                  >
+                    {skill}
+                    {isLearning && (
+                      <span className="ml-1 text-xs">✨</span>
+                    )}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
