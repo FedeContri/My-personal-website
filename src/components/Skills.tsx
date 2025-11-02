@@ -15,8 +15,7 @@ const skillsData = [
     category: "Programmazione",
     icon: "⚡",
     color: "primary",
-    skills: ["Java", "C", "HTML/CSS", "Python", "Rust"],
-    learning: ["Python", "Rust"],
+    skills: ["Java", "C/C++", "HTML/CSS", "JavaScript (Base)"],
   },
   {
     category: "Cybersecurity",
@@ -50,26 +49,18 @@ const Skills = () => {
             </div>
             
             <div className="flex flex-wrap gap-2">
-              {category.skills.map((skill) => {
-                const isLearning = category.learning?.includes(skill);
-                return (
-                  <span
-                    key={skill}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                      isLearning
-                        ? "bg-accent/20 text-accent border border-accent/30 hover:bg-accent/30"
-                        : category.color === "primary"
-                        ? "bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20"
-                        : "bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20"
-                    } hover:scale-105 cursor-default`}
-                  >
-                    {skill}
-                    {isLearning && (
-                      <span className="ml-1 text-xs">✨</span>
-                    )}
-                  </span>
-                );
-              })}
+              {category.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    category.color === "primary"
+                      ? "bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20"
+                      : "bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20"
+                  } hover:scale-105 cursor-default`}
+                >
+                  {skill}
+                </span>
+              ))}
             </div>
           </div>
         ))}
