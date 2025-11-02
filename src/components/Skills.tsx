@@ -35,7 +35,13 @@ const SkillBar = ({ name, level, learning }: { name: string; level: number; lear
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("active");
+            const bar = entry.target.querySelector("div > div") as HTMLElement;
+            if (bar) {
+              bar.classList.add("!opacity-100");
+              setTimeout(() => {
+                bar.style.animation = "shimmer 3s ease-in-out infinite";
+              }, 1200);
+            }
           }
         });
       },
@@ -51,18 +57,23 @@ const SkillBar = ({ name, level, learning }: { name: string; level: number; lear
 
   return (
     <div className="space-y-2" ref={barRef}>
-      <div className="flex justify-between items-center">
-        <span className="text-sm font-medium">
-          {name} {learning && <span className="text-accent text-xs">(In apprendimento)</span>}
+      <div className="flex items-center gap-2">
+        <span className="text-sm font-medium flex-1">
+          {name}
         </span>
-        <span className="text-sm text-muted-foreground">{level}%</span>
+        {learning && (
+          <span className="text-accent text-xs font-semibold px-2 py-0.5 rounded-full bg-accent/10 border border-accent/20">
+            Learning
+          </span>
+        )}
       </div>
-      <div className="h-2 bg-muted rounded-full overflow-hidden">
+      <div className="relative h-2.5 bg-secondary/50 rounded-full overflow-hidden backdrop-blur-sm">
         <div 
-          className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-1000 ease-out opacity-0"
+          className="h-full bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] rounded-full opacity-0 shadow-[0_0_15px_rgba(var(--primary),0.5)] transition-all duration-1000 ease-out animate-[shimmer_3s_ease-in-out_infinite]"
           style={{ 
             width: `${level}%`,
-            transitionDelay: "200ms" 
+            transitionDelay: "200ms",
+            animation: "none"
           }}
         />
       </div>
