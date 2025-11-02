@@ -12,17 +12,53 @@ const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.name || !formData.email || !formData.message) {
       toast.error("Per favore compila tutti i campi");
       return;
     }
+
+    if (formData.name.length > 100 || formData.message.length > 1000) {
+      toast.error("Nome o messaggio troppo lungo");
+      return;
+    }
     
-    // Form submission logic would go here
-    toast.success("Messaggio inviato! Ti risponderò al più presto.");
-    setFormData({ name: "", email: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "7b34a4b0-426c-4274-9f6a-fdb9eaf2be3a",
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+          from_name: formData.name.trim(),
+          subject: `Nuovo messaggio da ${formData.name}`,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success("Messaggio inviato! Ti risponderò al più presto.");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        toast.error("Errore nell'invio. Riprova più tardi.");
+      }
+    } catch (error) {
+      console.error("Errore invio form:", error);
+      toast.error("Errore nell'invio. Riprova più tardi.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -101,9 +137,9 @@ const Contact = () => {
               />
             </div>
             
-            <Button type="submit" className="w-full glow-primary">
+            <Button type="submit" className="w-full glow-primary" disabled={isSubmitting}>
               <Send className="mr-2 h-4 w-4" />
-              Invia Messaggio
+              {isSubmitting ? "Invio in corso..." : "Invia Messaggio"}
             </Button>
           </form>
         </div>
