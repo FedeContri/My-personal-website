@@ -106,7 +106,7 @@ Questo progetto è personale e non include una licenza open source specifica.
 
 ## 🙏 Credits
 
-Sviluppato con ❤️ utilizzando [Lovable](https://lovable.dev) - The world's first AI Full Stack Engineer
+Sviluppato con ❤️ utilizzando [Lovable](https://lovable.dev) e la mia inventiva.
 
 ---
 
