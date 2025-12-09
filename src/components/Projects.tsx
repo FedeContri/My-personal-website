@@ -22,12 +22,12 @@ const projects = [
     comingSoon: false,
   },
   {
-    title: "Guida Arch Linux",
-    description: "Progetto in sviluppo: guida pratica per l'installazione di Arch Linux con GUI. Tutorial step-by-step per un setup semplificato e funzionale. Futura pubblicazione su Gumroad.",
+    title: "Guida Arch Linux + GUI",
+    description: "Guida pratica e completa per l'installazione di Arch Linux con interfaccia grafica. Tutorial step-by-step che ti accompagna dal boot alla configurazione finale del desktop.",
     tags: ["Linux", "Sistema", "Tutorial"],
     github: "#",
-    live: "#",
-    comingSoon: true,
+    live: "https://fdc.gumroad.com/l/arch-gui-guide",
+    comingSoon: false,
   },
   {
     title: "Cybersecurity Repository",
