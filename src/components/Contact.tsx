@@ -63,23 +63,31 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
+      console.log("Invio form in corso...");
+      
+      const payload = {
+        access_key: "7b34a4b0-426c-4274-9f6a-fdb9eaf2be3a",
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        message: formData.message.trim(),
+        from_name: formData.name.trim(),
+        subject: `Nuovo messaggio da ${formData.name}`,
+      };
+      
+      console.log("Payload:", JSON.stringify(payload, null, 2));
+      
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
         },
-        body: JSON.stringify({
-          access_key: "7b34a4b0-426c-4274-9f6a-fdb9eaf2be3a",
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          message: formData.message.trim(),
-          from_name: formData.name.trim(),
-          subject: `Nuovo messaggio da ${formData.name}`,
-        }),
+        body: JSON.stringify(payload),
       });
 
+      console.log("Response status:", response.status);
       const result = await response.json();
+      console.log("Response body:", result);
 
       if (result.success) {
         recordSubmission();
@@ -87,7 +95,7 @@ const Contact = () => {
         setFormData({ name: "", email: "", message: "" });
       } else {
         console.error("Web3Forms error:", result);
-        toast.error("Errore nell'invio. Verifica i dati e riprova.");
+        toast.error(result.message || "Errore nell'invio. Verifica i dati e riprova.");
       }
     } catch (error) {
       console.error("Errore invio form:", error);
