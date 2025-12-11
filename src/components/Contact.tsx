@@ -5,6 +5,33 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Mail, Github, Send, Linkedin } from "lucide-react";
 
+const RATE_LIMIT_KEY = "contact_form_submissions";
+const MAX_SUBMISSIONS_PER_HOUR = 3;
+const HOUR_IN_MS = 60 * 60 * 1000;
+
+const checkRateLimit = (): boolean => {
+  const now = Date.now();
+  const stored = localStorage.getItem(RATE_LIMIT_KEY);
+  const submissions: number[] = stored ? JSON.parse(stored) : [];
+  
+  // Filter submissions within the last hour
+  const recentSubmissions = submissions.filter(time => now - time < HOUR_IN_MS);
+  
+  return recentSubmissions.length < MAX_SUBMISSIONS_PER_HOUR;
+};
+
+const recordSubmission = () => {
+  const now = Date.now();
+  const stored = localStorage.getItem(RATE_LIMIT_KEY);
+  const submissions: number[] = stored ? JSON.parse(stored) : [];
+  
+  // Keep only submissions from last hour + new one
+  const recentSubmissions = submissions.filter(time => now - time < HOUR_IN_MS);
+  recentSubmissions.push(now);
+  
+  localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(recentSubmissions));
+};
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -26,6 +53,12 @@ const Contact = () => {
       toast.error("Nome o messaggio troppo lungo");
       return;
     }
+
+    // Check rate limit
+    if (!checkRateLimit()) {
+      toast.error("Hai inviato troppi messaggi. Riprova tra un'ora.");
+      return;
+    }
     
     setIsSubmitting(true);
 
@@ -34,6 +67,7 @@ const Contact = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json",
         },
         body: JSON.stringify({
           access_key: "7b34a4b0-426c-4274-9f6a-fdb9eaf2be3a",
@@ -48,14 +82,16 @@ const Contact = () => {
       const result = await response.json();
 
       if (result.success) {
+        recordSubmission();
         toast.success("Messaggio inviato! Ti risponderò al più presto.");
         setFormData({ name: "", email: "", message: "" });
       } else {
-        toast.error("Errore nell'invio. Riprova più tardi.");
+        console.error("Web3Forms error:", result);
+        toast.error("Errore nell'invio. Verifica i dati e riprova.");
       }
     } catch (error) {
       console.error("Errore invio form:", error);
-      toast.error("Errore nell'invio. Riprova più tardi.");
+      toast.error("Errore di connessione. Controlla la tua rete e riprova.");
     } finally {
       setIsSubmitting(false);
     }
