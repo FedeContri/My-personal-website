@@ -306,13 +306,7 @@ const I18nContext = createContext<I18nContextType | undefined>(undefined);
 export const I18nProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>("en");
 
-  useEffect(() => {
-    // Detect browser language
-    const browserLang = navigator.language.split("-")[0];
-    // Check if we have translations for this language, fallback to English
-    const supportedLang = browserLang === "it" ? "it" : "en";
-    setLanguage(supportedLang);
-  }, []);
+  // Default to English, translations available for other languages
 
   const t = (key: string): string => {
     const translation = translations[key];
