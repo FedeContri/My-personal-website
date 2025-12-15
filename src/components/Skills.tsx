@@ -1,44 +1,48 @@
-const skillsData = [
-  {
-    category: "Networking",
-    icon: "🌐",
-    color: "primary",
-    skills: ["Cisco Packet Tracer", "CCNA 1 & 2", "Routing & Switching", "Network Protocols", "TCP/IP"],
-  },
-  {
-    category: "Sistemi Operativi",
-    icon: "💻",
-    color: "accent",
-    skills: ["Arch Linux", "Kali Linux", "Ubuntu", "Multi-boot Config", "System Administration"],
-  },
-  {
-    category: "Programmazione",
-    icon: "⚡",
-    color: "primary",
-    skills: ["Java", "C/C++", "HTML/CSS", "JavaScript (Base)"],
-  },
-  {
-    category: "Cybersecurity",
-    icon: "🔐",
-    color: "accent",
-    skills: ["Security Fundamentals", "Penetration Testing", "Security Tools", "Network Security"],
-  },
-];
+import { useTranslation } from "@/lib/i18n";
 
 const Skills = () => {
+  const { t } = useTranslation();
+
+  const skillsData = [
+    {
+      category: t("skills.networking"),
+      icon: "🌐",
+      color: "primary",
+      skills: ["Cisco Packet Tracer", "CCNA 1 & 2", "Routing & Switching", "Network Protocols", "TCP/IP"],
+    },
+    {
+      category: t("skills.os"),
+      icon: "💻",
+      color: "accent",
+      skills: ["Arch Linux", "Kali Linux", "Ubuntu", "Multi-boot Config", "System Administration"],
+    },
+    {
+      category: t("skills.programming"),
+      icon: "⚡",
+      color: "primary",
+      skills: ["Java", "C/C++", "HTML/CSS", "JavaScript (Base)"],
+    },
+    {
+      category: t("skills.cybersecurity"),
+      icon: "🔐",
+      color: "accent",
+      skills: ["Security Fundamentals", "Penetration Testing", "Security Tools", "Network Security"],
+    },
+  ];
+
   return (
     <section className="max-w-6xl mx-auto">
       <div className="text-center mb-12">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="gradient-text">Competenze</span> Tecniche
+          <span className="gradient-text">{t("skills.title")}</span> {t("skills.titleHighlight")}
         </h2>
         <p className="text-muted-foreground text-lg">
-          Le mie skill acquisite attraverso studio pratico e progetti hands-on
+          {t("skills.subtitle")}
         </p>
       </div>
       
       <div className="grid md:grid-cols-2 gap-6">
-        {skillsData.map((category, index) => (
+        {skillsData.map((category) => (
           <div
             key={category.category}
             className="card-glass p-6 rounded-xl group hover:scale-[1.02] transition-all duration-300 hover:shadow-xl"

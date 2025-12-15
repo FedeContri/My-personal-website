@@ -1,6 +1,8 @@
 import { Github, Mail } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -8,7 +10,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm">
-            © {currentYear} FD Portfolio. Realizzato con passione per la tecnologia.
+            © {currentYear} FD Portfolio. {t("footer.madeWith")}
           </p>
           
           <div className="flex gap-4">

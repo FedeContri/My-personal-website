@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n";
 
 const Navigation = () => {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -31,11 +33,11 @@ const Navigation = () => {
   };
 
   const navLinks = [
-    { name: "Home", id: "home" },
-    { name: "Chi Sono", id: "about" },
-    { name: "Competenze", id: "skills" },
-    { name: "Progetti", id: "projects" },
-    { name: "Contatti", id: "contact" },
+    { name: t("nav.home"), id: "home" },
+    { name: t("nav.about"), id: "about" },
+    { name: t("nav.skills"), id: "skills" },
+    { name: t("nav.projects"), id: "projects" },
+    { name: t("nav.contact"), id: "contact" },
   ];
 
   return (

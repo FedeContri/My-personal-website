@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Mail, Github, Send, Linkedin } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 const RATE_LIMIT_KEY = "contact_form_submissions";
 const MAX_SUBMISSIONS_PER_HOUR = 3;
@@ -14,7 +15,6 @@ const checkRateLimit = (): boolean => {
   const stored = localStorage.getItem(RATE_LIMIT_KEY);
   const submissions: number[] = stored ? JSON.parse(stored) : [];
   
-  // Filter submissions within the last hour
   const recentSubmissions = submissions.filter(time => now - time < HOUR_IN_MS);
   
   return recentSubmissions.length < MAX_SUBMISSIONS_PER_HOUR;
@@ -25,7 +25,6 @@ const recordSubmission = () => {
   const stored = localStorage.getItem(RATE_LIMIT_KEY);
   const submissions: number[] = stored ? JSON.parse(stored) : [];
   
-  // Keep only submissions from last hour + new one
   const recentSubmissions = submissions.filter(time => now - time < HOUR_IN_MS);
   recentSubmissions.push(now);
   
@@ -33,6 +32,7 @@ const recordSubmission = () => {
 };
 
 const Contact = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -45,25 +45,24 @@ const Contact = () => {
     e.preventDefault();
     
     if (!formData.name || !formData.email || !formData.message) {
-      toast.error("Per favore compila tutti i campi");
+      toast.error(t("contact.fillAll"));
       return;
     }
 
     if (formData.name.length > 100 || formData.message.length > 1000) {
-      toast.error("Nome o messaggio troppo lungo");
+      toast.error(t("contact.tooLong"));
       return;
     }
 
-    // Check rate limit
     if (!checkRateLimit()) {
-      toast.error("Hai inviato troppi messaggi. Riprova tra un'ora.");
+      toast.error(t("contact.tooMany"));
       return;
     }
     
     setIsSubmitting(true);
 
     try {
-      console.log("Invio form in corso...");
+      console.log("Sending form...");
       
       const payload = {
         access_key: "7b34a4b0-426c-4274-9f6a-fdb9eaf2be3a",
@@ -71,7 +70,7 @@ const Contact = () => {
         email: formData.email.trim(),
         message: formData.message.trim(),
         from_name: formData.name.trim(),
-        subject: `Nuovo messaggio da ${formData.name}`,
+        subject: `New message from ${formData.name}`,
       };
       
       console.log("Payload:", JSON.stringify(payload, null, 2));
@@ -91,15 +90,15 @@ const Contact = () => {
 
       if (result.success) {
         recordSubmission();
-        toast.success("Messaggio inviato! Ti risponderò al più presto.");
+        toast.success(t("contact.success"));
         setFormData({ name: "", email: "", message: "" });
       } else {
         console.error("Web3Forms error:", result);
-        toast.error(result.message || "Errore nell'invio. Verifica i dati e riprova.");
+        toast.error(result.message || t("contact.error"));
       }
     } catch (error) {
-      console.error("Errore invio form:", error);
-      toast.error("Errore di connessione. Controlla la tua rete e riprova.");
+      console.error("Form submission error:", error);
+      toast.error(t("contact.networkError"));
     } finally {
       setIsSubmitting(false);
     }
@@ -109,17 +108,17 @@ const Contact = () => {
     <section id="contact" className="max-w-6xl mx-auto">
       <div className="text-center mb-12">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="gradient-text">Contattami</span>
+          <span className="gradient-text">{t("contact.title")}</span>
         </h2>
         <p className="text-muted-foreground text-lg">
-          Hai un progetto in mente o vuoi semplicemente connetterti? Scrivimi!
+          {t("contact.subtitle")}
         </p>
       </div>
       
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
           <div className="card-glass p-6 rounded-lg">
-            <h3 className="text-2xl font-semibold mb-6">Informazioni di Contatto</h3>
+            <h3 className="text-2xl font-semibold mb-6">{t("contact.info")}</h3>
             
             <div className="space-y-4">
               <a 
@@ -128,7 +127,7 @@ const Contact = () => {
               >
                 <Mail className="h-5 w-5 text-primary" />
                 <div>
-                  <p className="font-medium group-hover:gradient-text">Email</p>
+                  <p className="font-medium group-hover:gradient-text">{t("contact.email")}</p>
                   <p className="text-sm text-muted-foreground">fd_cybernet@proton.me</p>
                 </div>
               </a>
@@ -163,12 +162,12 @@ const Contact = () => {
         </div>
         
         <div className="card-glass p-6 rounded-lg">
-          <h3 className="text-2xl font-semibold mb-6">Invia un Messaggio</h3>
+          <h3 className="text-2xl font-semibold mb-6">{t("contact.sendMessage")}</h3>
           
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Input
-                placeholder="Il tuo nome"
+                placeholder={t("contact.yourName")}
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="bg-background/50"
@@ -178,7 +177,7 @@ const Contact = () => {
             <div>
               <Input
                 type="email"
-                placeholder="La tua email"
+                placeholder={t("contact.yourEmail")}
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="bg-background/50"
@@ -187,7 +186,7 @@ const Contact = () => {
             
             <div>
               <Textarea
-                placeholder="Il tuo messaggio"
+                placeholder={t("contact.yourMessage")}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 className="bg-background/50 min-h-[150px]"
@@ -196,7 +195,7 @@ const Contact = () => {
             
             <Button type="submit" className="w-full glow-primary" disabled={isSubmitting}>
               <Send className="mr-2 h-4 w-4" />
-              {isSubmitting ? "Invio in corso..." : "Invia Messaggio"}
+              {isSubmitting ? t("contact.sending") : t("contact.send")}
             </Button>
           </form>
         </div>

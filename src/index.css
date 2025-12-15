@@ -7,8 +7,57 @@ All colors MUST be HSL.
 */
 
 @layer base {
-  :root {
-    /* Tech Dark Theme - Cyber Blue & Purple */
+  /* Light Theme (System Light Mode) */
+  :root, .light {
+    --background: 210 40% 98%;
+    --foreground: 240 10% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 10%;
+
+    /* Cyber Blue Primary */
+    --primary: 217 91% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Deep Purple Secondary */
+    --secondary: 262 83% 48%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 20% 94%;
+    --muted-foreground: 217 25% 45%;
+
+    /* Accent Purple Glow */
+    --accent: 269 90% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 20% 85%;
+    --input: 214 20% 90%;
+    --ring: 217 91% 50%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 50%) 0%, hsl(262 83% 48%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(210 40% 98%) 0%, hsl(210 30% 96%) 50%, hsl(210 40% 98%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100% / 0.9) 0%, hsl(210 20% 98% / 0.8) 100%);
+    
+    /* Glows and Shadows */
+    --glow-primary: 0 0 30px hsl(217 91% 50% / 0.2);
+    --glow-accent: 0 0 30px hsl(269 90% 55% / 0.15);
+    --shadow-card: 0 8px 32px hsl(240 10% 50% / 0.1);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Dark Theme (System Dark Mode - Default) */
+  .dark {
     --background: 240 10% 4%;
     --foreground: 210 40% 98%;
 
@@ -63,10 +112,21 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased transition-colors duration-300;
+  }
+
+  .dark body,
+  body:has(.dark) {
     background-image: 
       radial-gradient(at 0% 0%, hsl(217 91% 20% / 0.15) 0px, transparent 50%),
       radial-gradient(at 100% 100%, hsl(269 90% 30% / 0.1) 0px, transparent 50%);
+  }
+
+  .light body,
+  body:has(.light) {
+    background-image: 
+      radial-gradient(at 0% 0%, hsl(217 91% 60% / 0.08) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsl(269 90% 55% / 0.05) 0px, transparent 50%);
   }
 
   h1, h2, h3, h4, h5, h6 {
