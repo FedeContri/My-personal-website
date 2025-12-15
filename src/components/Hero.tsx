@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, ChevronDown } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 const Hero = () => {
+  const { t, language } = useTranslation();
   const [typedText, setTypedText] = useState("");
-  const fullText = "Networking & Cybersecurity Enthusiast";
+  const fullText = t("hero.tagline");
   
   useEffect(() => {
+    setTypedText("");
     let index = 0;
     const timer = setInterval(() => {
       if (index <= fullText.length) {
@@ -18,7 +21,7 @@ const Hero = () => {
     }, 100);
     
     return () => clearInterval(timer);
-  }, []);
+  }, [fullText, language]);
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -28,7 +31,7 @@ const Hero = () => {
     <section className="min-h-screen flex flex-col items-center justify-center relative px-4">
       <div className="text-center space-y-6 max-w-4xl animate-fade-in">
         <h1 className="text-5xl md:text-7xl font-bold">
-          Ciao, sono <span className="gradient-text">FD</span>
+          {t("hero.greeting")} <span className="gradient-text">FD</span>
         </h1>
         
         <div className="h-16 flex items-center justify-center">
@@ -39,8 +42,7 @@ const Hero = () => {
         </div>
         
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Studente appassionato di tecnologia con focus su networking pratico, 
-          amministrazione sistemi Linux e fondamenti di cybersecurity.
+          {t("hero.description")}
         </p>
         
         <div className="flex flex-wrap gap-4 justify-center pt-6">
@@ -49,7 +51,7 @@ const Hero = () => {
             className="glow-primary"
             onClick={() => scrollToSection("projects")}
           >
-            Esplora i Progetti
+            {t("hero.exploreProjects")}
           </Button>
           <Button 
             size="lg" 
@@ -57,7 +59,7 @@ const Hero = () => {
             onClick={() => scrollToSection("contact")}
           >
             <Mail className="mr-2 h-4 w-4" />
-            Contattami
+            {t("hero.contactMe")}
           </Button>
         </div>
         

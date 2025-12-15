@@ -11,45 +11,47 @@ import {
   AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
-
-const projects = [
-  {
-    title: "Laboratori CCNA",
-    description: "Configurazioni pratiche con Cisco Packet Tracer: setup router e switch con host, tabelle di routing, architetture multi-rete con router interconnessi, server DHCP per gestione IP dinamica e server DNS basilare.",
-    tags: ["Networking", "Cisco", "Routing"],
-    github: "https://github.com/FedeContri/Cisco-Packet-Tracer_projects/",
-    live: "https://github.com/FedeContri/Cisco-Packet-Tracer_projects/",
-    comingSoon: false,
-  },
-  {
-    title: "Guida Arch Linux + GUI",
-    description: "Guida pratica e completa per l'installazione di Arch Linux con interfaccia grafica. Tutorial step-by-step che ti accompagna dal boot alla configurazione finale del desktop.",
-    tags: ["Linux", "Sistema", "Tutorial"],
-    github: "#",
-    live: "https://fdc.gumroad.com/l/arch-gui-guide",
-    comingSoon: false,
-  },
-  {
-    title: "Cybersecurity Repository",
-    description: "Repository dedicato allo studio della cybersecurity con materiali, note, tool e risorse per l'apprendimento dei fondamenti di sicurezza informatica.",
-    tags: ["Security", "CTF", "Pentesting"],
-    github: "https://github.com/FedeContri/Cybersecurity-Project",
-    live: "https://github.com/FedeContri/Cybersecurity-Project",
-    comingSoon: false,
-  },
-];
+import { useTranslation } from "@/lib/i18n";
 
 const Projects = () => {
+  const { t } = useTranslation();
   const [showComingSoon, setShowComingSoon] = useState(false);
+
+  const projects = [
+    {
+      title: t("projects.ccnaTitle"),
+      description: t("projects.ccnaDesc"),
+      tags: ["Networking", "Cisco", "Routing"],
+      github: "https://github.com/FedeContri/Cisco-Packet-Tracer_projects/",
+      live: "https://github.com/FedeContri/Cisco-Packet-Tracer_projects/",
+      comingSoon: false,
+    },
+    {
+      title: t("projects.archTitle"),
+      description: t("projects.archDesc"),
+      tags: ["Linux", "System", "Tutorial"],
+      github: "#",
+      live: "https://fdc.gumroad.com/l/arch-gui-guide",
+      comingSoon: false,
+    },
+    {
+      title: t("projects.cyberTitle"),
+      description: t("projects.cyberDesc"),
+      tags: ["Security", "CTF", "Pentesting"],
+      github: "https://github.com/FedeContri/Cybersecurity-Project",
+      live: "https://github.com/FedeContri/Cybersecurity-Project",
+      comingSoon: false,
+    },
+  ];
   
   return (
     <section id="projects" className="max-w-6xl mx-auto">
       <div className="text-center mb-12">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="gradient-text">Progetti</span> Pratici
+          <span className="gradient-text">{t("projects.title")}</span> {t("projects.titleHighlight")}
         </h2>
         <p className="text-muted-foreground text-lg">
-          Laboratori e configurazioni hands-on per consolidare le competenze
+          {t("projects.subtitle")}
         </p>
       </div>
       
@@ -89,7 +91,7 @@ const Projects = () => {
                       onClick={() => setShowComingSoon(true)}
                     >
                       <Clock className="mr-2 h-4 w-4" />
-                      Coming Soon
+                      {t("projects.comingSoon")}
                     </Button>
                     <Button 
                       size="sm"
@@ -97,7 +99,7 @@ const Projects = () => {
                       onClick={() => setShowComingSoon(true)}
                     >
                       <ExternalLink className="mr-2 h-4 w-4" />
-                      Vedi Progetto
+                      {t("projects.viewProject")}
                     </Button>
                   </>
                 ) : (
@@ -120,7 +122,7 @@ const Projects = () => {
                     >
                       <a href={project.live} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="mr-2 h-4 w-4" />
-                        Vedi Progetto
+                        {t("projects.viewProject")}
                       </a>
                     </Button>
                   </>
@@ -138,17 +140,15 @@ const Projects = () => {
               <Clock className="h-6 w-6 text-primary animate-pulse" />
             </div>
             <AlertDialogTitle className="text-center text-2xl">
-              Prossimamente Disponibile
+              {t("projects.comingSoonTitle")}
             </AlertDialogTitle>
             <AlertDialogDescription className="text-center text-base pt-2">
-              La <span className="font-semibold gradient-text">Guida Arch Linux</span> è attualmente in fase di sviluppo.
-              <br /><br />
-              Sarà pubblicata a breve con contenuti dettagliati e un tutorial completo per l'installazione!
+              <span className="font-semibold gradient-text">{t("projects.archTitle")}</span> {t("projects.comingSoonDesc")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="sm:justify-center">
             <AlertDialogCancel className="w-full sm:w-auto">
-              Ho Capito
+              {t("projects.gotIt")}
             </AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
