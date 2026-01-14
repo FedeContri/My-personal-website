@@ -20,7 +20,7 @@ const Skills = () => {
       category: t("skills.programming"),
       icon: "⚡",
       color: "primary",
-      skills: ["Java", "C/C++", "HTML/CSS", "SQL Base"],
+      skills: ["Java", "C/C++", "HTML/CSS", "SQL"],
     },
     {
       category: t("skills.cybersecurity"),
