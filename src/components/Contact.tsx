@@ -5,10 +5,44 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Mail, Github, Send, Linkedin } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { z } from "zod";
 
 const RATE_LIMIT_KEY = "contact_form_submissions";
 const MAX_SUBMISSIONS_PER_HOUR = 3;
 const HOUR_IN_MS = 60 * 60 * 1000;
+
+// Strict validation schema
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "Name is required")
+    .max(100, "Name must be less than 100 characters")
+    .regex(/^[a-zA-ZÀ-ÿ\s'-]+$/, "Name contains invalid characters"),
+  email: z
+    .string()
+    .trim()
+    .min(1, "Email is required")
+    .max(255, "Email must be less than 255 characters")
+    .email("Invalid email format"),
+  message: z
+    .string()
+    .trim()
+    .min(1, "Message is required")
+    .max(1000, "Message must be less than 1000 characters")
+    .refine(
+      (val) => !/<script|javascript:|on\w+=/i.test(val),
+      "Message contains prohibited content"
+    ),
+});
+
+// Sanitize input - remove potential HTML/script tags
+const sanitizeInput = (input: string): string => {
+  return input
+    .replace(/<[^>]*>/g, "") // Remove HTML tags
+    .replace(/[<>]/g, "") // Remove angle brackets
+    .trim();
+};
 
 const checkRateLimit = (): boolean => {
   const now = Date.now();
@@ -44,13 +78,12 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.email || !formData.message) {
-      toast.error(t("contact.fillAll"));
-      return;
-    }
-
-    if (formData.name.length > 100 || formData.message.length > 1000) {
-      toast.error(t("contact.tooLong"));
+    // Validate with zod schema
+    const validation = contactSchema.safeParse(formData);
+    
+    if (!validation.success) {
+      const firstError = validation.error.errors[0];
+      toast.error(firstError.message);
       return;
     }
 
@@ -62,18 +95,23 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      console.log("Sending form...");
-      
+      // Sanitize all inputs
+      const sanitizedData = {
+        name: sanitizeInput(validation.data.name),
+        email: validation.data.email.toLowerCase().trim(),
+        message: sanitizeInput(validation.data.message),
+      };
+
+      // Web3Forms access key is a PUBLIC key designed for client-side use
+      // Security is handled by Web3Forms through email verification and spam protection
       const payload = {
         access_key: "7b34a4b0-426c-4274-9f6a-fdb9eaf2be3a",
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        message: formData.message.trim(),
-        from_name: formData.name.trim(),
-        subject: `New message from ${formData.name}`,
+        name: sanitizedData.name,
+        email: sanitizedData.email,
+        message: sanitizedData.message,
+        from_name: sanitizedData.name,
+        subject: `New message from ${sanitizedData.name}`,
       };
-      
-      console.log("Payload:", JSON.stringify(payload, null, 2));
       
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -84,20 +122,16 @@ const Contact = () => {
         body: JSON.stringify(payload),
       });
 
-      console.log("Response status:", response.status);
       const result = await response.json();
-      console.log("Response body:", result);
 
       if (result.success) {
         recordSubmission();
         toast.success(t("contact.success"));
         setFormData({ name: "", email: "", message: "" });
       } else {
-        console.error("Web3Forms error:", result);
         toast.error(result.message || t("contact.error"));
       }
     } catch (error) {
-      console.error("Form submission error:", error);
       toast.error(t("contact.networkError"));
     } finally {
       setIsSubmitting(false);
