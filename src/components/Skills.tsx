@@ -14,7 +14,7 @@ const Skills = () => {
       category: t("skills.os"),
       icon: "💻",
       color: "accent",
-      skills: ["Arch Linux", "Kali Linux", "Ubuntu", "Multi-boot Config", "System Administration"],
+      skills: ["Arch Linux", "Kali Linux", "Ubuntu Server", "Windows", "Multi-boot Config", "System Administration"],
     },
     {
       category: t("skills.programming"),
