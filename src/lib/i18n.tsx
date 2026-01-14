@@ -304,16 +304,26 @@ interface I18nContextType {
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
 export const I18nProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("en");
-
-  // Default to English, translations available for other languages
+  // Initialize with English immediately to avoid flash
+  const [language, setLanguage] = useState<Language>(() => {
+    try {
+      // Detect browser language silently
+      const browserLang = navigator.language.split("-")[0].toLowerCase();
+      // Only switch if we have translations for this language
+      if (browserLang === "it") return "it";
+      // Add more languages here as needed: if (browserLang === "es") return "es";
+    } catch {
+      // Silent fail - use English
+    }
+    return "en";
+  });
 
   const t = (key: string): string => {
     const translation = translations[key];
     if (!translation) {
-      console.warn(`Missing translation for key: ${key}`);
-      return key;
+      return key; // Silent fallback without console warning
     }
+    // Return translated text, fallback to English if not available
     return translation[language] || translation["en"] || key;
   };
 
