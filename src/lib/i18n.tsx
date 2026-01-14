@@ -123,8 +123,8 @@ const translations: Translations = {
     it: "Sistemi Linux",
   },
   "about.linuxDesc": {
-    en: "Experience with Arch, Kali, Ubuntu and advanced multi-boot configurations",
-    it: "Esperienza con Arch, Kali, Ubuntu e configurazioni multi-boot avanzate",
+    en: "Experience with Arch, Kali, Ubuntu Server, Windows and advanced multi-boot configurations",
+    it: "Esperienza con Arch, Kali, Ubuntu Server, Windows e configurazioni multi-boot avanzate",
   },
   "about.securityTitle": {
     en: "Cybersecurity",
