@@ -39,6 +39,7 @@
 ## 📦 Local Installation
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - npm or yarn
 
@@ -56,51 +57,56 @@ npm install
 
 # Start the development server
 npm run dev
+```
 
-The site will be available at http://localhost:8080
+The site will be available at  
+**http://localhost:8080**
 
-📝 Available Scripts
-npm run dev          # Start the development server
-npm run build        # Build for production
-npm run preview      # Preview the production build
-npm run lint         # Code linting
+## 📝 Available Scripts
 
-📂 Project Structure
+- `npm run dev` – Start the development server
+- `npm run build` – Build for production
+- `npm run preview` – Preview the production build
+- `npm run lint` – Code linting
+
+## 📂 Project Structure
+
+```
 src/
-├── components/      # React components
-│   ├── ui/         # Reusable UI components (shadcn)
-│   ├── Hero.tsx    # Hero section
-│   ├── About.tsx   # About section
-│   ├── Skills.tsx  # Skills section
-│   ├── Projects.tsx # Projects section
-│   └── Contact.tsx # Contact section
-├── pages/          # Application pages
-├── hooks/          # Custom React hooks
-├── lib/            # Utility and helper functions
-└── index.css       # Global styles and design system
+├── components/       # React components
+│   ├── ui/           # Reusable UI components (shadcn)
+│   ├── Hero.tsx      # Hero section
+│   ├── About.tsx     # About section
+│   ├── Skills.tsx    # Skills section
+│   ├── Projects.tsx  # Projects section
+│   └── Contact.tsx   # Contact section
+├── pages/            # Application pages
+├── hooks/            # Custom React hooks
+├── lib/              # Utility and helper functions
+└── index.css         # Global styles and design system
+```
 
-🎨 Design System
+## 🎨 Design System
+
 The project uses a custom design system based on:
 
-Semantic CSS variables for colors and themes
+- Semantic CSS variables for colors and themes
+- Tokens for spacing, typography, and shadows
+- Consistent UI components via shadcn/ui
+- Native dark/light mode support
 
-Tokens for spacing, typography, and shadows
+## 📞 Contacts
 
-Consistent UI components via shadcn/ui
+- **Email**: fedecontri@icloud.com
+- **GitHub**: @FedeContri
+- **LinkedIn**: Federico Contrino
 
-Native dark/light mode support
+## 📄 License
 
-📞 Contacts
-Email: fedecontri@icloud.com
-
-GitHub: @FedeContri
-
-LinkedIn: Federico Contrino
-
-📄 License
 This is a personal project and does not include a specific open source license.
 
-🙏 Credits
+## 🙏 Credits
+
 Developed with ❤️ using Lovable and my own inventiveness.
 
 ⭐ If you like this project, leave a star on GitHub!
