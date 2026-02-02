@@ -1,113 +1,115 @@
-# 🌐 FD Portfolio
+🌐 FD Portfolio
+Personal portfolio of Federico Contrino, a student passionate about networking, Linux system administration and cybersecurity.
 
-Portfolio personale di Federico Contrino, studente appassionato di networking, amministrazione sistemi Linux e cybersecurity.
+🚀 Live Demo
+🔗 Visit the Portfolio
 
-## 🚀 Demo Live
+📋 Description
+Modern and responsive portfolio showcasing my projects, technical skills, and educational path in the field of computer science, with a particular focus on:
 
-🔗 **[Visita il Portfolio](https://lovable.dev/projects/2b637e31-af5f-4eed-8497-5bb74007530e)**
+🔐 Cybersecurity & Penetration Testing
 
-## 📋 Descrizione
+🌐 Networking (CCNA)
 
-Portfolio moderno e responsive che presenta i miei progetti, competenze tecniche e percorso formativo nel campo dell'informatica, con focus particolare su:
+🐧 Linux System Administration
 
-- 🔐 **Cybersecurity & Penetration Testing**
-- 🌐 **Networking (CCNA)**
-- 🐧 **Amministrazione Sistemi Linux**
-- 💻 **Programmazione (C/C++, JavaScript, Bash)**
+💻 Programming (C/C++, JavaScript, Bash)
 
-## ✨ Caratteristiche
+✨ Features
+Modern and responsive design
 
-- Design moderno e responsive
-- Animazioni fluide e effetti glassmorphism
-- Modalità scura/chiara (dark/light mode)
-- Sezioni: Hero, About, Skills, Projects, Contact
-- Form di contatto funzionale
-- Integrazione social (GitHub, LinkedIn)
-- SEO ottimizzato
+Smooth animations and glassmorphism effects
 
-## 🛠️ Tecnologie Utilizzate
+Dark/light mode
 
-- **Frontend Framework**: React 18 + TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui + Radix UI
-- **Icons**: Lucide React
-- **Routing**: React Router DOM
-- **State Management**: TanStack Query
-- **Animations**: Tailwind CSS Animate
+Sections: Hero, About, Skills, Projects, Contact
 
-## 📦 Installazione Locale
+Functional contact form
 
-### Prerequisiti
-- Node.js (v18 o superiore)
-- npm o yarn
+Social integration (GitHub, LinkedIn)
 
-### Setup
+Optimized SEO
 
-```bash
-# Clona la repository
+🛠️ Technologies Used
+Frontend Framework: React 18 + TypeScript
+
+Build Tool: Vite
+
+Styling: Tailwind CSS
+
+UI Components: shadcn/ui + Radix UI
+
+Icons: Lucide React
+
+Routing: React Router DOM
+
+State Management: TanStack Query
+
+Animations: Tailwind CSS Animate
+
+📦 Local Installation
+Prerequisites
+Node.js (v18 or higher)
+
+npm or yarn
+
+Setup
+bash
+# Clone the repository
 git clone <YOUR_GIT_URL>
 
-# Entra nella directory
+# Enter the directory
 cd <YOUR_PROJECT_NAME>
 
-# Installa le dipendenze
+# Install dependencies
 npm install
 
-# Avvia il server di sviluppo
+# Start the development server
 npm run dev
-```
+The site will be available at http://localhost:8080
 
-Il sito sarà disponibile su `http://localhost:8080`
-
-## 📝 Scripts Disponibili
-
-```bash
-npm run dev          # Avvia il server di sviluppo
-npm run build        # Build per la produzione
-npm run preview      # Preview della build di produzione
-npm run lint         # Linting del codice
-```
-
-## 📂 Struttura del Progetto
-
-```
+📝 Available Scripts
+bash
+npm run dev          # Start the development server
+npm run build        # Build for production
+npm run preview      # Preview the production build
+npm run lint         # Code linting
+📂 Project Structure
+text
 src/
-├── components/      # Componenti React
-│   ├── ui/         # Componenti UI riutilizzabili (shadcn)
-│   ├── Hero.tsx    # Sezione hero
-│   ├── About.tsx   # Sezione about
-│   ├── Skills.tsx  # Sezione competenze
-│   ├── Projects.tsx # Sezione progetti
-│   └── Contact.tsx # Sezione contatti
-├── pages/          # Pagine dell'applicazione
+├── components/      # React components
+│   ├── ui/         # Reusable UI components (shadcn)
+│   ├── Hero.tsx    # Hero section
+│   ├── About.tsx   # About section
+│   ├── Skills.tsx  # Skills section
+│   ├── Projects.tsx # Projects section
+│   └── Contact.tsx # Contact section
+├── pages/          # Application pages
 ├── hooks/          # Custom React hooks
-├── lib/            # Utility e helper functions
-└── index.css       # Stili globali e design system
-```
+├── lib/            # Utility and helper functions
+└── index.css       # Global styles and design system
+🎨 Design System
+The project uses a custom design system based on:
 
-## 🎨 Design System
+Semantic CSS variables for colors and themes
 
-Il progetto utilizza un design system personalizzato basato su:
-- Variabili CSS semantiche per colori e temi
-- Tokens per spacing, typography e shadows
-- Componenti UI consistenti via shadcn/ui
-- Supporto nativo dark/light mode
+Tokens for spacing, typography, and shadows
 
-## 📞 Contatti
+Consistent UI components via shadcn/ui
 
-- **Email**: [fedecontri@icloud.com](mailto:fedecontri@icloud.com)
-- **GitHub**: [@FedeContri](https://github.com/FedeContri)
-- **LinkedIn**: [Federico Contrino](https://www.linkedin.com/in/federico-contrino-78a647395)
+Native dark/light mode support
 
-## 📄 Licenza
+📞 Contacts
+Email: fedecontri@icloud.com
 
-Questo progetto è personale e non include una licenza open source specifica.
+GitHub: @FedeContri
 
-## 🙏 Credits
+LinkedIn: Federico Contrino
 
-Sviluppato con ❤️ utilizzando [Lovable](https://lovable.dev) e la mia inventiva.
+📄 License
+This is a personal project and does not include a specific open source license.
 
----
+🙏 Credits
+Developed with ❤️ using Lovable and my own inventiveness.
 
-⭐ Se ti piace questo progetto, lascia una stella su GitHub!
+⭐ If you like this project, leave a star on GitHub!
