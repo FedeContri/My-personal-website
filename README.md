@@ -57,17 +57,15 @@ npm install
 # Start the development server
 npm run dev
 
-The site will be available at `http://localhost:8080`
+The site will be available at http://localhost:8080
 
-## 📝 Available Scripts
-
-```bash
+📝 Available Scripts
 npm run dev          # Start the development server
 npm run build        # Build for production
 npm run preview      # Preview the production build
 npm run lint         # Code linting
 
-## 📂 Project Structure
+📂 Project Structure
 src/
 ├── components/      # React components
 │   ├── ui/         # Reusable UI components (shadcn)
@@ -81,29 +79,28 @@ src/
 ├── lib/            # Utility and helper functions
 └── index.css       # Global styles and design system
 
-## 🎨 Design System
+🎨 Design System
+The project uses a custom design system based on:
 
-The project uses a **custom design system** based on:
+Semantic CSS variables for colors and themes
 
-- **Semantic CSS variables** for colors and themes
-- **Tokens** for spacing, typography, and shadows
-- **Consistent UI components** via shadcn/ui
-- **Native dark/light mode support**
+Tokens for spacing, typography, and shadows
 
-## 📞 Contacts
+Consistent UI components via shadcn/ui
 
-- **Email**: [fedecontri@icloud.com](mailto:fedecontri@icloud.com)
-- **GitHub**: [@FedeContri](https://github.com/FedeContri)
-- **LinkedIn**: [Federico Contrino](https://www.linkedin.com/in/federico-contrino-78a647395)
+Native dark/light mode support
 
-## 📄 License
+📞 Contacts
+Email: fedecontri@icloud.com
 
-This is a **personal project** and does not include a specific open source license.
+GitHub: @FedeContri
 
-## 🙏 Credits
+LinkedIn: Federico Contrino
 
-**Developed with ❤️** using [Lovable](https://lovable.dev) and my own inventiveness.
+📄 License
+This is a personal project and does not include a specific open source license.
 
----
+🙏 Credits
+Developed with ❤️ using Lovable and my own inventiveness.
 
-⭐ **If you like this project, leave a star on GitHub!**
+⭐ If you like this project, leave a star on GitHub!
