@@ -97,7 +97,7 @@ The project uses a custom design system based on:
 
 ## 📞 Contacts
 
-- **Email**: fedecontri@icloud.com
+- **Email**: fd_cybernet@proton.me
 - **GitHub**: @FedeContri
 - **LinkedIn**: Federico Contrino
 
