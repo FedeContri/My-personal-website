@@ -79,10 +79,10 @@ const Skills = () => {
         <div className="flex flex-wrap gap-2.5">
           {skillsData[activeCategory].skills.map((skill) => (
             <div
-              key={skill.name}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium bg-primary/8 text-foreground border border-primary/15 hover:bg-primary/15 hover:border-primary/30 hover:scale-105 transition-all duration-300 cursor-default"
+              key={skill}
+              className="px-4 py-2.5 rounded-xl text-sm font-medium bg-primary/10 text-foreground border border-primary/15 hover:bg-primary/15 hover:border-primary/30 hover:scale-105 transition-all duration-300 cursor-default"
             >
-              {skill.name}
+              {skill}
             </div>
           ))}
         </div>
