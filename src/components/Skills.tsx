@@ -96,27 +96,13 @@ const Skills = () => {
           <h3 className="text-xl font-bold">{skillsData[activeCategory].category}</h3>
         </div>
 
-        <div className="space-y-5">
-          {skillsData[activeCategory].skills.map((skill, i) => (
-            <div key={skill.name} className="group">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-200">
-                  {skill.name}
-                </span>
-                <span className="text-xs text-muted-foreground tabular-nums">
-                  {skill.level}%
-                </span>
-              </div>
-              <div className="h-2 rounded-full bg-muted overflow-hidden">
-                <div
-                  className="h-full rounded-full transition-all duration-700 ease-out"
-                  style={{
-                    width: `${skill.level}%`,
-                    background: "var(--gradient-primary)",
-                    animationDelay: `${i * 100}ms`,
-                  }}
-                />
-              </div>
+        <div className="flex flex-wrap gap-2.5">
+          {skillsData[activeCategory].skills.map((skill) => (
+            <div
+              key={skill.name}
+              className="px-4 py-2.5 rounded-xl text-sm font-medium bg-primary/8 text-foreground border border-primary/15 hover:bg-primary/15 hover:border-primary/30 hover:scale-105 transition-all duration-300 cursor-default"
+            >
+              {skill.name}
             </div>
           ))}
         </div>
