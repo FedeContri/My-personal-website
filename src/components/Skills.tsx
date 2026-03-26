@@ -26,7 +26,6 @@ const Skills = () => {
       category: t("skills.cybersecurity"),
       icon: Shield,
       skills: ["Security Fundamentals", "Penetration Testing", "Network Security", "Security Tools"],
-      ],
     },
   ];
 
