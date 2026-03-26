@@ -10,42 +10,22 @@ const Skills = () => {
     {
       category: t("skills.networking"),
       icon: Network,
-      skills: [
-        { name: "Cisco Packet Tracer", level: 80 },
-        { name: "CCNA 1 & 2", level: 70 },
-        { name: "Routing & Switching", level: 75 },
-        { name: "TCP/IP", level: 70 },
-      ],
+      skills: ["Cisco Packet Tracer", "CCNA 1 & 2", "Routing & Switching", "TCP/IP"],
     },
     {
       category: t("skills.os"),
       icon: Monitor,
-      skills: [
-        { name: "Arch Linux", level: 85 },
-        { name: "Kali Linux", level: 70 },
-        { name: "Ubuntu Server", level: 75 },
-        { name: "Windows", level: 80 },
-      ],
+      skills: ["Arch Linux", "Kali Linux", "Ubuntu Server", "Windows"],
     },
     {
       category: t("skills.programming"),
       icon: Code,
-      skills: [
-        { name: "Java", level: 65 },
-        { name: "C/C++", level: 60 },
-        { name: "HTML/CSS", level: 75 },
-        { name: "SQL", level: 60 },
-      ],
+      skills: ["Java", "C/C++", "HTML/CSS", "SQL"],
     },
     {
       category: t("skills.cybersecurity"),
       icon: Shield,
-      skills: [
-        { name: "Security Fundamentals", level: 65 },
-        { name: "Penetration Testing", level: 55 },
-        { name: "Network Security", level: 70 },
-        { name: "Security Tools", level: 60 },
-      ],
+      skills: ["Security Fundamentals", "Penetration Testing", "Network Security", "Security Tools"],
     },
   ];
 
@@ -96,27 +76,13 @@ const Skills = () => {
           <h3 className="text-xl font-bold">{skillsData[activeCategory].category}</h3>
         </div>
 
-        <div className="space-y-5">
-          {skillsData[activeCategory].skills.map((skill, i) => (
-            <div key={skill.name} className="group">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-200">
-                  {skill.name}
-                </span>
-                <span className="text-xs text-muted-foreground tabular-nums">
-                  {skill.level}%
-                </span>
-              </div>
-              <div className="h-2 rounded-full bg-muted overflow-hidden">
-                <div
-                  className="h-full rounded-full transition-all duration-700 ease-out"
-                  style={{
-                    width: `${skill.level}%`,
-                    background: "var(--gradient-primary)",
-                    animationDelay: `${i * 100}ms`,
-                  }}
-                />
-              </div>
+        <div className="flex flex-wrap gap-2.5">
+          {skillsData[activeCategory].skills.map((skill) => (
+            <div
+              key={skill}
+              className="px-4 py-2.5 rounded-xl text-sm font-medium bg-primary/10 text-foreground border border-primary/15 hover:bg-primary/15 hover:border-primary/30 hover:scale-105 transition-all duration-300 cursor-default"
+            >
+              {skill}
             </div>
           ))}
         </div>
