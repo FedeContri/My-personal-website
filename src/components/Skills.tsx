@@ -1,5 +1,5 @@
 import { useTranslation } from "@/lib/i18n";
-import { Network, Monitor, Code, Shield, ChevronRight } from "lucide-react";
+import { Network, Monitor, Code, Shield, Terminal } from "lucide-react";
 import { useState } from "react";
 
 const Skills = () => {
@@ -10,28 +10,51 @@ const Skills = () => {
     {
       category: t("skills.networking"),
       icon: Network,
-      accent: "primary" as const,
-      skills: ["Cisco Packet Tracer", "CCNA 1 & 2", "Routing & Switching", "TCP/IP"],
+      tagline: "Infrastructure & Protocols",
+      skills: [
+        { name: "Cisco Packet Tracer", tag: "Lab" },
+        { name: "CCNA 1 & 2", tag: "Cert" },
+        { name: "Routing & Switching", tag: "Core" },
+        { name: "TCP/IP", tag: "Core" },
+      ],
     },
     {
       category: t("skills.os"),
       icon: Monitor,
-      accent: "accent" as const,
-      skills: ["Arch Linux", "Kali Linux", "Ubuntu Server", "Windows"],
+      tagline: "System Administration",
+      skills: [
+        { name: "Arch Linux", tag: "Advanced" },
+        { name: "Kali Linux", tag: "Security" },
+        { name: "Ubuntu Server", tag: "Server" },
+        { name: "Windows", tag: "Desktop" },
+      ],
     },
     {
       category: t("skills.programming"),
       icon: Code,
-      accent: "primary" as const,
-      skills: ["Java", "C/C++", "HTML/CSS", "SQL"],
+      tagline: "Languages & Data",
+      skills: [
+        { name: "Java", tag: "OOP" },
+        { name: "C/C++", tag: "Systems" },
+        { name: "HTML/CSS", tag: "Web" },
+        { name: "SQL", tag: "Data" },
+      ],
     },
     {
       category: t("skills.cybersecurity"),
       icon: Shield,
-      accent: "accent" as const,
-      skills: ["Security Fundamentals", "Penetration Testing", "Network Security", "Security Tools"],
+      tagline: "Defense & Offense",
+      skills: [
+        { name: "Security Fundamentals", tag: "Theory" },
+        { name: "Penetration Testing", tag: "Offense" },
+        { name: "Network Security", tag: "Defense" },
+        { name: "Security Tools", tag: "Tools" },
+      ],
     },
   ];
+
+  const active = skillsData[activeCategory];
+  const ActiveIcon = active.icon;
 
   return (
     <section className="max-w-5xl mx-auto">
@@ -44,85 +67,99 @@ const Skills = () => {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-[240px_1fr] gap-6">
-        {/* Sidebar tabs */}
-        <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-visible pb-2 md:pb-0 scrollbar-hide">
-          {skillsData.map((cat, i) => {
-            const Icon = cat.icon;
-            const isActive = activeCategory === i;
-            return (
-              <button
-                key={cat.category}
-                onClick={() => setActiveCategory(i)}
-                className={`group relative flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-300 whitespace-nowrap md:whitespace-normal ${
-                  isActive
-                    ? "card-glass border border-primary/30 text-foreground shadow-lg"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                }`}
-              >
-                <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 transition-all duration-300 ${
-                  isActive
-                    ? "bg-primary/15 text-primary"
-                    : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
-                }`}>
-                  <Icon className="w-4.5 h-4.5" />
-                </div>
-                <span className="hidden md:inline">{cat.category}</span>
-                <span className="md:hidden">{cat.category}</span>
-                {isActive && (
-                  <ChevronRight className="w-4 h-4 text-primary ml-auto hidden md:block" />
-                )}
-                {isActive && (
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 bg-primary rounded-full hidden md:block" />
-                )}
-              </button>
-            );
-          })}
+      {/* Terminal-style container */}
+      <div className="rounded-2xl overflow-hidden border border-border/60 shadow-2xl">
+        {/* Terminal header */}
+        <div className="bg-muted/80 backdrop-blur-sm px-5 py-3 flex items-center gap-3 border-b border-border/40">
+          <div className="flex gap-2">
+            <div className="w-3 h-3 rounded-full bg-destructive/70" />
+            <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
+            <div className="w-3 h-3 rounded-full bg-green-500/70" />
+          </div>
+          <div className="flex items-center gap-2 ml-3 text-xs text-muted-foreground font-mono">
+            <Terminal className="w-3.5 h-3.5" />
+            <span>skills --list --interactive</span>
+          </div>
         </div>
 
-        {/* Content panel */}
-        <div className="card-glass rounded-2xl p-6 md:p-8 min-h-[220px]">
-          <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border/50">
-            {(() => {
-              const Icon = skillsData[activeCategory].icon;
-              const isAccent = skillsData[activeCategory].accent === "accent";
+        <div className="grid md:grid-cols-[220px_1fr] bg-card/50 backdrop-blur-sm">
+          {/* Sidebar */}
+          <div className="flex md:flex-col border-b md:border-b-0 md:border-r border-border/40 overflow-x-auto md:overflow-visible">
+            {skillsData.map((cat, i) => {
+              const Icon = cat.icon;
+              const isActive = activeCategory === i;
               return (
-                <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${
-                  isAccent
-                    ? "bg-accent/10 border border-accent/20"
-                    : "bg-primary/10 border border-primary/20"
-                }`}>
-                  <Icon className={`w-5 h-5 ${isAccent ? "text-accent" : "text-primary"}`} />
-                </div>
-              );
-            })()}
-            <div>
-              <h3 className="text-lg font-bold">{skillsData[activeCategory].category}</h3>
-              <p className="text-xs text-muted-foreground">{skillsData[activeCategory].skills.length} skills</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            {skillsData[activeCategory].skills.map((skill, i) => {
-              const isAccent = skillsData[activeCategory].accent === "accent";
-              return (
-                <div
-                  key={skill}
-                  className={`relative overflow-hidden px-4 py-4 rounded-xl text-sm font-medium border transition-all duration-300 cursor-default group hover:scale-[1.03] hover:shadow-md ${
-                    isAccent
-                      ? "bg-accent/5 border-accent/10 hover:border-accent/30 hover:bg-accent/10"
-                      : "bg-primary/5 border-primary/10 hover:border-primary/30 hover:bg-primary/10"
+                <button
+                  key={cat.category}
+                  onClick={() => setActiveCategory(i)}
+                  className={`group relative flex items-center gap-3 px-5 py-4 text-sm font-medium transition-all duration-300 whitespace-nowrap md:whitespace-normal w-full text-left ${
+                    isActive
+                      ? "bg-primary/8 text-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
                   }`}
-                  style={{ animationDelay: `${i * 60}ms` }}
                 >
-                  <div className={`absolute top-0 left-0 w-full h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                    isAccent ? "bg-accent/40" : "bg-primary/40"
-                  }`} style={{ background: isAccent ? undefined : "var(--gradient-primary)", opacity: undefined }} />
-                  <div className="absolute top-0 left-0 w-full h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "var(--gradient-primary)" }} />
-                  <span className="relative z-10">{skill}</span>
-                </div>
+                  {/* Active indicator */}
+                  {isActive && (
+                    <div className="absolute left-0 top-2 bottom-2 w-0.5 rounded-full hidden md:block" style={{ background: "var(--gradient-primary)" }} />
+                  )}
+                  {isActive && (
+                    <div className="absolute bottom-0 left-4 right-4 h-0.5 rounded-full md:hidden" style={{ background: "var(--gradient-primary)" }} />
+                  )}
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-all duration-300 ${
+                    isActive
+                      ? "bg-primary/15 text-primary"
+                      : "text-muted-foreground group-hover:text-primary"
+                  }`}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <div className="hidden md:block">
+                    <div className="text-[13px] leading-tight">{cat.category}</div>
+                    <div className="text-[10px] text-muted-foreground mt-0.5">{cat.tagline}</div>
+                  </div>
+                  <span className="md:hidden text-[13px]">{cat.category}</span>
+                </button>
               );
             })}
+          </div>
+
+          {/* Content */}
+          <div className="p-6 md:p-8">
+            {/* Category header */}
+            <div className="flex items-start gap-4 mb-8">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ background: "var(--gradient-primary)" }}>
+                <ActiveIcon className="w-6 h-6 text-primary-foreground" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold leading-tight">{active.category}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{active.tagline}</p>
+              </div>
+            </div>
+
+            {/* Skill cards */}
+            <div className="grid sm:grid-cols-2 gap-3">
+              {active.skills.map((skill, i) => (
+                <div
+                  key={skill.name}
+                  className="group relative flex items-center justify-between gap-3 px-4 py-4 rounded-xl border border-border/40 bg-background/50 hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 hover:shadow-md hover:shadow-primary/5 cursor-default"
+                  style={{
+                    animation: "fadeSlideIn 0.35s ease-out both",
+                    animationDelay: `${i * 80}ms`,
+                  }}
+                >
+                  {/* Hover glow */}
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: "radial-gradient(circle at 50% 0%, hsl(var(--primary) / 0.08), transparent 70%)" }} />
+                  
+                  <div className="relative flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-primary/40 group-hover:bg-primary group-hover:shadow-[0_0_8px_hsl(var(--primary)/0.5)] transition-all duration-300" />
+                    <span className="text-sm font-medium">{skill.name}</span>
+                  </div>
+                  
+                  <span className="relative text-[10px] font-mono uppercase tracking-wider text-muted-foreground/60 group-hover:text-primary/60 transition-colors duration-300 px-2 py-0.5 rounded-md bg-muted/50">
+                    {skill.tag}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
