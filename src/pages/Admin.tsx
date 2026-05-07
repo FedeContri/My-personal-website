@@ -38,7 +38,7 @@ const Admin = () => {
     const init = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        navigate("/auth");
+        navigate("/auth", { replace: true });
         return;
       }
       const { data: roles } = await supabase
@@ -46,14 +46,19 @@ const Admin = () => {
         .select("role")
         .eq("user_id", session.user.id);
       const admin = roles?.some((r) => r.role === "admin") ?? false;
-      setIsAdmin(admin);
-      if (admin) await loadLinks();
+      if (!admin) {
+        await supabase.auth.signOut();
+        navigate("/auth", { replace: true });
+        return;
+      }
+      setIsAdmin(true);
+      await loadLinks();
       setLoading(false);
     };
     init();
 
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (!session) navigate("/auth");
+      if (!session) navigate("/auth", { replace: true });
     });
     return () => sub.subscription.unsubscribe();
   }, [navigate]);
