@@ -127,21 +127,8 @@ const Admin = () => {
     navigate("/auth");
   };
 
-  if (loading) {
+  if (loading || !isAdmin) {
     return <div className="min-h-screen flex items-center justify-center">Caricamento...</div>;
-  }
-
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="card-glass p-8 rounded-lg max-w-md text-center space-y-4">
-          <ShieldAlert className="h-12 w-12 text-destructive mx-auto" />
-          <h1 className="text-2xl font-bold">Accesso negato</h1>
-          <p className="text-muted-foreground">Non hai i permessi per accedere a questa area.</p>
-          <Button onClick={handleLogout} variant="outline">Esci</Button>
-        </div>
-      </div>
-    );
   }
 
   // Group by category
