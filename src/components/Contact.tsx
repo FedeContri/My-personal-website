@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Mail, Github, Send, Linkedin } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
 
 const RATE_LIMIT_KEY = "contact_form_submissions";
 const MAX_SUBMISSIONS_PER_HOUR = 3;
