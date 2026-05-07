@@ -11,7 +11,6 @@ const Auth = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSignUp, setIsSignUp] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -28,19 +27,9 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      if (isSignUp) {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/admin` },
-        });
-        if (error) throw error;
-        toast.success("Account creato! Controlla la tua email per confermare.");
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        toast.success("Benvenuto!");
-      }
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      toast.success("Benvenuto!");
     } catch (err: any) {
       toast.error(err.message || "Errore");
     } finally {
@@ -55,12 +44,8 @@ const Auth = () => {
           <div className="inline-flex p-3 rounded-full bg-primary/10">
             <Lock className="h-6 w-6 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold gradient-text">
-            {isSignUp ? "Crea Account" : "Area Admin"}
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            {isSignUp ? "Registrati per accedere" : "Accedi alla dashboard privata"}
-          </p>
+          <h1 className="text-2xl font-bold gradient-text">Area Admin</h1>
+          <p className="text-sm text-muted-foreground">Accedi alla dashboard privata</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -73,17 +58,9 @@ const Auth = () => {
             <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <Button type="submit" className="w-full glow-primary" disabled={loading}>
-            {loading ? "Attendere..." : isSignUp ? "Registrati" : "Accedi"}
+            {loading ? "Attendere..." : "Accedi"}
           </Button>
         </form>
-
-        <button
-          type="button"
-          onClick={() => setIsSignUp(!isSignUp)}
-          className="w-full text-sm text-muted-foreground hover:text-primary transition-colors"
-        >
-          {isSignUp ? "Hai già un account? Accedi" : "Non hai un account? Registrati"}
-        </button>
       </div>
     </div>
   );
