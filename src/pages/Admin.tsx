@@ -37,7 +37,6 @@ const Admin = () => {
   useEffect(() => {
     const init = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      console.log("[Admin] session:", session?.user?.id);
       if (!session) {
         navigate("/auth", { replace: true });
         return;
@@ -46,7 +45,6 @@ const Admin = () => {
         .from("user_roles")
         .select("role")
         .eq("user_id", session.user.id);
-      console.log("[Admin] roles query:", { roles, rolesError });
       const admin = roles?.some((r) => r.role === "admin") ?? false;
       if (!admin) {
         toast.error(rolesError ? `Errore ruoli: ${rolesError.message}` : "Accesso negato: non sei admin");
