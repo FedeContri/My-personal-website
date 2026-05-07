@@ -102,27 +102,22 @@ const Contact = () => {
         message: sanitizeInput(validation.data.message),
       };
 
-      // Web3Forms access key is a PUBLIC key designed for client-side use
-      // Security is handled by Web3Forms through email verification and spam protection
-      const payload = {
-        access_key: "7b34a4b0-426c-4274-9f6a-fdb9eaf2be3a",
-        name: sanitizedData.name,
-        email: sanitizedData.email,
-        message: sanitizedData.message,
-        from_name: sanitizedData.name,
-        subject: `New message from ${sanitizedData.name}`,
-      };
-      
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
+      // Submit through secure edge function (server-side rate limiting + secret key)
+      const { data: result, error: invokeError } = await supabase.functions.invoke(
+        "contact-submit",
+        {
+          body: {
+            name: sanitizedData.name,
+            email: sanitizedData.email,
+            message: sanitizedData.message,
+          },
         },
-        body: JSON.stringify(payload),
-      });
+      );
 
-      const result = await response.json();
+      if (invokeError) {
+        toast.error(t("contact.networkError"));
+        return;
+      }
 
       if (result.success) {
         recordSubmission();
