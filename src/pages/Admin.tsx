@@ -14,7 +14,8 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { LogOut, Plus, ExternalLink, Pencil, Trash2, Link as LinkIcon, ShieldAlert } from "lucide-react";
+import { LogOut, Plus, ExternalLink, Pencil, Trash2, Link as LinkIcon, Shield, Search, Folder } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface AdminLink {
   id: string;
