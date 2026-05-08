@@ -183,111 +183,132 @@ const Admin = () => {
         </div>
       </header>
 
+      <main className="max-w-6xl mx-auto px-6 py-8">
+        <Tabs defaultValue="links" className="space-y-6">
+          <TabsList className="grid w-full sm:w-auto sm:inline-grid grid-cols-2">
+            <TabsTrigger value="links" className="gap-2">
+              <LinkIcon className="h-4 w-4" /> Link
+            </TabsTrigger>
+            <TabsTrigger value="notes" className="gap-2">
+              <StickyNote className="h-4 w-4" /> Appunti
+            </TabsTrigger>
+          </TabsList>
 
-      <main className="max-w-6xl mx-auto px-6 py-8 space-y-8">
-        {/* Stats + Search */}
-        <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
-          <div className="flex gap-3">
-            <div className="card-glass px-4 py-3 rounded-lg flex items-center gap-3">
-              <LinkIcon className="h-4 w-4 text-primary" />
-              <div>
-                <div className="text-xs text-muted-foreground">Link totali</div>
-                <div className="text-lg font-semibold leading-tight">{links.length}</div>
-              </div>
-            </div>
-            <div className="card-glass px-4 py-3 rounded-lg flex items-center gap-3">
-              <Folder className="h-4 w-4 text-primary" />
-              <div>
-                <div className="text-xs text-muted-foreground">Categorie</div>
-                <div className="text-lg font-semibold leading-tight">
-                  {new Set(links.map((l) => l.category || "Generale")).size}
+          <TabsContent value="links" className="space-y-8 mt-0">
+            {/* Stats + Search + New */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+              <div className="flex gap-3">
+                <div className="card-glass px-4 py-3 rounded-lg flex items-center gap-3">
+                  <LinkIcon className="h-4 w-4 text-primary" />
+                  <div>
+                    <div className="text-xs text-muted-foreground">Link totali</div>
+                    <div className="text-lg font-semibold leading-tight">{links.length}</div>
+                  </div>
+                </div>
+                <div className="card-glass px-4 py-3 rounded-lg flex items-center gap-3">
+                  <Folder className="h-4 w-4 text-primary" />
+                  <div>
+                    <div className="text-xs text-muted-foreground">Categorie</div>
+                    <div className="text-lg font-semibold leading-tight">
+                      {new Set(links.map((l) => l.category || "Generale")).size}
+                    </div>
+                  </div>
                 </div>
               </div>
+              <div className="flex gap-2 items-center">
+                {links.length > 0 && (
+                  <div className="relative w-full sm:w-64">
+                    <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                    <Input
+                      placeholder="Cerca link..."
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      className="pl-9"
+                    />
+                  </div>
+                )}
+                <Button onClick={openCreate} className="glow-primary shrink-0">
+                  <Plus className="h-4 w-4 sm:mr-2" /> <span className="hidden sm:inline">Nuovo</span>
+                </Button>
+              </div>
             </div>
-          </div>
-          {links.length > 0 && (
-            <div className="relative w-full sm:w-72">
-              <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                placeholder="Cerca link..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-9"
-              />
-            </div>
-          )}
-        </div>
 
-        {links.length === 0 ? (
-          <div className="card-glass p-12 rounded-lg text-center">
-            <LinkIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <h2 className="text-xl font-semibold mb-2">Nessun link salvato</h2>
-            <p className="text-muted-foreground mb-4">Inizia aggiungendo il tuo primo link utile</p>
-            <Button onClick={openCreate}><Plus className="h-4 w-4 mr-2" /> Aggiungi link</Button>
-          </div>
-        ) : filtered.length === 0 ? (
-          <div className="card-glass p-12 rounded-lg text-center">
-            <Search className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
-            <p className="text-muted-foreground">Nessun risultato per "{search}"</p>
-          </div>
-        ) : (
-          categories.map((cat) => (
-            <section key={cat}>
-              <div className="flex items-center gap-3 mb-4">
-                <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.15em]">
-                  {cat}
-                </h2>
-                <Badge variant="secondary" className="text-[10px] h-5">{grouped[cat].length}</Badge>
-                <div className="flex-1 h-px bg-border/60" />
+            {links.length === 0 ? (
+              <div className="card-glass p-12 rounded-lg text-center">
+                <LinkIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <h2 className="text-xl font-semibold mb-2">Nessun link salvato</h2>
+                <p className="text-muted-foreground mb-4">Inizia aggiungendo il tuo primo link utile</p>
+                <Button onClick={openCreate}><Plus className="h-4 w-4 mr-2" /> Aggiungi link</Button>
               </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {grouped[cat].map((link) => (
-                  <a
-                    key={link.id}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="card-glass p-4 rounded-lg group hover:border-primary hover:-translate-y-0.5 transition-all flex flex-col relative"
-                  >
-                    <div className="flex items-start gap-3 mb-2">
-                      <img
-                        src={faviconFor(link.url)}
-                        alt=""
-                        loading="lazy"
-                        className="h-8 w-8 rounded-md bg-muted/40 border border-border/50 p-1 shrink-0"
-                        onError={(e) => { (e.currentTarget.style.display = "none"); }}
-                      />
-                      <div className="min-w-0 flex-1">
-                        <h3 className="font-semibold truncate group-hover:text-primary transition-colors">{link.title}</h3>
-                        <p className="text-xs text-muted-foreground truncate">{getHost(link.url)}</p>
-                      </div>
-                      <ExternalLink className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-                    </div>
-                    {link.description && (
-                      <p className="text-sm text-muted-foreground line-clamp-2 mb-2">{link.description}</p>
-                    )}
-                    <div className="flex gap-1 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm rounded-md border border-border/50">
-                      <button
-                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); openEdit(link); }}
-                        className="p-1.5 hover:text-primary"
-                        title="Modifica"
-                      >
-                        <Pencil className="h-3.5 w-3.5" />
-                      </button>
-                      <button
-                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(link.id); }}
-                        className="p-1.5 hover:text-destructive"
-                        title="Elimina"
-                      >
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </button>
-                    </div>
-                  </a>
-                ))}
+            ) : filtered.length === 0 ? (
+              <div className="card-glass p-12 rounded-lg text-center">
+                <Search className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
+                <p className="text-muted-foreground">Nessun risultato per "{search}"</p>
               </div>
-            </section>
-          ))
-        )}
+            ) : (
+              categories.map((cat) => (
+                <section key={cat}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.15em]">
+                      {cat}
+                    </h2>
+                    <Badge variant="secondary" className="text-[10px] h-5">{grouped[cat].length}</Badge>
+                    <div className="flex-1 h-px bg-border/60" />
+                  </div>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {grouped[cat].map((link) => (
+                      <a
+                        key={link.id}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="card-glass p-4 rounded-lg group hover:border-primary hover:-translate-y-0.5 transition-all flex flex-col relative"
+                      >
+                        <div className="flex items-start gap-3 mb-2">
+                          <img
+                            src={faviconFor(link.url)}
+                            alt=""
+                            loading="lazy"
+                            className="h-8 w-8 rounded-md bg-muted/40 border border-border/50 p-1 shrink-0"
+                            onError={(e) => { (e.currentTarget.style.display = "none"); }}
+                          />
+                          <div className="min-w-0 flex-1">
+                            <h3 className="font-semibold truncate group-hover:text-primary transition-colors">{link.title}</h3>
+                            <p className="text-xs text-muted-foreground truncate">{getHost(link.url)}</p>
+                          </div>
+                          <ExternalLink className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                        </div>
+                        {link.description && (
+                          <p className="text-sm text-muted-foreground line-clamp-2 mb-2">{link.description}</p>
+                        )}
+                        <div className="flex gap-1 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm rounded-md border border-border/50">
+                          <button
+                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); openEdit(link); }}
+                            className="p-1.5 hover:text-primary"
+                            title="Modifica"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </button>
+                          <button
+                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(link.id); }}
+                            className="p-1.5 hover:text-destructive"
+                            title="Elimina"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </section>
+              ))
+            )}
+          </TabsContent>
+
+          <TabsContent value="notes" className="mt-0">
+            <AdminNotes />
+          </TabsContent>
+        </Tabs>
       </main>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
