@@ -323,7 +323,25 @@ const Admin = () => {
             </div>
             <div className="space-y-2">
               <Label>URL *</Label>
-              <Input required type="url" placeholder="https://..." value={form.url} onChange={(e) => setForm({ ...form, url: e.target.value })} />
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-md border border-border/60 bg-muted/30 flex items-center justify-center shrink-0 overflow-hidden">
+                  {form.url.trim() ? (
+                    <img
+                      src={faviconFor(form.url)}
+                      alt=""
+                      referrerPolicy="no-referrer"
+                      crossOrigin="anonymous"
+                      className="h-6 w-6"
+                      onError={(e) => { e.currentTarget.style.visibility = "hidden"; }}
+                      onLoad={(e) => { e.currentTarget.style.visibility = "visible"; }}
+                    />
+                  ) : (
+                    <LinkIcon className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </div>
+                <Input required type="url" placeholder="https://..." value={form.url} onChange={(e) => setForm({ ...form, url: e.target.value })} />
+              </div>
+              <p className="text-xs text-muted-foreground">L'icona viene rilevata automaticamente dal dominio.</p>
             </div>
             <div className="space-y-2">
               <Label>Categoria</Label>
