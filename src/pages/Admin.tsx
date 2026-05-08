@@ -176,15 +176,13 @@ const Admin = () => {
             </div>
           </div>
           <div className="flex gap-2 shrink-0">
-            <Button onClick={openCreate} className="glow-primary">
-              <Plus className="h-4 w-4 sm:mr-2" /> <span className="hidden sm:inline">Nuovo link</span>
-            </Button>
             <Button onClick={handleLogout} variant="outline" size="icon" title="Esci">
               <LogOut className="h-4 w-4" />
             </Button>
           </div>
         </div>
       </header>
+
 
       <main className="max-w-6xl mx-auto px-6 py-8 space-y-8">
         {/* Stats + Search */}
