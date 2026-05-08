@@ -14,7 +14,8 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { LogOut, Plus, ExternalLink, Pencil, Trash2, Link as LinkIcon, ShieldAlert } from "lucide-react";
+import { LogOut, Plus, ExternalLink, Pencil, Trash2, Link as LinkIcon, Shield, Search, Folder } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface AdminLink {
   id: string;
@@ -33,6 +34,7 @@ const Admin = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<AdminLink | null>(null);
   const [form, setForm] = useState({ title: "", url: "", description: "", category: "" });
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const init = async () => {
@@ -132,26 +134,50 @@ const Admin = () => {
     return <div className="min-h-screen flex items-center justify-center">Caricamento...</div>;
   }
 
+  // Filter by search
+  const filtered = links.filter((l) => {
+    if (!search.trim()) return true;
+    const q = search.toLowerCase();
+    return (
+      l.title.toLowerCase().includes(q) ||
+      l.url.toLowerCase().includes(q) ||
+      (l.description?.toLowerCase().includes(q) ?? false) ||
+      (l.category?.toLowerCase().includes(q) ?? false)
+    );
+  });
+
   // Group by category
-  const grouped = links.reduce<Record<string, AdminLink[]>>((acc, l) => {
+  const grouped = filtered.reduce<Record<string, AdminLink[]>>((acc, l) => {
     const cat = l.category || "Generale";
     (acc[cat] ||= []).push(l);
     return acc;
   }, {});
 
+  const categories = Object.keys(grouped).sort();
+  const getHost = (url: string) => {
+    try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return url; }
+  };
+  const faviconFor = (url: string) =>
+    `https://www.google.com/s2/favicons?domain=${getHost(url)}&sz=64`;
+
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold gradient-text">Area Admin</h1>
-            <p className="text-sm text-muted-foreground">I tuoi link sempre a portata di mano</p>
+      <header className="border-b border-border/60 backdrop-blur-sm sticky top-0 z-20 bg-background/80">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="h-10 w-10 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center shrink-0">
+              <Shield className="h-5 w-5 text-primary" />
+            </div>
+            <div className="min-w-0">
+              <h1 className="text-xl sm:text-2xl font-bold gradient-text truncate">Area Admin</h1>
+              <p className="text-xs text-muted-foreground hidden sm:block">I tuoi link sempre a portata di mano</p>
+            </div>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 shrink-0">
             <Button onClick={openCreate} className="glow-primary">
-              <Plus className="h-4 w-4 mr-2" /> Nuovo link
+              <Plus className="h-4 w-4 sm:mr-2" /> <span className="hidden sm:inline">Nuovo link</span>
             </Button>
-            <Button onClick={handleLogout} variant="outline" size="icon">
+            <Button onClick={handleLogout} variant="outline" size="icon" title="Esci">
               <LogOut className="h-4 w-4" />
             </Button>
           </div>
@@ -159,6 +185,39 @@ const Admin = () => {
       </header>
 
       <main className="max-w-6xl mx-auto px-6 py-8 space-y-8">
+        {/* Stats + Search */}
+        <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+          <div className="flex gap-3">
+            <div className="card-glass px-4 py-3 rounded-lg flex items-center gap-3">
+              <LinkIcon className="h-4 w-4 text-primary" />
+              <div>
+                <div className="text-xs text-muted-foreground">Link totali</div>
+                <div className="text-lg font-semibold leading-tight">{links.length}</div>
+              </div>
+            </div>
+            <div className="card-glass px-4 py-3 rounded-lg flex items-center gap-3">
+              <Folder className="h-4 w-4 text-primary" />
+              <div>
+                <div className="text-xs text-muted-foreground">Categorie</div>
+                <div className="text-lg font-semibold leading-tight">
+                  {new Set(links.map((l) => l.category || "Generale")).size}
+                </div>
+              </div>
+            </div>
+          </div>
+          {links.length > 0 && (
+            <div className="relative w-full sm:w-72">
+              <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Cerca link..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-9"
+              />
+            </div>
+          )}
+        </div>
+
         {links.length === 0 ? (
           <div className="card-glass p-12 rounded-lg text-center">
             <LinkIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
@@ -166,38 +225,64 @@ const Admin = () => {
             <p className="text-muted-foreground mb-4">Inizia aggiungendo il tuo primo link utile</p>
             <Button onClick={openCreate}><Plus className="h-4 w-4 mr-2" /> Aggiungi link</Button>
           </div>
+        ) : filtered.length === 0 ? (
+          <div className="card-glass p-12 rounded-lg text-center">
+            <Search className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
+            <p className="text-muted-foreground">Nessun risultato per "{search}"</p>
+          </div>
         ) : (
-          Object.entries(grouped).map(([cat, items]) => (
+          categories.map((cat) => (
             <section key={cat}>
-              <h2 className="text-lg font-semibold mb-3 text-muted-foreground uppercase tracking-wider text-sm">
-                {cat}
-              </h2>
+              <div className="flex items-center gap-3 mb-4">
+                <h2 className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.15em]">
+                  {cat}
+                </h2>
+                <Badge variant="secondary" className="text-[10px] h-5">{grouped[cat].length}</Badge>
+                <div className="flex-1 h-px bg-border/60" />
+              </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {items.map((link) => (
-                  <div key={link.id} className="card-glass p-5 rounded-lg group hover:border-primary transition-all">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-semibold truncate">{link.title}</h3>
-                      <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button onClick={() => openEdit(link)} className="p-1 hover:text-primary">
-                          <Pencil className="h-3.5 w-3.5" />
-                        </button>
-                        <button onClick={() => handleDelete(link.id)} className="p-1 hover:text-destructive">
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </button>
+                {grouped[cat].map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="card-glass p-4 rounded-lg group hover:border-primary hover:-translate-y-0.5 transition-all flex flex-col relative"
+                  >
+                    <div className="flex items-start gap-3 mb-2">
+                      <img
+                        src={faviconFor(link.url)}
+                        alt=""
+                        loading="lazy"
+                        className="h-8 w-8 rounded-md bg-muted/40 border border-border/50 p-1 shrink-0"
+                        onError={(e) => { (e.currentTarget.style.display = "none"); }}
+                      />
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-semibold truncate group-hover:text-primary transition-colors">{link.title}</h3>
+                        <p className="text-xs text-muted-foreground truncate">{getHost(link.url)}</p>
                       </div>
+                      <ExternalLink className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                     </div>
                     {link.description && (
-                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{link.description}</p>
+                      <p className="text-sm text-muted-foreground line-clamp-2 mb-2">{link.description}</p>
                     )}
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-                    >
-                      Apri <ExternalLink className="h-3 w-3" />
-                    </a>
-                  </div>
+                    <div className="flex gap-1 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 backdrop-blur-sm rounded-md border border-border/50">
+                      <button
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); openEdit(link); }}
+                        className="p-1.5 hover:text-primary"
+                        title="Modifica"
+                      >
+                        <Pencil className="h-3.5 w-3.5" />
+                      </button>
+                      <button
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete(link.id); }}
+                        className="p-1.5 hover:text-destructive"
+                        title="Elimina"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  </a>
                 ))}
               </div>
             </section>
