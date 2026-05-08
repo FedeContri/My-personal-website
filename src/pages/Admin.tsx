@@ -34,6 +34,7 @@ const Admin = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<AdminLink | null>(null);
   const [form, setForm] = useState({ title: "", url: "", description: "", category: "" });
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const init = async () => {
