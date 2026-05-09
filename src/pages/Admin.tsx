@@ -312,6 +312,10 @@ const Admin = () => {
           <TabsContent value="notes" className="mt-0">
             <AdminNotes />
           </TabsContent>
+
+          <TabsContent value="analytics" className="mt-0">
+            <AdminAnalytics />
+          </TabsContent>
         </Tabs>
       </main>
 
