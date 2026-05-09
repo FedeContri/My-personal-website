@@ -176,7 +176,7 @@ const Contact = () => {
               </a>
               
               <a 
-                href="https://www.linkedin.com/in/federico-contrino-78a647395?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" 
+                href="https://www.linkedin.com/in/federico-contrino-78a647395" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-primary transition-colors hover:glow-primary group"
