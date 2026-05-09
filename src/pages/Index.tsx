@@ -10,7 +10,9 @@ import { trackVisit } from "@/lib/track-visit";
 
 const Index = () => {
   useEffect(() => {
-    trackVisit(window.location.pathname || "/");
+    const path = window.location.pathname || "/";
+    const ric = (window as any).requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1500));
+    ric(() => trackVisit(path));
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
