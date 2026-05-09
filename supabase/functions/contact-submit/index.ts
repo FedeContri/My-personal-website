@@ -109,6 +109,15 @@ Deno.serve(async (req) => {
       );
     }
 
+    // Verify the email domain actually exists and can receive mail
+    const domain = email.split("@")[1];
+    if (!domain || !(await hasValidMx(domain))) {
+      return new Response(
+        JSON.stringify({ success: false, message: "Email address domain is not valid or cannot receive emails." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
+
     const accessKey = Deno.env.get("WEB3FORMS_ACCESS_KEY");
     if (!accessKey) {
       return new Response(
