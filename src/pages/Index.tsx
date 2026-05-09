@@ -6,9 +6,12 @@ import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { trackVisit } from "@/lib/track-visit";
 
 const Index = () => {
   useEffect(() => {
+    trackVisit(window.location.pathname || "/");
+
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
