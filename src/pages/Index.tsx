@@ -36,19 +36,21 @@ const Index = () => {
   return (
     <div className="min-h-screen" id="home">
       <Navigation />
-      <Hero />
-      <div className="scroll-reveal">
-        <About />
-      </div>
-      <div className="scroll-reveal" id="skills">
-        <Skills />
-      </div>
-      <div className="scroll-reveal">
-        <Projects />
-      </div>
-      <div className="scroll-reveal">
-        <Contact />
-      </div>
+      <main>
+        <Hero />
+        <div className="scroll-reveal">
+          <About />
+        </div>
+        <div className="scroll-reveal" id="skills">
+          <Skills />
+        </div>
+        <div className="scroll-reveal">
+          <Projects />
+        </div>
+        <div className="scroll-reveal">
+          <Contact />
+        </div>
+      </main>
       <Footer />
     </div>
   );
