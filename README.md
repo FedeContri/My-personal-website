@@ -13,7 +13,7 @@
 - 🔐 **Cybersecurity & Penetration Testing**
 - 🌐 **Networking (CCNA)**
 - 🐧 **Linux System Administration**
-- 💻 **Programming (C/C++, JavaScript, Bash)**
+- 💻 **Programming (C/C++, Java, Bash)**
 
 ## ✨ Features
 
