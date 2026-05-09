@@ -185,15 +185,12 @@ const Admin = () => {
 
       <main className="max-w-6xl mx-auto px-6 py-8">
         <Tabs defaultValue="links" className="space-y-6">
-          <TabsList className="grid w-full sm:w-auto sm:inline-grid grid-cols-3">
+          <TabsList className="grid w-full sm:w-auto sm:inline-grid grid-cols-2">
             <TabsTrigger value="links" className="gap-2">
               <LinkIcon className="h-4 w-4" /> <span className="hidden sm:inline">Link</span>
             </TabsTrigger>
             <TabsTrigger value="notes" className="gap-2">
               <StickyNote className="h-4 w-4" /> <span className="hidden sm:inline">Appunti</span>
-            </TabsTrigger>
-            <TabsTrigger value="analytics" className="gap-2">
-              <BarChart3 className="h-4 w-4" /> <span className="hidden sm:inline">Analytics</span>
             </TabsTrigger>
           </TabsList>
 
