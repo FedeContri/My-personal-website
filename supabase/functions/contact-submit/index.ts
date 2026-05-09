@@ -138,12 +138,20 @@ Deno.serve(async (req) => {
         subject: `New message from ${name}`,
       }),
     });
-    const result = await resp.json();
+    const result = await resp.json().catch(() => ({ success: false, message: "Email provider returned an invalid response." }));
 
-    return new Response(JSON.stringify(result), {
-      status: resp.ok ? 200 : 502,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+    // Always return 200 so the frontend can read result.success / result.message
+    // instead of treating it as a network error.
+    return new Response(
+      JSON.stringify({
+        success: !!result.success,
+        message: result.message || (result.success ? "Sent" : "Email provider rejected the request."),
+      }),
+      {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
+    );
   } catch (e) {
     return new Response(
       JSON.stringify({ success: false, message: (e as Error).message }),
