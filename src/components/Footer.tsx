@@ -18,12 +18,14 @@ const Footer = () => {
               href="https://github.com/FedeContri" 
               target="_blank" 
               rel="noopener noreferrer"
+              aria-label="GitHub"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
               <Github className="h-5 w-5" />
             </a>
             <a 
               href="mailto:fd_cybernet@proton.me"
+              aria-label="Email"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
               <Mail className="h-5 w-5" />

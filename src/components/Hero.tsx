@@ -68,6 +68,7 @@ const Hero = () => {
             href="https://github.com/FedeContri" 
             target="_blank" 
             rel="noopener noreferrer"
+            aria-label="GitHub"
             className="p-3 rounded-full border border-border hover:border-primary transition-colors hover:glow-primary"
           >
             <Github className="h-6 w-6" />
@@ -76,6 +77,7 @@ const Hero = () => {
             href="https://www.linkedin.com/in/federico-contrino-78a647395?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" 
             target="_blank" 
             rel="noopener noreferrer"
+            aria-label="LinkedIn"
             className="p-3 rounded-full border border-border hover:border-primary transition-colors hover:glow-primary"
           >
             <Linkedin className="h-6 w-6" />
@@ -85,6 +87,7 @@ const Hero = () => {
       
       <button 
         onClick={() => scrollToSection("about")}
+        aria-label="Scroll to about section"
         className="absolute bottom-10 animate-bounce"
       >
         <ChevronDown className="h-8 w-8 text-muted-foreground" />
