@@ -14,11 +14,10 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
-import { LogOut, Plus, ExternalLink, Pencil, Trash2, Link as LinkIcon, Shield, Search, Folder, StickyNote, BarChart3 } from "lucide-react";
+import { LogOut, Plus, ExternalLink, Pencil, Trash2, Link as LinkIcon, Shield, Search, Folder, StickyNote } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdminNotes from "@/components/admin/AdminNotes";
-import AdminAnalytics from "@/components/admin/AdminAnalytics";
 
 interface AdminLink {
   id: string;
@@ -186,15 +185,12 @@ const Admin = () => {
 
       <main className="max-w-6xl mx-auto px-6 py-8">
         <Tabs defaultValue="links" className="space-y-6">
-          <TabsList className="grid w-full sm:w-auto sm:inline-grid grid-cols-3">
+          <TabsList className="grid w-full sm:w-auto sm:inline-grid grid-cols-2">
             <TabsTrigger value="links" className="gap-2">
               <LinkIcon className="h-4 w-4" /> <span className="hidden sm:inline">Link</span>
             </TabsTrigger>
             <TabsTrigger value="notes" className="gap-2">
               <StickyNote className="h-4 w-4" /> <span className="hidden sm:inline">Appunti</span>
-            </TabsTrigger>
-            <TabsTrigger value="analytics" className="gap-2">
-              <BarChart3 className="h-4 w-4" /> <span className="hidden sm:inline">Analytics</span>
             </TabsTrigger>
           </TabsList>
 
@@ -311,10 +307,6 @@ const Admin = () => {
 
           <TabsContent value="notes" className="mt-0">
             <AdminNotes />
-          </TabsContent>
-
-          <TabsContent value="analytics" className="mt-0">
-            <AdminAnalytics />
           </TabsContent>
         </Tabs>
       </main>
