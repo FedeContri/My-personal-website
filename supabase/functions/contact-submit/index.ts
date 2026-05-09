@@ -31,6 +31,46 @@ function isValidEmail(e: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 }
 
+// Cache MX lookup results for 1h to avoid repeated DNS queries
+const mxCache = new Map<string, { ok: boolean; exp: number }>();
+const MX_TTL = 60 * 60 * 1000;
+
+async function hasValidMx(domain: string): Promise<boolean> {
+  const now = Date.now();
+  const cached = mxCache.get(domain);
+  if (cached && cached.exp > now) return cached.ok;
+
+  let ok = false;
+  try {
+    // Google DNS-over-HTTPS — no extra dependencies, works in Deno edge runtime
+    const res = await fetch(
+      `https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=MX`,
+      { headers: { Accept: "application/dns-json" } },
+    );
+    if (res.ok) {
+      const data = await res.json();
+      // Status 0 = NOERROR; Answer present means MX records exist
+      ok = data.Status === 0 && Array.isArray(data.Answer) && data.Answer.length > 0;
+      // Fallback: domain with A record but no MX still receives mail per RFC 5321
+      if (!ok) {
+        const aRes = await fetch(
+          `https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=A`,
+          { headers: { Accept: "application/dns-json" } },
+        );
+        if (aRes.ok) {
+          const aData = await aRes.json();
+          ok = aData.Status === 0 && Array.isArray(aData.Answer) && aData.Answer.length > 0;
+        }
+      }
+    }
+  } catch (_) {
+    // On DNS failure, fail open to avoid blocking legitimate users
+    ok = true;
+  }
+  mxCache.set(domain, { ok, exp: now + MX_TTL });
+  return ok;
+}
+
 function sanitize(s: string) {
   return s.replace(/[<>]/g, "").trim();
 }
