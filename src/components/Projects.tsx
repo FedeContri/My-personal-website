@@ -37,7 +37,7 @@ const Projects = () => {
     {
       title: t("projects.cyberTitle"),
       description: t("projects.cyberDesc"),
-      tags: ["Security", "CTF", "Pentesting"],
+      tags: ["Wi-Fi", "WPA2", "hashcat"],
       github: "https://github.com/FedeContri/WPA2-Handshake-Toolkit",
       live: "https://github.com/FedeContri/WPA2-Handshake-Toolkit",
       comingSoon: false,
