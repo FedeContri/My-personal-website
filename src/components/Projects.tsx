@@ -30,7 +30,7 @@ const Projects = () => {
       title: t("projects.archTitle"),
       description: t("projects.archDesc"),
       tags: ["Linux", "System", "Tutorial"],
-      github: "#",
+      github: "",
       live: "https://fdc.gumroad.com/l/arch-gui-guide",
       comingSoon: false,
     },
@@ -38,8 +38,8 @@ const Projects = () => {
       title: t("projects.cyberTitle"),
       description: t("projects.cyberDesc"),
       tags: ["Security", "CTF", "Pentesting"],
-      github: "https://github.com/FedeContri/Cybersecurity-Project",
-      live: "https://github.com/FedeContri/Cybersecurity-Project",
+      github: "https://github.com/FedeContri/WPA2-Handshake-Toolkit",
+      live: "https://github.com/FedeContri/WPA2-Handshake-Toolkit",
       comingSoon: false,
     },
   ];
@@ -104,17 +104,19 @@ const Projects = () => {
                   </>
                 ) : (
                   <>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      className="flex-1"
-                      asChild
-                    >
-                      <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="mr-2 h-4 w-4" />
-                        GitHub
-                      </a>
-                    </Button>
+                    {project.github && (
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className="flex-1"
+                        asChild
+                      >
+                        <a href={project.github} target="_blank" rel="noopener noreferrer">
+                          <Github className="mr-2 h-4 w-4" />
+                          GitHub
+                        </a>
+                      </Button>
+                    )}
                     <Button 
                       size="sm"
                       className="flex-1"
