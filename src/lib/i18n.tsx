@@ -195,12 +195,12 @@ const translations: Translations = {
     it: "Guida pratica e completa per l'installazione di Arch Linux con interfaccia grafica. Tutorial step-by-step che ti accompagna dal boot alla configurazione finale del desktop.",
   },
   "projects.cyberTitle": {
-    en: "Cybersecurity Repository",
-    it: "Cybersecurity Repository",
+    en: "WPA2 Handshake Toolkit",
+    it: "WPA2 Handshake Toolkit",
   },
   "projects.cyberDesc": {
-    en: "Repository dedicated to cybersecurity study with materials, notes, tools and resources for learning IT security fundamentals.",
-    it: "Repository dedicato allo studio della cybersecurity con materiali, note, tool e risorse per l'apprendimento dei fondamenti di sicurezza informatica.",
+    en: "Educational toolkit for capturing WPA/WPA2-PSK handshakes and preparing them for offline analysis with hashcat. Shell scripts enable monitor mode, capture wireless traffic, convert handshakes to hashcat format and restore normal Wi-Fi operation. For WPA/WPA2-Personal networks only.",
+    it: "Toolkit didattico per la cattura di handshake WPA/WPA2-PSK e la loro preparazione per l'analisi offline con hashcat. Script shell che attivano la monitor mode, catturano il traffico wireless, convertono gli handshake in formato hashcat e ripristinano il normale funzionamento del Wi-Fi. Solo per reti WPA/WPA2-Personal.",
   },
   "projects.viewProject": {
     en: "View Project",
