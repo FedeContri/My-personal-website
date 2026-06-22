@@ -1,0 +1,11 @@
+# FD Portfolio
+
+> Portfolio of Federico Contrino (FD), a student and technician focused on networking (CCNA), Linux system administration and cybersecurity. Showcases hands-on projects, labs and CTFs.
+
+## Pages
+
+- [Home](/): Overview of Federico Contrino's background, skills and projects in networking, Linux and cybersecurity.
+- [About](/#about): Background and focus areas — networking, Linux system administration and security.
+- [Skills](/#skills): Technical skills across C/C++, SQL, Arch Linux, Kali Linux, Ubuntu Server and Windows.
+- [Projects](/#projects): Hands-on projects including the WPA2 Handshake Toolkit and CCNA labs.
+- [Contact](/#contact): How to get in touch with Federico Contrino.
