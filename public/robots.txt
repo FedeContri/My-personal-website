@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /auth
 
-Sitemap: https://www.fd-portfolio.site/sitemap.xml
+Sitemap: https://fd-portfolio.site/sitemap.xml
