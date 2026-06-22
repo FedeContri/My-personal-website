@@ -52,6 +52,10 @@ const translations: Translations = {
     en: "Contact",
     it: "Contatti",
   },
+  "nav.toggleMenu": {
+    en: "Toggle menu",
+    it: "Apri/chiudi menu",
+  },
 
   // About
   "about.title": {
