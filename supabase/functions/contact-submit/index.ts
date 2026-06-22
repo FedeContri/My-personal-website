@@ -153,8 +153,9 @@ Deno.serve(async (req) => {
       },
     );
   } catch (e) {
+    console.error("contact-submit error:", e);
     return new Response(
-      JSON.stringify({ success: false, message: (e as Error).message }),
+      JSON.stringify({ success: false, message: "An unexpected error occurred. Please try again later." }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
   }
