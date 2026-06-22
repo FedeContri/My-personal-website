@@ -73,6 +73,7 @@ const Navigation = () => {
             variant="ghost"
             size="icon"
             className="md:hidden"
+            aria-label={t("nav.toggleMenu")}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X /> : <Menu />}
