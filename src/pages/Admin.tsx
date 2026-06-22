@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -164,6 +165,18 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Dashboard — FD Portfolio</title>
+        <meta
+          name="description"
+          content="Private admin dashboard for managing links, notes and content on FD Portfolio. Authorized access only."
+        />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="canonical" href="https://fd-portfolio.site/admin" />
+        <meta property="og:title" content="Dashboard — FD Portfolio" />
+        <meta property="og:description" content="Private admin dashboard for FD Portfolio. Authorized access only." />
+        <meta property="og:url" content="https://fd-portfolio.site/admin" />
+      </Helmet>
       <header className="border-b border-border/60 backdrop-blur-sm sticky top-0 z-20 bg-background/80">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -39,6 +40,18 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-background">
+      <Helmet>
+        <title>Login — FD Portfolio</title>
+        <meta
+          name="description"
+          content="Secure login to the private admin dashboard of FD Portfolio. Restricted access for the site owner only."
+        />
+        <meta name="robots" content="noindex, nofollow" />
+        <link rel="canonical" href="https://fd-portfolio.site/auth" />
+        <meta property="og:title" content="Login — FD Portfolio" />
+        <meta property="og:description" content="Secure login to the private admin dashboard of FD Portfolio." />
+        <meta property="og:url" content="https://fd-portfolio.site/auth" />
+      </Helmet>
       <div className="card-glass p-8 rounded-lg w-full max-w-md space-y-6">
         <div className="text-center space-y-2">
           <div className="inline-flex p-3 rounded-full bg-primary/10">
