@@ -28,7 +28,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center relative px-4">
+    <section className="min-h-screen flex flex-col items-center justify-center relative px-4 py-20">
       <div className="text-center space-y-6 max-w-4xl animate-fade-in">
         <h1 className="text-5xl md:text-7xl font-bold">
           {t("hero.greeting")} <span className="gradient-text">FD</span>

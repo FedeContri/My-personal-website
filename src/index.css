@@ -133,9 +133,6 @@ All colors MUST be HSL.
     @apply font-bold tracking-tight;
   }
 
-  section {
-    @apply py-20 px-4;
-  }
 }
 
 @layer utilities {
