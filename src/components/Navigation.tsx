@@ -17,6 +17,17 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const scrollToSection = (id: string) => {
     setIsMobileMenuOpen(false);
     const element = document.getElementById(id);
@@ -79,24 +90,42 @@ const Navigation = () => {
             {isMobileMenuOpen ? <X /> : <Menu />}
           </Button>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden py-4 animate-slide-in-right">
-            <div className="flex flex-col gap-4">
+      {/* Mobile Navigation Drawer */}
+      {isMobileMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          {/* Drawer */}
+          <div className="fixed top-0 right-0 h-full w-64 bg-card/95 backdrop-blur-xl border-l border-border shadow-2xl z-50 md:hidden flex flex-col">
+            <div className="flex items-center justify-end h-16 px-4">
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label={t("nav.toggleMenu")}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <X />
+              </Button>
+            </div>
+            <div className="flex flex-col gap-2 px-4 pt-4">
               {navLinks.map((link) => (
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="text-left px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
+                  className="text-left px-4 py-3 text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors font-medium"
                 >
                   {link.name}
                 </button>
               ))}
             </div>
           </div>
-        )}
-      </div>
+        </>
+      )}
     </nav>
   );
 };
