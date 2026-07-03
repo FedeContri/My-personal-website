@@ -135,7 +135,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="max-w-6xl mx-auto">
+    <section id="contact" className="max-w-6xl mx-auto py-20 px-4">
       <div className="text-center mb-12">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
           <span className="gradient-text">{t("contact.title")}</span>

@@ -57,7 +57,7 @@ const Skills = () => {
   const ActiveIcon = active.icon;
 
   return (
-    <section className="max-w-5xl mx-auto">
+    <section className="max-w-5xl mx-auto py-20 px-4">
       <div className="text-center mb-14">
         <h2 className="text-4xl md:text-5xl font-bold mb-4">
           <span className="gradient-text">{t("skills.title")}</span> {t("skills.titleHighlight")}
