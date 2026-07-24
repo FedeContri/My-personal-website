@@ -119,14 +119,19 @@ const Auth = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Username</Label>
-            <Input id="email" type="text" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Input id="email" type="text" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLocked} />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} disabled={isLocked} />
           </div>
-          <Button type="submit" className="w-full glow-primary" disabled={loading}>
-            {loading ? "Attendere..." : "Accedi"}
+          {isLocked && (
+            <p className="text-xs text-center text-destructive">
+              Accesso temporaneamente bloccato. Riprova tra {fmt(remainingSec)}
+            </p>
+          )}
+          <Button type="submit" className="w-full glow-primary" disabled={loading || isLocked}>
+            {isLocked ? `Bloccato (${fmt(remainingSec)})` : loading ? "Attendere..." : "Accedi"}
           </Button>
         </form>
       </div>
