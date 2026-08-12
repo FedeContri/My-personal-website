@@ -289,7 +289,7 @@ const Admin = () => {
                     {grouped[cat].map((link) => (
                       <a
                         key={link.id}
-                        href={link.url}
+                        href={safeHref(link.url)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="card-glass p-4 rounded-lg group hover:border-primary hover:-translate-y-0.5 transition-all flex flex-col relative"
