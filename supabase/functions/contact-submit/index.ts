@@ -11,8 +11,9 @@ interface Body {
 }
 
 // In-memory rate limit (per edge instance) - 3 requests per IP per 10 minutes
-const RATE_LIMIT = 2;
+const RATE_LIMIT = 3;
 const WINDOW_MS = 10 * 60 * 1000;
+
 const buckets = new Map<string, number[]>();
 
 function checkRateLimit(ip: string): boolean {
@@ -94,7 +95,7 @@ Deno.serve(async (req) => {
     }
 
     const rawBody = await req.text();
-    if (rawBody.length > 5000) {
+    if (rawBody.length > 10000) {
       return new Response(
         JSON.stringify({ success: false, message: "Payload too large." }),
         { status: 413, headers: { ...corsHeaders, "Content-Type": "application/json" } },
