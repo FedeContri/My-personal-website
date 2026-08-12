@@ -7,13 +7,15 @@ import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { trackVisit } from "@/lib/track-visit";
+
 
 const Index = () => {
   useEffect(() => {
     const path = window.location.pathname || "/";
     const ric = (window as any).requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1500));
-    // Tracciamento visite disattivato temporaneamente (pentest / contenimento costi Cloud)
-    void ric; void path; // ric(() => trackVisit(path));
+    ric(() => trackVisit(path));
+
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
