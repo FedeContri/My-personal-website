@@ -29,6 +29,17 @@ interface AdminLink {
   icon: string | null;
 }
 
+// Only allow http(s) links — blocks javascript:/data: URI injection
+const isSafeUrl = (u: string) => {
+  try {
+    const p = new URL(u);
+    return p.protocol === "http:" || p.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
+const safeHref = (u: string) => (isSafeUrl(u) ? u : "#");
+
 const Admin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -100,9 +111,15 @@ const Admin = () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) return;
 
+    const url = form.url.trim();
+    if (!isSafeUrl(url)) {
+      toast.error("URL non valido: sono ammessi solo indirizzi http:// o https://");
+      return;
+    }
+
     const payload = {
       title: form.title.trim(),
-      url: form.url.trim(),
+      url,
       description: form.description.trim() || null,
       category: form.category.trim() || null,
     };
@@ -272,7 +289,7 @@ const Admin = () => {
                     {grouped[cat].map((link) => (
                       <a
                         key={link.id}
-                        href={link.url}
+                        href={safeHref(link.url)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="card-glass p-4 rounded-lg group hover:border-primary hover:-translate-y-0.5 transition-all flex flex-col relative"
