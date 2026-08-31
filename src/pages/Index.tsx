@@ -11,14 +11,9 @@ import Experience from "@/components/Experience";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import { trackVisit } from "@/lib/track-visit";
 
 const Index = () => {
   useEffect(() => {
-    const path = window.location.pathname || "/";
-    const ric = (window as any).requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1500));
-    ric(() => trackVisit(path));
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
