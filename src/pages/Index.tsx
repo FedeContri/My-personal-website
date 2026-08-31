@@ -59,6 +59,9 @@ const Index = () => {
       <main>
         <Hero />
         <div className="reveal">
+          <About />
+        </div>
+        <div className="reveal">
           <Work />
         </div>
         <div className="reveal">
@@ -76,9 +79,7 @@ const Index = () => {
         <div className="reveal">
           <Experience />
         </div>
-        <div className="reveal">
-          <About />
-        </div>
+
         <div className="reveal">
           <Contact />
         </div>

@@ -2,7 +2,7 @@ import Section from "@/components/site/Section";
 import { hardware } from "@/lib/profile";
 
 const Hardware = () => (
-  <Section id="hardware" eyebrow="05 / Hardware" title="Hardware & Labs">
+  <Section id="hardware" eyebrow="06 / Hardware" title="Hardware & Labs">
     <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground">
       The physical devices I actually experiment on.
     </p>

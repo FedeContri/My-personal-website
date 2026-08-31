@@ -2,7 +2,7 @@ import Section from "@/components/site/Section";
 import { currently, journey } from "@/lib/profile";
 
 const Journey = () => (
-  <Section id="journey" eyebrow="02 / Journey" title="DevOps Journey">
+  <Section id="journey" eyebrow="03 / Journey" title="DevOps Journey">
     <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground">
       An ongoing path, not a finished one. Each step is something I've worked with, and some of
       them I'm still learning right now.

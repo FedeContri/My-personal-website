@@ -168,10 +168,9 @@ export const work: Entry[] = [
     stack: ["TrueNAS", "Docker", "Nextcloud", "Jellyfin", "Tailscale"],
     diagram: `  Fujitsu Esprimo — Xeon E3-1245 v5 · 12 GB RAM · SSD + HDD
   ────────────────────────────────────────────────────────
-   TrueNAS ─┬─ Samba share
+   TrueNAS ─┬─ Storage pools / datasets
             ├─ Docker ─┬─ Nextcloud
-            │          ├─ Jellyfin
-            │          └─ Sonarr / Radarr / Prowlarr
+            │          └─ Jellyfin
             └─ Tailscale (remote access)`,
     detail: [
       {
@@ -180,20 +179,11 @@ export const work: Entry[] = [
       },
       {
         heading: "Configured / used",
-        items: [
-          "TrueNAS",
-          "Nextcloud",
-          "Jellyfin",
-          "Docker",
-          "Samba",
-          "Sonarr",
-          "Radarr",
-          "Prowlarr",
-          "Tailscale",
-        ],
+        items: ["TrueNAS", "Nextcloud", "Jellyfin", "Docker", "Tailscale"],
       },
     ],
     notes: ["Personal homelab — hands-on practice with servers, storage, services and networking."],
+
   },
   {
     id: "t1d",
@@ -385,8 +375,9 @@ export const skills: { group: string; items: string[]; note?: string }[] = [
   },
   {
     group: "Programming",
-    items: ["Python", "JavaScript", "C#", "Bash", "SQL"],
+    items: ["JavaScript", "Bash", "C / C++", "Java", "SQL"],
   },
+
 ];
 
 export const hardware = [

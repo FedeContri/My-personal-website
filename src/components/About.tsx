@@ -2,7 +2,7 @@ import Section from "@/components/site/Section";
 import { timeline } from "@/lib/profile";
 
 const About = () => (
-  <Section id="about" eyebrow="07 / About" title="About">
+  <Section id="about" eyebrow="01 / About" title="About">
     <div className="max-w-xl space-y-4 text-[15px] leading-relaxed text-muted-foreground">
       <p>
         I'm FD, a DevOps Intern interested in Linux, infrastructure, networking and Kubernetes.
