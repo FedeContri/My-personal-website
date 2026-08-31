@@ -38,19 +38,19 @@ const Index = () => {
   return (
     <div className="min-h-screen" id="home">
       <Helmet>
-        <title>Federico Contrino — DevOps Intern & Cybersecurity Enthusiast</title>
+        <title>FD — DevOps Intern & Cybersecurity Enthusiast</title>
         <meta
           name="description"
-          content="Federico Contrino — DevOps Intern working with Linux, Docker, Kubernetes, Helm and networking, with personal homelab, Android and wireless security labs."
+          content="FD — DevOps Intern working with Linux, Docker, Kubernetes, Helm and networking, with personal homelab, Android and wireless security labs."
         />
         <link rel="canonical" href="https://fd-portfolio.site/" />
         <meta
           property="og:title"
-          content="Federico Contrino — DevOps Intern & Cybersecurity Enthusiast"
+          content="FD — DevOps Intern & Cybersecurity Enthusiast"
         />
         <meta
           property="og:description"
-          content="Linux, Kubernetes, Helm, infrastructure and personal security labs. Projects and experiments by Federico Contrino."
+          content="Linux, Kubernetes, Helm, infrastructure and personal security labs. Projects and experiments by FD."
         />
         <meta property="og:url" content="https://fd-portfolio.site/" />
       </Helmet>
