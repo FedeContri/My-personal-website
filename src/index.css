@@ -107,8 +107,9 @@
   }
 
   .section {
-    @apply py-20 sm:py-28 border-t border-border;
+    @apply py-16 sm:py-28 border-t border-border scroll-mt-20;
   }
+
 
   .eyebrow {
     @apply font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground;
