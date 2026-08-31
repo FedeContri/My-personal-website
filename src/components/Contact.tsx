@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { ArrowUpRight } from "lucide-react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { supabase } from "@/integrations/supabase/client";
 import Section from "@/components/site/Section";
 import { profile } from "@/lib/profile";
+
+// Public site key provided by Web3Forms for their built-in hCaptcha protection
+const HCAPTCHA_SITE_KEY = "50b2fe65-b00b-4b9e-ad62-3ba471098be2";
 
 const RATE_LIMIT_KEY = "contact_form_submissions";
 const MAX_SUBMISSIONS_PER_HOUR = 3;
@@ -46,12 +50,18 @@ const readSubmissions = (): number[] => {
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sending, setSending] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState("");
+  const captchaRef = useRef<HCaptcha>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const validation = contactSchema.safeParse(form);
     if (!validation.success) {
       toast.error(validation.error.errors[0].message);
+      return;
+    }
+    if (!captchaToken) {
+      toast.error("Please complete the captcha first.");
       return;
     }
     const recent = readSubmissions();
@@ -67,6 +77,7 @@ const Contact = () => {
           name: sanitize(validation.data.name),
           email: validation.data.email.toLowerCase().trim(),
           message: sanitize(validation.data.message),
+          captchaToken,
         },
       });
 
@@ -85,9 +96,12 @@ const Contact = () => {
     } catch {
       toast.error("Network error. Please try again.");
     } finally {
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken("");
       setSending(false);
     }
   };
+
 
   const field =
     "w-full border-b border-border bg-transparent py-3 text-base sm:text-[15px] outline-none placeholder:text-muted-foreground/70 focus:border-foreground transition-colors";
@@ -166,6 +180,15 @@ const Contact = () => {
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
         />
+        <div className="overflow-hidden">
+          <HCaptcha
+            ref={captchaRef}
+            sitekey={HCAPTCHA_SITE_KEY}
+            onVerify={(token) => setCaptchaToken(token)}
+            onExpire={() => setCaptchaToken("")}
+            onError={() => setCaptchaToken("")}
+          />
+        </div>
         <button
           type="submit"
           disabled={sending}

@@ -8,6 +8,7 @@ interface Body {
   name: string;
   email: string;
   message: string;
+  captchaToken?: string;
 }
 
 // In-memory rate limit (per edge instance) - 3 requests per IP per 10 minutes
@@ -105,6 +106,14 @@ Deno.serve(async (req) => {
     const name = sanitize(String(body.name || ""));
     const email = String(body.email || "").toLowerCase().trim();
     const message = sanitize(String(body.message || ""));
+    const captchaToken = String(body.captchaToken || "");
+
+    if (!captchaToken) {
+      return new Response(
+        JSON.stringify({ success: false, message: "Captcha verification is required." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+      );
+    }
 
     if (
       name.length < 2 || name.length > 100 ||
@@ -139,6 +148,7 @@ Deno.serve(async (req) => {
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
         access_key: accessKey,
+        "h-captcha-response": captchaToken,
         name,
         email,
         message,

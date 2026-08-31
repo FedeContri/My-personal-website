@@ -1,112 +1,100 @@
-# 🌐 FD Portfolio
+# FD — Portfolio
 
-**Personal portfolio of Federico Contrino**, a student passionate about **networking, Linux system administration and cybersecurity**.
+Personal portfolio of **FD**, DevOps Intern & Cybersecurity Enthusiast.
+Linux, containers, Kubernetes and networking during the day; wireless, Android and network security labs on personal hardware the rest of the time.
 
-## 🚀 Live Demo
+**Live:** https://fd-portfolio.site
 
-🔗 **[Visit the Portfolio](https://lovable.dev/projects/2b637e31-af5f-4eed-8497-5bb74007530e)**
+## What's inside
 
-## 📋 Description
+The site is a single editorial-style page, structured as:
 
-**Modern and responsive portfolio** showcasing my projects, technical skills, and educational path in the field of computer science, with a **particular focus** on:
+| Section | Content |
+| --- | --- |
+| Hero | Identity, direction, terminal snippet |
+| About | Interests, how I learn, what I'm working on |
+| Work | Projects written as case studies: context → problem → decisions → what broke → result → what I'd change |
+| Labs | Smaller experiments (NetHunter, CCNA, wireless security) |
+| Skills | Infrastructure, tooling, security, languages |
+| Experience | Ongoing DevOps / IT internship |
+| Contact | Links + contact form |
 
-- 🔐 **Cybersecurity & Penetration Testing**
-- 🌐 **Networking (CCNA)**
-- 🐧 **Linux System Administration**
-- 💻 **Programming (C/C++, Java, Bash)**
+## Tech stack
 
-## ✨ Features
+- **React 18 + TypeScript**, **Vite**
+- **Tailwind CSS** with a semantic token design system (IBM Plex, ink + off-white, light/dark)
+- **shadcn/ui** + Radix primitives, **lucide-react** icons
+- **react-helmet-async** for per-page metadata
+- **Supabase Edge Function** (Deno) for the contact form
+- **Web3Forms** + **hCaptcha** for email delivery and spam protection
 
-- **Modern and responsive design**
-- **Smooth animations** and glassmorphism effects
-- **Dark/light mode**
-- **Sections**: Hero, About, Skills, Projects, Contact
-- **Functional contact form**
-- **Social integration** (GitHub, LinkedIn)
-- **Optimized SEO**
+## Design principles
 
-## 🛠️ Technologies Used
+- Technical/editorial minimal: no gradients, no glow, no neon, no skill percentages
+- Content lives in one place: `src/lib/profile.ts`
+- Colors, spacing and shadows are CSS variables in `src/index.css` — never hardcoded in components
+- Accessible: semantic landmarks, single H1, labelled controls, 44px tap targets
 
-- **Frontend Framework**: React 18 + TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui + Radix UI
-- **Icons**: Lucide React
-- **Routing**: React Router DOM
-- **State Management**: TanStack Query
-- **Animations**: Tailwind CSS Animate
+## Local development
 
-## 📦 Local Installation
-
-### Prerequisites
-
-- Node.js (v18 or higher)
-- npm or yarn
-
-### Setup
+Requires Node.js 18+.
 
 ```bash
-# Clone the repository
-git clone <YOUR_GIT_URL>
-
-# Enter the directory
-cd <YOUR_PROJECT_NAME>
-
-# Install dependencies
 npm install
-
-# Start the development server
-npm run dev
+npm run dev      # http://localhost:8080
 ```
 
-The site will be available at  
-**http://localhost:8080**
+Other scripts:
 
-## 📝 Available Scripts
+```bash
+npm run build    # production build
+npm run preview  # preview the build
+npm run lint     # lint
+```
 
-- `npm run dev` – Start the development server
-- `npm run build` – Build for production
-- `npm run preview` – Preview the production build
-- `npm run lint` – Code linting
-
-## 📂 Project Structure
+## Project structure
 
 ```
 src/
-├── components/       # React components
-│   ├── ui/           # Reusable UI components (shadcn)
-│   ├── Hero.tsx      # Hero section
-│   ├── About.tsx     # About section
-│   ├── Skills.tsx    # Skills section
-│   ├── Projects.tsx  # Projects section
-│   └── Contact.tsx   # Contact section
-├── pages/            # Application pages
-├── hooks/            # Custom React hooks
-├── lib/              # Utility and helper functions
-└── index.css         # Global styles and design system
+├── components/
+│   ├── site/          # Section, EntryItem primitives
+│   ├── ui/            # shadcn components
+│   ├── Hero.tsx  About.tsx  Work.tsx  Labs.tsx
+│   ├── Skills.tsx  Experience.tsx  Contact.tsx
+│   └── Navigation.tsx  Footer.tsx
+├── lib/profile.ts     # all site content (single source of truth)
+├── pages/             # Index, NotFound
+└── index.css          # design tokens and global styles
+supabase/functions/contact-submit/   # contact form edge function
 ```
 
-## 🎨 Design System
+To edit any text on the site, change `src/lib/profile.ts` — components read from it.
 
-The project uses a custom design system based on:
+## Contact form
 
-- Semantic CSS variables for colors and themes
-- Tokens for spacing, typography, and shadows
-- Consistent UI components via shadcn/ui
-- Native dark/light mode support
+The form posts to the `contact-submit` edge function, which:
 
-## 📞 Contacts
+1. Rate-limits per IP (in-memory window)
+2. Validates and sanitizes input
+3. Verifies the sender's email domain via DNS (MX with A-record fallback)
+4. Requires a valid hCaptcha token
+5. Forwards the message through Web3Forms
 
-- **Email**: fd_cybernet@proton.me
-- **GitHub**: @FedeContri
-- **LinkedIn**: Federico Contrino
+No credentials are stored in the repository. Server-side values (`WEB3FORMS_ACCESS_KEY`) live in backend secrets; the only client-side keys committed are public/publishable ones.
 
-## 📄 License
+## Security notes
 
-This is a personal project and does not include a specific open source license.
+- Content-Security-Policy, `X-Content-Type-Options` and `Permissions-Policy` set in `index.html`
+- Input validated with Zod client-side and re-validated server-side
+- Client rate limiting is UX-only; the authoritative limit is in the edge function
+- No admin area, no analytics, no cookies, no tracking
 
-## 🙏 Credits
+## Contact
 
-Developed with ❤️ using Lovable and my own inventiveness.
+- Email: fd_cybernet@proton.me
+- GitHub: [@FedeContri](https://github.com/FedeContri)
+- LinkedIn: [Profile](https://www.linkedin.com/in/federico-contrino-78a647395)
 
-⭐ If you like this project, leave a star on GitHub!
+## License
+
+Personal project, no open source license.
