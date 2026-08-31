@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { profile } from "@/lib/profile";
+import { profile, heroTerminal } from "@/lib/profile";
 
 const scrollTo = (id: string) => {
   const el = document.getElementById(id);
@@ -9,11 +9,13 @@ const scrollTo = (id: string) => {
 
 const Hero = () => (
   <header className="wrap pt-28 pb-16 sm:pt-40 sm:pb-28">
-    <p className="eyebrow">Portfolio — {new Date().getFullYear()}</p>
+    <p className="eyebrow">{profile.kicker}</p>
 
     <h1 className="mt-6 text-[2rem] font-semibold leading-[1.12] tracking-tight sm:text-5xl">
       {profile.name} — {profile.role}
     </h1>
+
+    <p className="mt-4 max-w-xl font-mono text-[13px] text-muted-foreground">{profile.tagline}</p>
 
     <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
       {profile.intro}
@@ -58,6 +60,7 @@ const Hero = () => (
         </a>
       )}
     </div>
+    <pre className="terminal mt-12 max-w-xl overflow-x-auto whitespace-pre text-muted-foreground" aria-hidden="true">{heroTerminal}</pre>
   </header>
 );
 

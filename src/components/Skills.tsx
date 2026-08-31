@@ -2,7 +2,7 @@ import Section from "@/components/site/Section";
 import { skills } from "@/lib/profile";
 
 const Skills = () => (
-  <Section id="skills" eyebrow="05 / Skills" title="Skills">
+  <Section id="skills" eyebrow="04 / Skills" title="Skills">
     <div className="space-y-8">
       {skills.map((group) => (
         <div key={group.group} className="border-t border-border pt-6 first:border-t-0 first:pt-0">

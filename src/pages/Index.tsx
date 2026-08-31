@@ -3,10 +3,8 @@ import { Helmet } from "react-helmet-async";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Work from "@/components/Work";
-import Journey from "@/components/Journey";
 import Labs from "@/components/Labs";
 import Skills from "@/components/Skills";
-import Hardware from "@/components/Hardware";
 import Experience from "@/components/Experience";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
@@ -81,16 +79,10 @@ const Index = () => {
           <Work />
         </div>
         <div className="reveal">
-          <Journey />
-        </div>
-        <div className="reveal">
           <Labs />
         </div>
         <div className="reveal">
           <Skills />
-        </div>
-        <div className="reveal">
-          <Hardware />
         </div>
         <div className="reveal">
           <Experience />
