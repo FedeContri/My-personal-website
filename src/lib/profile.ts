@@ -104,58 +104,52 @@ export const work: Entry[] = [
     id: "k8s-nextcloud",
     kind: "Project",
     label: "Hands-on Kubernetes project",
-    title: "Kubernetes / Nextcloud",
+    title: "Kubernetes Cluster / Nextcloud",
     summary:
-      "A hands-on Kubernetes environment built while learning workloads, networking, storage and Helm.",
-    stack: ["Kubernetes", "Helm", "PostgreSQL", "Valkey", "NGINX Ingress"],
-    diagram: `        ┌──────────────────────────┐
+      "Started on Minikube inside a VM to get comfortable with workloads, Services and Secrets, then moved to a real 3-node cluster (1 control plane, 2 workers) on VMs hosted on a Proxmox server, used to deploy services for my home network.",
+    stack: ["Kubernetes", "Proxmox", "Helm", "PostgreSQL", "Valkey", "NGINX Ingress"],
+    diagram: `  Proxmox host
+  ├── VM: control-plane
+  ├── VM: worker-01
+  └── VM: worker-02
+            │
+        ┌───▼──────────────────────┐
   ──▶   │  NGINX Ingress           │
         └────────────┬─────────────┘
-                     │  Service (NodePort)
+                     │  Service
         ┌────────────▼─────────────┐
         │  Nextcloud               │
         └───┬───────────────┬──────┘
-            │               │
    ┌────────▼──────┐  ┌─────▼───────┐
    │  PostgreSQL   │  │   Valkey    │
    └───────┬───────┘  └─────────────┘
            │  PVC ──▶ PersistentVolume`,
     detail: [
       {
-        heading: "Worked with",
+        heading: "Phase 1 — Minikube",
         items: [
-          "Kubernetes",
-          "Helm",
-          "Services",
-          "NodePort",
-          "Ingress",
-          "PersistentVolume",
-          "PersistentVolumeClaim",
-          "Secrets",
-          "values.yaml",
+          "Single-node cluster in a VM",
+          "Pods / Deployments / ReplicaSets",
+          "Services and NodePort",
+          "Secrets and values.yaml",
+          "Helm chart deployment",
         ],
       },
       {
-        heading: "Concepts covered",
+        heading: "Phase 2 — Proxmox cluster",
         items: [
-          "Pods",
-          "Deployments",
-          "ReplicaSets",
-          "StatefulSets",
-          "DaemonSets",
-          "Services",
-          "Networking",
-          "Persistent storage",
-          "Secrets",
-          "Ingress",
-          "Helm",
-          "Troubleshooting",
+          "3 VMs: 1 control plane + 2 workers",
+          "Cluster bootstrap and node join",
+          "Ingress and internal networking",
+          "PersistentVolume / PersistentVolumeClaim",
+          "Nextcloud with PostgreSQL and Valkey",
+          "Troubleshooting pods and storage",
         ],
       },
     ],
     notes: [
-      "Configured and connected Nextcloud with PostgreSQL and Valkey.",
-      "Built as a learning project, not as enterprise infrastructure.",
+      "The goal is to reproduce, on a small scale, an environment close to a real company setup and use it to run services for the whole home network.",
+      "Built as a learning environment, not as production infrastructure.",
     ],
   },
   {
@@ -164,14 +158,15 @@ export const work: Entry[] = [
     label: "Personal infrastructure",
     title: "Personal Homelab",
     summary:
-      "A personal infrastructure used to experiment with storage, services, containers and networking.",
-    stack: ["TrueNAS", "Docker", "Nextcloud", "Jellyfin", "Tailscale"],
+      "A self-hosted environment built around TrueNAS: file sharing, personal cloud and media, with remote access without exposing any port on the router. Currently being rebuilt and progressively migrated to Kubernetes.",
+    stack: ["TrueNAS", "Docker", "Nextcloud", "Jellyfin", "Homepage", "Tailscale"],
     diagram: `  Fujitsu Esprimo — Xeon E3-1245 v5 · 12 GB RAM · SSD + HDD
   ────────────────────────────────────────────────────────
-   TrueNAS ─┬─ Storage pools / datasets
+   TrueNAS ─┬─ Storage: backup / snapshots / downloads / data
             ├─ Docker ─┬─ Nextcloud
-            │          └─ Jellyfin
-            └─ Tailscale (remote access)`,
+            │          ├─ Jellyfin
+            │          └─ Homepage (dashboard)
+            └─ Tailscale (remote access, no open ports)`,
     detail: [
       {
         heading: "Hardware",
@@ -179,33 +174,56 @@ export const work: Entry[] = [
       },
       {
         heading: "Configured / used",
-        items: ["TrueNAS", "Nextcloud", "Jellyfin", "Docker", "Tailscale"],
+        items: ["TrueNAS", "Nextcloud", "Jellyfin", "Homepage", "Docker", "Tailscale"],
+      },
+      {
+        heading: "Problems solved",
+        items: [
+          "Certificate management",
+          "Snapshot creation and restore",
+          "Storage layout per purpose (backup, snapshots, downloads, data)",
+          "Secure remote access without port forwarding",
+        ],
       },
     ],
-    notes: ["Personal homelab — hands-on practice with servers, storage, services and networking."],
-
+    notes: [
+      "Currently in a rebuild phase: the plan is to migrate these services to Kubernetes and use the homelab to simulate a real company environment.",
+    ],
   },
   {
     id: "t1d",
     kind: "Project",
-    label: "Personal project",
+    label: "Personal project — prototype",
     title: "T1D Investigator",
     summary:
-      "A personal project to work with diabetes monitoring and management data, importing CSV files and organising them in a personal control center for analysis.",
-    stack: ["CSV data", "Personal project"],
+      "A Python prototype for analysing personal glucose monitoring data imported from CSV: highlighting critical trends and looking for recurring patterns over time.",
+    stack: ["Python", "CSV data", "Prototype"],
     detail: [
       {
         heading: "Scope",
         items: [
           "CSV data import",
-          "Data organisation",
-          "Personal control center",
-          "Analysis of monitoring data",
+          "Trend and pattern analysis",
+          "Detection of critical values",
+          "Personal control center view",
+        ],
+      },
+      {
+        heading: "Planned rework",
+        items: [
+          "Cleaner architecture",
+          "Locally-run AI model",
+          "Pattern recognition and forecasting only",
         ],
       },
     ],
+    notes: [
+      "Deliberately left unfinished: it must never give diagnoses, therapy indications or correction suggestions — that stays with the doctor.",
+      "A future version would only recognise and forecast patterns from the available data.",
+    ],
   },
 ];
+
 
 export const labs: Entry[] = [
   {
