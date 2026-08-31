@@ -22,6 +22,14 @@ const Hero = () => (
       {profile.intro2}
     </p>
 
+    <p className="mt-5 max-w-xl text-[15px] font-medium leading-relaxed text-foreground sm:text-base">
+      Currently open to DevOps / IT opportunities —{" "}
+      <a href="#contact" className="link-underline">
+        get in touch
+      </a>
+      .
+    </p>
+
     <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
       <button
         type="button"
@@ -35,6 +43,7 @@ const Hero = () => (
         target="_blank"
         rel="noopener noreferrer"
         className="link-underline font-mono text-[12.5px]"
+        aria-label="FD on GitHub"
       >
         GitHub <ArrowUpRight className="h-3.5 w-3.5" />
       </a>
