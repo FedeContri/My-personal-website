@@ -5,8 +5,7 @@ const About = () => (
   <Section id="about" eyebrow="07 / About" title="About">
     <div className="max-w-xl space-y-4 text-[15px] leading-relaxed text-muted-foreground">
       <p>
-        I'm Federico, a DevOps Intern interested in Linux, infrastructure, networking and
-        Kubernetes.
+        I'm FD, a DevOps Intern interested in Linux, infrastructure, networking and Kubernetes.
       </p>
       <p>
         Alongside my DevOps path, I've always been interested in cybersecurity and understanding

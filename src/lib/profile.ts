@@ -1,5 +1,5 @@
 export const profile = {
-  name: "Federico Contrino",
+  name: "FD",
   role: "DevOps Intern & Cybersecurity Enthusiast",
   intro:
     "I'm a DevOps Intern interested in Linux, infrastructure, containers, Kubernetes and networking, with a strong passion for cybersecurity.",
@@ -55,6 +55,51 @@ export type Entry = {
 };
 
 export const work: Entry[] = [
+  {
+    id: "wpa2-toolkit",
+    kind: "Project",
+    label: "Educational security project",
+    title: "WPA2 Handshake Toolkit",
+    summary:
+      "An educational toolkit for capturing WPA/WPA2-PSK handshakes and preparing them for offline analysis with hashcat.",
+    stack: ["Bash", "Aircrack-ng", "Hashcat", "Linux", "Wireless"],
+    detail: [
+      {
+        heading: "What it does",
+        items: [
+          "Enables monitor mode",
+          "Captures wireless traffic",
+          "Converts handshakes to hashcat format",
+          "Restores normal Wi-Fi operation",
+        ],
+      },
+    ],
+    notes: ["For WPA/WPA2-Personal networks only. Built for learning, on my own hardware."],
+    links: [
+      { label: "GitHub", href: "https://github.com/FedeContri/WPA2-Handshake-Toolkit" },
+    ],
+  },
+  {
+    id: "arch-guide",
+    kind: "Project",
+    label: "Written guide",
+    title: "Arch Linux + GUI Guide",
+    summary:
+      "A practical, complete guide for installing Arch Linux with a graphical interface — step by step, from boot to the final desktop configuration.",
+    stack: ["Arch Linux", "Guide", "Documentation"],
+    detail: [
+      {
+        heading: "Covers",
+        items: [
+          "Arch Linux installation",
+          "Graphical interface setup",
+          "Step-by-step walkthrough",
+          "Final desktop configuration",
+        ],
+      },
+    ],
+    links: [{ label: "Get the guide", href: "https://fdc.gumroad.com/l/arch-gui-guide" }],
+  },
   {
     id: "k8s-nextcloud",
     kind: "Project",
@@ -173,6 +218,30 @@ export const work: Entry[] = [
 ];
 
 export const labs: Entry[] = [
+  {
+    id: "ccna",
+    kind: "Lab",
+    label: "Networking lab",
+    title: "CCNA Labs",
+    summary:
+      "Practical network configurations with Cisco Packet Tracer, built while studying networking fundamentals.",
+    stack: ["Cisco Packet Tracer", "Routing", "Switching", "DHCP", "DNS"],
+    detail: [
+      {
+        heading: "Configured",
+        items: [
+          "Router and switch setup with hosts",
+          "Routing tables",
+          "Multi-network architectures with interconnected routers",
+          "DHCP server for dynamic IP management",
+          "Basic DNS server",
+        ],
+      },
+    ],
+    links: [
+      { label: "GitHub", href: "https://github.com/FedeContri/Cisco-Packet-Tracer_projects/" },
+    ],
+  },
   {
     id: "nethunter",
     kind: "Lab",
