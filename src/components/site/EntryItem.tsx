@@ -32,7 +32,7 @@ const EntryItem = ({ entry, index }: { entry: Entry; index: number }) => {
           className="link-underline font-mono text-[12.5px]"
         >
           {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-          {open ? "Close" : entry.kind === "Project" ? "View project" : "View lab"}
+          {open ? "Close" : `View ${entry.kind.toLowerCase()}`}
         </button>
 
         {entry.links?.map((l) => (
