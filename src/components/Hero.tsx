@@ -8,25 +8,25 @@ const scrollTo = (id: string) => {
 };
 
 const Hero = () => (
-  <header className="wrap pt-32 pb-20 sm:pt-40 sm:pb-28">
+  <header className="wrap pt-28 pb-16 sm:pt-40 sm:pb-28">
     <p className="eyebrow">Portfolio — {new Date().getFullYear()}</p>
 
-    <h1 className="mt-6 text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
+    <h1 className="mt-6 text-[2rem] font-semibold leading-[1.12] tracking-tight sm:text-5xl">
       {profile.name} — {profile.role}
     </h1>
 
-    <p className="mt-8 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
+    <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
       {profile.intro}
     </p>
     <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
       {profile.intro2}
     </p>
 
-    <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+    <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
       <button
         type="button"
         onClick={() => scrollTo("work")}
-        className="rounded-sm bg-primary px-5 py-2.5 font-mono text-[12.5px] text-primary-foreground transition-opacity hover:opacity-85"
+        className="inline-flex min-h-[44px] items-center justify-center rounded-sm bg-primary px-5 py-2.5 font-mono text-[12.5px] text-primary-foreground transition-opacity hover:opacity-85"
       >
         Projects
       </button>
