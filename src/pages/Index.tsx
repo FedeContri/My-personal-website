@@ -14,6 +14,13 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
+
+    if (typeof IntersectionObserver === "undefined") {
+      els.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -23,12 +30,26 @@ const Index = () => {
           }
         });
       },
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0, rootMargin: "0px 0px -8% 0px" },
     );
 
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    els.forEach((el) => observer.observe(el));
+
+    // Safety net: never leave content invisible if the observer misfires
+    const fallback = window.setTimeout(() => {
+      els.forEach((el) => {
+        if (el.getBoundingClientRect().top < window.innerHeight) {
+          el.classList.add("is-visible");
+        }
+      });
+    }, 1200);
+
+    return () => {
+      window.clearTimeout(fallback);
+      observer.disconnect();
+    };
   }, []);
+
 
   return (
     <div className="min-h-screen" id="home">
