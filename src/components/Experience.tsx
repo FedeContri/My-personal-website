@@ -2,7 +2,7 @@ import Section from "@/components/site/Section";
 import { experience } from "@/lib/profile";
 
 const Experience = () => (
-  <Section id="experience" eyebrow="07 / Experience" title="Experience">
+  <Section id="experience" eyebrow="05 / Experience" title="Experience">
     <div className="flex flex-wrap items-baseline justify-between gap-2">
       <h3 className="text-xl font-semibold">{experience.role}</h3>
       <span className="font-mono text-[12.5px] text-muted-foreground">{experience.period}</span>
