@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { ArrowUpRight } from "lucide-react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { supabase } from "@/integrations/supabase/client";
 import Section from "@/components/site/Section";
 import { profile } from "@/lib/profile";
+
+// Public site key provided by Web3Forms for their built-in hCaptcha protection
+const HCAPTCHA_SITE_KEY = "50b2fe65-b00b-4b9e-ad62-3ba471098be2";
 
 const RATE_LIMIT_KEY = "contact_form_submissions";
 const MAX_SUBMISSIONS_PER_HOUR = 3;
