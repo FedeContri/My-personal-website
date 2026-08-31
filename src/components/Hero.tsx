@@ -11,11 +11,9 @@ const Hero = () => (
   <header className="wrap pt-32 pb-20 sm:pt-40 sm:pb-28">
     <p className="eyebrow">Portfolio — {new Date().getFullYear()}</p>
 
-    <h1 className="mt-6 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
-      {profile.name}
+    <h1 className="mt-6 text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
+      {profile.name} — {profile.role}
     </h1>
-
-    <p className="mt-4 font-mono text-sm text-accent sm:text-[15px]">{profile.role}</p>
 
     <p className="mt-8 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
       {profile.intro}
