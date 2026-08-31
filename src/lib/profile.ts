@@ -433,8 +433,8 @@ export const hardware = [
 
 export const experience = {
   role: "DevOps / IT Intern",
-  period: "2026",
-  body: "Internship focused on infrastructure and systems. During this path I worked and studied with containers, version control, virtualization and networking, alongside a first hands-on approach to Kubernetes and Helm.",
+  period: "2026 — present",
+  body: "Currently interning in an IT / DevOps-oriented position while studying to become a DevOps engineer. I'm learning by doing — working with containers, version control, virtualization, networking and Kubernetes, and applying what I study directly on real tasks and personal labs.",
   items: [
     "Docker",
     "Git",
