@@ -50,12 +50,18 @@ const readSubmissions = (): number[] => {
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sending, setSending] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState("");
+  const captchaRef = useRef<HCaptcha>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const validation = contactSchema.safeParse(form);
     if (!validation.success) {
       toast.error(validation.error.errors[0].message);
+      return;
+    }
+    if (!captchaToken) {
+      toast.error("Please complete the captcha first.");
       return;
     }
     const recent = readSubmissions();
@@ -71,6 +77,7 @@ const Contact = () => {
           name: sanitize(validation.data.name),
           email: validation.data.email.toLowerCase().trim(),
           message: sanitize(validation.data.message),
+          captchaToken,
         },
       });
 
@@ -89,9 +96,12 @@ const Contact = () => {
     } catch {
       toast.error("Network error. Please try again.");
     } finally {
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken("");
       setSending(false);
     }
   };
+
 
   const field =
     "w-full border-b border-border bg-transparent py-3 text-base sm:text-[15px] outline-none placeholder:text-muted-foreground/70 focus:border-foreground transition-colors";
