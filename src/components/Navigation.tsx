@@ -22,10 +22,23 @@ const Navigation = () => {
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
     };
   }, [open]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) setOpen(false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   const go = (id: string) => {
     setOpen(false);
@@ -40,13 +53,15 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-200 ${
-        scrolled ? "border-b border-border bg-background/85 backdrop-blur" : ""
+        scrolled || open
+          ? "border-b border-border bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80"
+          : "bg-background/80 md:bg-transparent"
       }`}
     >
       <div className="wrap flex h-16 items-center justify-between">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="font-mono text-[13px] tracking-tight"
+          className="inline-flex h-11 items-center font-mono text-[13px] tracking-tight"
         >
           {profile.name}
         </button>
@@ -83,7 +98,7 @@ const Navigation = () => {
         </div>
 
         <button
-          className="-mr-2 p-2 md:hidden"
+          className="-mr-2 inline-flex h-11 w-11 items-center justify-center md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -93,24 +108,24 @@ const Navigation = () => {
       </div>
 
       {open && (
-        <div className="fixed inset-0 top-16 z-40 border-t border-border bg-background md:hidden">
-          <div className="wrap flex flex-col py-4">
+        <div className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto overscroll-contain border-t border-border bg-background md:hidden">
+          <div className="wrap flex flex-col py-4 pb-[max(2rem,env(safe-area-inset-bottom))]">
             {links.map((l) => (
               <button
                 key={l.id}
                 onClick={() => go(l.id)}
-                className="border-b border-border py-4 text-left text-lg font-medium"
+                className="min-h-[52px] border-b border-border py-4 text-left text-lg font-medium"
               >
                 {l.label}
               </button>
             ))}
             <button
               onClick={() => go("contact")}
-              className="border-b border-border py-4 text-left text-lg font-medium"
+              className="min-h-[52px] border-b border-border py-4 text-left text-lg font-medium"
             >
               Contact
             </button>
-            <div className="flex flex-wrap gap-6 pt-6 font-mono text-[12.5px] text-muted-foreground">
+            <div className="flex flex-wrap gap-x-6 gap-y-2 pt-6 font-mono text-[12.5px] text-muted-foreground [&>a]:inline-flex [&>a]:min-h-[44px] [&>a]:items-center">
               <a href={profile.github} target="_blank" rel="noopener noreferrer">
                 GitHub
               </a>
