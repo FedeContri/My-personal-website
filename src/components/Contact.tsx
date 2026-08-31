@@ -180,6 +180,15 @@ const Contact = () => {
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
         />
+        <div className="overflow-hidden">
+          <HCaptcha
+            ref={captchaRef}
+            sitekey={HCAPTCHA_SITE_KEY}
+            onVerify={(token) => setCaptchaToken(token)}
+            onExpire={() => setCaptchaToken("")}
+            onError={() => setCaptchaToken("")}
+          />
+        </div>
         <button
           type="submit"
           disabled={sending}
