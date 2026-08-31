@@ -1,17 +1,17 @@
 import { profile } from "@/lib/profile";
 
 const Footer = () => (
-  <footer className="border-t border-border py-10">
+  <footer className="border-t border-border py-8 pb-[max(2rem,env(safe-area-inset-bottom))] sm:py-10">
     <div className="wrap flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <p className="font-mono text-[11.5px] text-muted-foreground">
         © {new Date().getFullYear()} {profile.name}
       </p>
-      <div className="flex flex-wrap gap-6 font-mono text-[11.5px] text-muted-foreground">
+      <div className="flex flex-wrap gap-x-6 gap-y-1 font-mono text-[11.5px] text-muted-foreground">
         <a
           href={profile.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="transition-colors hover:text-foreground"
+          className="inline-flex min-h-[44px] items-center transition-colors hover:text-foreground sm:min-h-0"
         >
           GitHub
         </a>
@@ -19,11 +19,11 @@ const Footer = () => (
           href={profile.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="transition-colors hover:text-foreground"
+          className="inline-flex min-h-[44px] items-center transition-colors hover:text-foreground sm:min-h-0"
         >
           LinkedIn
         </a>
-        <a href={`mailto:${profile.email}`} className="transition-colors hover:text-foreground">
+        <a href={`mailto:${profile.email}`} className="inline-flex min-h-[44px] items-center transition-colors hover:text-foreground sm:min-h-0">
           Email
         </a>
         {profile.cvUrl && (
@@ -31,7 +31,7 @@ const Footer = () => (
             href={profile.cvUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors hover:text-foreground"
+            className="inline-flex min-h-[44px] items-center transition-colors hover:text-foreground sm:min-h-0"
           >
             CV
           </a>

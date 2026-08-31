@@ -90,7 +90,7 @@ const Contact = () => {
   };
 
   const field =
-    "w-full border-b border-border bg-transparent py-2.5 text-[15px] outline-none placeholder:text-muted-foreground/70 focus:border-foreground transition-colors";
+    "w-full border-b border-border bg-transparent py-3 text-base sm:text-[15px] outline-none placeholder:text-muted-foreground/70 focus:border-foreground transition-colors";
 
   return (
     <Section id="contact" eyebrow="08 / Contact" title="Let's connect.">
@@ -132,6 +132,8 @@ const Contact = () => {
           className={field}
           placeholder="Name"
           aria-label="Name"
+          name="name"
+          autoComplete="name"
           value={form.name}
           maxLength={100}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -141,6 +143,11 @@ const Contact = () => {
           placeholder="Email"
           aria-label="Email"
           type="email"
+          name="email"
+          autoComplete="email"
+          inputMode="email"
+          autoCapitalize="off"
+          autoCorrect="off"
           value={form.email}
           maxLength={255}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -149,7 +156,8 @@ const Contact = () => {
           className={`${field} resize-none`}
           placeholder="Message"
           aria-label="Message"
-          rows={4}
+          name="message"
+          rows={5}
           maxLength={1000}
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -157,7 +165,7 @@ const Contact = () => {
         <button
           type="submit"
           disabled={sending}
-          className="rounded-sm bg-primary px-5 py-2.5 font-mono text-[12.5px] text-primary-foreground transition-opacity hover:opacity-85 disabled:opacity-50"
+          className="inline-flex min-h-[44px] w-full items-center justify-center rounded-sm bg-primary px-5 py-3 font-mono text-[12.5px] text-primary-foreground transition-opacity hover:opacity-85 disabled:opacity-50 sm:w-auto"
         >
           {sending ? "Sending…" : "Send"}
         </button>

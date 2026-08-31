@@ -84,12 +84,20 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "kern" 1, "liga" 1;
+    overflow-x: hidden;
   }
+
+  /* Long technical tokens must never break the mobile layout */
+  p, li, h1, h2, h3, h4 {
+    overflow-wrap: anywhere;
+  }
+
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
@@ -107,8 +115,9 @@
   }
 
   .section {
-    @apply py-20 sm:py-28 border-t border-border;
+    @apply py-16 sm:py-28 border-t border-border scroll-mt-20;
   }
+
 
   .eyebrow {
     @apply font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground;
@@ -124,7 +133,15 @@
 
   .link-underline {
     @apply relative inline-flex items-center gap-1.5 text-foreground transition-colors hover:text-accent;
+    min-height: 44px;
   }
+
+  @media (min-width: 768px) {
+    .link-underline {
+      min-height: 0;
+    }
+  }
+
 
   .terminal {
     @apply font-mono text-[12.5px] leading-relaxed bg-muted/50 border border-border rounded-sm p-4 overflow-x-auto;
