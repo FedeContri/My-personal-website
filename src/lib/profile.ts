@@ -256,33 +256,32 @@ export const labs: Entry[] = [
     label: "Security lab / Android experiment",
     title: "Nexus 5 / Kali NetHunter",
     summary:
-      "Android and wireless security experimentation on a Google Nexus 5 running Kali NetHunter.",
+      "Android and wireless security experimentation on a Google Nexus 5 running Kali NetHunter. The device had very limited internal storage and no SD card slot, which made the full NetHunter install difficult. Monitor mode could not be enabled even after compiling the kernel manually from the official NetHunter repository and building the flashable zip myself.",
     stack: ["Kali NetHunter", "Android", "Linux", "Custom kernel", "Wireless"],
     detail: [
       {
-        heading: "Experimented with",
+        heading: "What I tried",
         items: [
-          "Monitor mode",
-          "Nexmon",
-          "Wireless drivers",
-          "Wi-Fi configuration",
-          "Kernel",
-          "Troubleshooting",
+          "Manual kernel compilation from the official NetHunter repository",
+          "Built the flashable zip manually",
+          "Installed the custom kernel and NetHunter environment",
+          "Attempted monitor mode setup",
+          "Troubleshot wireless driver / firmware compatibility",
         ],
       },
       {
-        heading: "Issues encountered",
+        heading: "Blockers",
         items: [
-          "Nexmon",
-          "wpa_supplicant",
-          "Wireless drivers",
-          "Kernel configuration",
-          "Component compatibility",
+          "Very limited internal storage",
+          "No SD card slot for expansion",
+          "Monitor mode not activating despite a working kernel build",
+          "Wireless chipset / firmware constraints",
+          "Device-specific compatibility limits",
         ],
       },
     ],
     notes: [
-      "Not everything worked: part of the value of this lab is the experimentation and troubleshooting process.",
+      "The kernel build process itself worked, but the Nexus 5 hardware and firmware ultimately prevented monitor mode. The experiment was still valuable for learning how to compile Android kernels and build flashable packages.",
     ],
   },
   {
@@ -290,13 +289,32 @@ export const labs: Entry[] = [
     kind: "Lab",
     label: "Android security / rooting experiment",
     title: "Samsung Galaxy S4 GT-I9505",
-    summary: "Personal experiment with Android rooting and custom recovery.",
+    summary:
+      "Personal experiment with Android rooting and custom recovery. Root was completed successfully with no issues.",
     stack: ["Android", "TWRP", "Magisk"],
     detail: [
-      { heading: "Worked with", items: ["Android", "TWRP", "Magisk", "Root", "Custom recovery"] },
+      {
+        heading: "Worked with",
+        items: [
+          "Android",
+          "TWRP custom recovery",
+          "Magisk",
+          "Root access",
+          "Bootloader / flashing workflow",
+        ],
+      },
+      {
+        heading: "Result",
+        items: [
+          "Successful root",
+          "Stable Magisk installation",
+          "Working TWRP recovery",
+          "No compatibility or boot issues",
+        ],
+      },
     ],
     notes: [
-      "Hit a compatibility issue between Magisk and the Android version of the device — root was not completed.",
+      "Root completed cleanly. The S4 handled the process without the compatibility problems I expected from older Android experiments.",
     ],
   },
   {
