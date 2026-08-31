@@ -430,10 +430,6 @@ export const skills: { group: string; items: string[]; note?: string }[] = [
     items: ["Nmap", "Wireshark", "Aircrack-ng", "Hashcat", "Firewalling", "VPN / mesh networking"],
     note: "Personal lab",
   },
-  {
-    group: "Learning now",
-    items: ["Terraform", "Prometheus", "GitHub Actions", "TLS / cert automation"],
-  },
 ];
 
 export const experience = {
