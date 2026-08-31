@@ -54,8 +54,8 @@ const Navigation = () => {
     <nav
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-200 ${
         scrolled || open
-          ? "border-b border-border bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80"
-          : "bg-background/80 md:bg-transparent"
+          ? "border-b border-border bg-background backdrop-blur-md md:bg-background/90"
+          : "bg-background md:bg-transparent"
       }`}
     >
       <div className="wrap flex h-16 items-center justify-between">
