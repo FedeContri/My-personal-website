@@ -1,99 +1,57 @@
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, ChevronDown } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
+import { ArrowUpRight } from "lucide-react";
+import { profile } from "@/lib/profile";
 
-const Hero = () => {
-  const { t, language } = useTranslation();
-  const [typedText, setTypedText] = useState("");
-  const fullText = t("hero.tagline");
-  
-  useEffect(() => {
-    setTypedText("");
-    let index = 0;
-    const timer = setInterval(() => {
-      if (index <= fullText.length) {
-        setTypedText(fullText.slice(0, index));
-        index++;
-      } else {
-        clearInterval(timer);
-      }
-    }, 100);
-    
-    return () => clearInterval(timer);
-  }, [fullText, language]);
-
-  const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  return (
-    <section className="min-h-screen flex flex-col items-center justify-center relative px-4 py-20">
-      <div className="text-center space-y-6 max-w-4xl animate-fade-in">
-        <h1 className="text-5xl md:text-7xl font-bold">
-          {t("hero.greeting")} <span className="gradient-text">FD</span>
-        </h1>
-        
-        <div className="h-16 flex items-center justify-center">
-          <h2 className="text-2xl md:text-3xl text-muted-foreground">
-            {typedText}
-            <span className="animate-glow-pulse">|</span>
-          </h2>
-        </div>
-        
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-          {t("hero.description")}
-        </p>
-        
-        <div className="flex flex-wrap gap-4 justify-center pt-6">
-          <Button 
-            size="lg" 
-            className="glow-primary"
-            onClick={() => scrollToSection("projects")}
-          >
-            {t("hero.exploreProjects")}
-          </Button>
-          <Button 
-            size="lg" 
-            variant="outline"
-            onClick={() => scrollToSection("contact")}
-          >
-            <Mail className="mr-2 h-4 w-4" />
-            {t("hero.contactMe")}
-          </Button>
-        </div>
-        
-        <div className="flex gap-4 justify-center pt-4">
-          <a 
-            href="https://github.com/FedeContri" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="p-3 rounded-full border border-border hover:border-primary transition-colors hover:glow-primary"
-          >
-            <Github className="h-6 w-6" />
-          </a>
-          <a 
-            href="https://www.linkedin.com/in/federico-contrino-78a647395?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="p-3 rounded-full border border-border hover:border-primary transition-colors hover:glow-primary"
-          >
-            <Linkedin className="h-6 w-6" />
-          </a>
-        </div>
-      </div>
-      
-      <button 
-        onClick={() => scrollToSection("about")}
-        aria-label="Scroll to about section"
-        className="absolute bottom-10 animate-bounce"
-      >
-        <ChevronDown className="h-8 w-8 text-muted-foreground" />
-      </button>
-    </section>
-  );
+const scrollTo = (id: string) => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: "smooth" });
 };
+
+const Hero = () => (
+  <header className="wrap pt-32 pb-20 sm:pt-40 sm:pb-28">
+    <p className="eyebrow">Portfolio — {new Date().getFullYear()}</p>
+
+    <h1 className="mt-6 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
+      {profile.name}
+    </h1>
+
+    <p className="mt-4 font-mono text-sm text-accent sm:text-[15px]">{profile.role}</p>
+
+    <p className="mt-8 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
+      {profile.intro}
+    </p>
+    <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
+      {profile.intro2}
+    </p>
+
+    <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+      <button
+        type="button"
+        onClick={() => scrollTo("work")}
+        className="rounded-sm bg-primary px-5 py-2.5 font-mono text-[12.5px] text-primary-foreground transition-opacity hover:opacity-85"
+      >
+        Projects
+      </button>
+      <a
+        href={profile.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="link-underline font-mono text-[12.5px]"
+      >
+        GitHub <ArrowUpRight className="h-3.5 w-3.5" />
+      </a>
+      {profile.cvUrl && (
+        <a
+          href={profile.cvUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-underline font-mono text-[12.5px]"
+        >
+          CV <ArrowUpRight className="h-3.5 w-3.5" />
+        </a>
+      )}
+    </div>
+  </header>
+);
 
 export default Hero;
