@@ -25,7 +25,7 @@ const Hero = () => (
     </p>
 
     <p className="mt-5 max-w-xl text-[15px] font-medium leading-relaxed text-foreground sm:text-base">
-      Currently open to DevOps / IT opportunities —{" "}
+      Currently open to collaboration —{" "}
       <a href="#contact" className="link-underline">
         get in touch
       </a>
