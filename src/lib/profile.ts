@@ -55,7 +55,7 @@ export type Entry = {
   stack: string[];
   /** Prose blocks: Context → Problem → Decisions → What broke → Result → What I'd change */
   narrative?: { heading: string; body: string }[];
-  detail: {
+  detail?: {
     heading: string;
     items: string[];
   }[];
