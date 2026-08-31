@@ -133,7 +133,15 @@
 
   .link-underline {
     @apply relative inline-flex items-center gap-1.5 text-foreground transition-colors hover:text-accent;
+    min-height: 44px;
   }
+
+  @media (min-width: 768px) {
+    .link-underline {
+      min-height: 0;
+    }
+  }
+
 
   .terminal {
     @apply font-mono text-[12.5px] leading-relaxed bg-muted/50 border border-border rounded-sm p-4 overflow-x-auto;
