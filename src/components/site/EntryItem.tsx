@@ -55,7 +55,16 @@ const EntryItem = ({ entry, index }: { entry: Entry; index: number }) => {
             <pre className="terminal whitespace-pre text-muted-foreground">{entry.diagram}</pre>
           )}
 
-          {entry.detail.map((block) => (
+          {entry.narrative?.map((block) => (
+            <div key={block.heading} className="max-w-2xl">
+              <p className="eyebrow">{block.heading}</p>
+              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
+                {block.body}
+              </p>
+            </div>
+          ))}
+
+          {entry.detail?.map((block) => (
             <div key={block.heading}>
               <p className="eyebrow">{block.heading}</p>
               <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5">
@@ -67,6 +76,7 @@ const EntryItem = ({ entry, index }: { entry: Entry; index: number }) => {
               </ul>
             </div>
           ))}
+
 
           {entry.notes && (
             <ul className="space-y-2">
