@@ -152,19 +152,3 @@
     html { scroll-behavior: auto; }
   }
 }
-
-/* Compatibility utilities used by the private admin area */
-@layer utilities {
-  .card-glass {
-    @apply bg-card border border-border;
-  }
-
-  .gradient-text {
-    @apply text-foreground;
-  }
-
-  .glow-primary,
-  .glow-accent {
-    box-shadow: none;
-  }
-}

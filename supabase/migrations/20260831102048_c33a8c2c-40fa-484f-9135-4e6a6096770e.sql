@@ -1,0 +1,11 @@
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+DROP TABLE IF EXISTS public.admin_notes CASCADE;
+DROP TABLE IF EXISTS public.admin_links CASCADE;
+DROP TABLE IF EXISTS public.page_views CASCADE;
+DROP TABLE IF EXISTS public.user_roles CASCADE;
+DROP TABLE IF EXISTS public.profiles CASCADE;
+DROP FUNCTION IF EXISTS public.has_role(uuid, public.app_role) CASCADE;
+DROP FUNCTION IF EXISTS private.has_role(uuid, public.app_role) CASCADE;
+DROP FUNCTION IF EXISTS public.handle_new_user() CASCADE;
+DROP TYPE IF EXISTS public.app_role CASCADE;
+DELETE FROM auth.users;
