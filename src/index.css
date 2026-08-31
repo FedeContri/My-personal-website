@@ -84,12 +84,20 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "kern" 1, "liga" 1;
+    overflow-x: hidden;
   }
+
+  /* Long technical tokens must never break the mobile layout */
+  p, li, h1, h2, h3, h4 {
+    overflow-wrap: anywhere;
+  }
+
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
