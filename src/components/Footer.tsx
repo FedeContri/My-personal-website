@@ -1,40 +1,44 @@
-import { Github, Mail } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
+import { profile } from "@/lib/profile";
 
-const Footer = () => {
-  const { t } = useTranslation();
-  const currentYear = new Date().getFullYear();
-
-  return (
-    <footer className="border-t border-border mt-20">
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-muted-foreground text-sm">
-            © {currentYear} FD Portfolio. {t("footer.madeWith")}
-          </p>
-          
-          <div className="flex gap-4">
-            <a 
-              href="https://github.com/FedeContri" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              <Github className="h-5 w-5" />
-            </a>
-            <a 
-              href="mailto:fd_cybernet@proton.me"
-              aria-label="Email"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              <Mail className="h-5 w-5" />
-            </a>
-          </div>
-        </div>
+const Footer = () => (
+  <footer className="border-t border-border py-10">
+    <div className="wrap flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <p className="font-mono text-[11.5px] text-muted-foreground">
+        © {new Date().getFullYear()} {profile.name}
+      </p>
+      <div className="flex flex-wrap gap-6 font-mono text-[11.5px] text-muted-foreground">
+        <a
+          href={profile.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-colors hover:text-foreground"
+        >
+          GitHub
+        </a>
+        <a
+          href={profile.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transition-colors hover:text-foreground"
+        >
+          LinkedIn
+        </a>
+        <a href={`mailto:${profile.email}`} className="transition-colors hover:text-foreground">
+          Email
+        </a>
+        {profile.cvUrl && (
+          <a
+            href={profile.cvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-foreground"
+          >
+            CV
+          </a>
+        )}
       </div>
-    </footer>
-  );
-};
+    </div>
+  </footer>
+);
 
 export default Footer;
