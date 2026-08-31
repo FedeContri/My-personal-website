@@ -3,10 +3,10 @@ import { Menu, X } from "lucide-react";
 import { profile } from "@/lib/profile";
 
 const links = [
+  { label: "About", id: "about" },
   { label: "Work", id: "work" },
   { label: "Labs", id: "labs" },
   { label: "Skills", id: "skills" },
-  { label: "About", id: "about" },
 ];
 
 const Navigation = () => {
