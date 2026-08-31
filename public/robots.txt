@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /auth
 
 Sitemap: https://fd-portfolio.site/sitemap.xml
