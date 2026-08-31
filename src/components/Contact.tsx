@@ -1,18 +1,15 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Mail, Github, Send, Linkedin } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
 import { z } from "zod";
+import { ArrowUpRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import Section from "@/components/site/Section";
+import { profile } from "@/lib/profile";
 
 const RATE_LIMIT_KEY = "contact_form_submissions";
 const MAX_SUBMISSIONS_PER_HOUR = 3;
 const HOUR_IN_MS = 60 * 60 * 1000;
 
-// Strict validation schema
 const contactSchema = z.object({
   name: z
     .string()
@@ -20,217 +17,152 @@ const contactSchema = z.object({
     .min(1, "Name is required")
     .max(100, "Name must be less than 100 characters")
     .regex(/^[a-zA-ZÀ-ÿ\s'-]+$/, "Name contains invalid characters"),
-  email: z
-    .string()
-    .trim()
-    .min(1, "Email is required")
-    .max(255, "Email must be less than 255 characters")
-    .email("Invalid email format"),
+  email: z.string().trim().min(1, "Email is required").max(255).email("Invalid email format"),
   message: z
     .string()
     .trim()
     .min(1, "Message is required")
     .max(1000, "Message must be less than 1000 characters")
-    .refine(
-      (val) => !/<script|javascript:|on\w+=/i.test(val),
-      "Message contains prohibited content"
-    ),
+    .refine((v) => !/<script|javascript:|on\w+=/i.test(v), "Message contains prohibited content"),
 });
 
-// Sanitize input - remove potential HTML/script tags
-const sanitizeInput = (input: string): string => {
-  return input
-    .replace(/<[^>]*>/g, "") // Remove HTML tags
-    .replace(/[<>]/g, "") // Remove angle brackets
+const sanitize = (input: string) =>
+  input
+    .replace(/<[^>]*>/g, "")
+    .replace(/[<>]/g, "")
     .trim();
-};
 
-const checkRateLimit = (): boolean => {
-  const now = Date.now();
-  const stored = localStorage.getItem(RATE_LIMIT_KEY);
-  const submissions: number[] = stored ? JSON.parse(stored) : [];
-  
-  const recentSubmissions = submissions.filter(time => now - time < HOUR_IN_MS);
-  
-  return recentSubmissions.length < MAX_SUBMISSIONS_PER_HOUR;
-};
-
-const recordSubmission = () => {
-  const now = Date.now();
-  const stored = localStorage.getItem(RATE_LIMIT_KEY);
-  const submissions: number[] = stored ? JSON.parse(stored) : [];
-  
-  const recentSubmissions = submissions.filter(time => now - time < HOUR_IN_MS);
-  recentSubmissions.push(now);
-  
-  localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(recentSubmissions));
+const readSubmissions = (): number[] => {
+  try {
+    const stored = localStorage.getItem(RATE_LIMIT_KEY);
+    const parsed: number[] = stored ? JSON.parse(stored) : [];
+    const now = Date.now();
+    return parsed.filter((t) => now - t < HOUR_IN_MS);
+  } catch {
+    return [];
+  }
 };
 
 const Contact = () => {
-  const { t } = useTranslation();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [sending, setSending] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validate with zod schema
-    const validation = contactSchema.safeParse(formData);
-    
+    const validation = contactSchema.safeParse(form);
     if (!validation.success) {
-      const firstError = validation.error.errors[0];
-      toast.error(firstError.message);
+      toast.error(validation.error.errors[0].message);
+      return;
+    }
+    const recent = readSubmissions();
+    if (recent.length >= MAX_SUBMISSIONS_PER_HOUR) {
+      toast.error("Too many messages sent. Please try again later.");
       return;
     }
 
-    if (!checkRateLimit()) {
-      toast.error(t("contact.tooMany"));
-      return;
-    }
-    
-    setIsSubmitting(true);
-
+    setSending(true);
     try {
-      // Sanitize all inputs
-      const sanitizedData = {
-        name: sanitizeInput(validation.data.name),
-        email: validation.data.email.toLowerCase().trim(),
-        message: sanitizeInput(validation.data.message),
-      };
-
-      // Submit through secure edge function (server-side rate limiting + secret key)
-      const { data: result, error: invokeError } = await supabase.functions.invoke(
-        "contact-submit",
-        {
-          body: {
-            name: sanitizedData.name,
-            email: sanitizedData.email,
-            message: sanitizedData.message,
-          },
+      const { data, error } = await supabase.functions.invoke("contact-submit", {
+        body: {
+          name: sanitize(validation.data.name),
+          email: validation.data.email.toLowerCase().trim(),
+          message: sanitize(validation.data.message),
         },
-      );
+      });
 
-      if (invokeError) {
-        toast.error(t("contact.networkError"));
+      if (error) {
+        toast.error("Network error. Please try again.");
         return;
       }
 
-      if (result.success) {
-        recordSubmission();
-        toast.success(t("contact.success"));
-        setFormData({ name: "", email: "", message: "" });
+      if (data?.success) {
+        localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify([...recent, Date.now()]));
+        toast.success("Message sent. Thanks for reaching out.");
+        setForm({ name: "", email: "", message: "" });
       } else {
-        toast.error(result.message || t("contact.error"));
+        toast.error(data?.message || "Something went wrong.");
       }
-    } catch (error) {
-      toast.error(t("contact.networkError"));
+    } catch {
+      toast.error("Network error. Please try again.");
     } finally {
-      setIsSubmitting(false);
+      setSending(false);
     }
   };
 
+  const field =
+    "w-full border-b border-border bg-transparent py-2.5 text-[15px] outline-none placeholder:text-muted-foreground/70 focus:border-foreground transition-colors";
+
   return (
-    <section id="contact" className="max-w-6xl mx-auto py-20 px-4">
-      <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">
-          <span className="gradient-text">{t("contact.title")}</span>
-        </h2>
-        <p className="text-muted-foreground text-lg">
-          {t("contact.subtitle")}
-        </p>
+    <Section id="contact" eyebrow="08 / Contact" title="Let's connect.">
+      <div className="flex flex-wrap gap-x-8 gap-y-3">
+        <a
+          href={profile.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-underline font-mono text-[13px]"
+        >
+          GitHub <ArrowUpRight className="h-3.5 w-3.5" />
+        </a>
+        <a href={`mailto:${profile.email}`} className="link-underline font-mono text-[13px]">
+          Email <ArrowUpRight className="h-3.5 w-3.5" />
+        </a>
+        <a
+          href={profile.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-underline font-mono text-[13px]"
+        >
+          LinkedIn <ArrowUpRight className="h-3.5 w-3.5" />
+        </a>
+        {profile.cvUrl && (
+          <a
+            href={profile.cvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline font-mono text-[13px]"
+          >
+            CV <ArrowUpRight className="h-3.5 w-3.5" />
+          </a>
+        )}
       </div>
-      
-      <div className="grid md:grid-cols-2 gap-8">
-        <div className="space-y-6">
-          <div className="card-glass p-6 rounded-lg">
-            <h3 className="text-2xl font-semibold mb-6">{t("contact.info")}</h3>
-            
-            <div className="space-y-4">
-              <a 
-                href="mailto:fd_cybernet@proton.me" 
-                className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-primary transition-colors hover:glow-primary group"
-              >
-                <Mail className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium group-hover:gradient-text">{t("contact.email")}</p>
-                  <p className="text-sm text-muted-foreground">fd_cybernet@proton.me</p>
-                </div>
-              </a>
-              
-              <a 
-                href="https://github.com/FedeContri" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-primary transition-colors hover:glow-primary group"
-              >
-                <Github className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium group-hover:gradient-text">GitHub</p>
-                  <p className="text-sm text-muted-foreground">@FedeContri</p>
-                </div>
-              </a>
-              
-              <a 
-                href="https://www.linkedin.com/in/federico-contrino-78a647395" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 p-4 rounded-lg border border-border hover:border-primary transition-colors hover:glow-primary group"
-              >
-                <Linkedin className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium group-hover:gradient-text">LinkedIn</p>
-                  <p className="text-sm text-muted-foreground">Federico Contrino</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <div className="card-glass p-6 rounded-lg">
-          <h3 className="text-2xl font-semibold mb-6">{t("contact.sendMessage")}</h3>
-          
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Input
-                placeholder={t("contact.yourName")}
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="bg-background/50"
-              />
-            </div>
-            
-            <div>
-              <Input
-                type="email"
-                placeholder={t("contact.yourEmail")}
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="bg-background/50"
-              />
-            </div>
-            
-            <div>
-              <Textarea
-                placeholder={t("contact.yourMessage")}
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="bg-background/50 min-h-[150px]"
-              />
-            </div>
-            
-            <Button type="submit" className="w-full glow-primary" disabled={isSubmitting}>
-              <Send className="mr-2 h-4 w-4" />
-              {isSubmitting ? t("contact.sending") : t("contact.send")}
-            </Button>
-          </form>
-        </div>
-      </div>
-    </section>
+
+      <form onSubmit={handleSubmit} className="mt-12 max-w-lg space-y-6">
+        <p className="eyebrow">Or send a message</p>
+        <input
+          className={field}
+          placeholder="Name"
+          aria-label="Name"
+          value={form.name}
+          maxLength={100}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+        />
+        <input
+          className={field}
+          placeholder="Email"
+          aria-label="Email"
+          type="email"
+          value={form.email}
+          maxLength={255}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
+        <textarea
+          className={`${field} resize-none`}
+          placeholder="Message"
+          aria-label="Message"
+          rows={4}
+          maxLength={1000}
+          value={form.message}
+          onChange={(e) => setForm({ ...form, message: e.target.value })}
+        />
+        <button
+          type="submit"
+          disabled={sending}
+          className="rounded-sm bg-primary px-5 py-2.5 font-mono text-[12.5px] text-primary-foreground transition-opacity hover:opacity-85 disabled:opacity-50"
+        >
+          {sending ? "Sending…" : "Send"}
+        </button>
+      </form>
+    </Section>
   );
 };
 
