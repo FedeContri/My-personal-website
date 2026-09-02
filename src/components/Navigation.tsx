@@ -12,13 +12,19 @@ const links = [
 const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -58,7 +64,13 @@ const Navigation = () => {
           : "bg-background md:bg-transparent"
       }`}
     >
+      <div
+        aria-hidden="true"
+        className="scroll-progress absolute inset-x-0 bottom-0 h-px bg-accent"
+        style={{ transform: `scaleX(${progress})`, opacity: scrolled ? 1 : 0 }}
+      />
       <div className="wrap flex h-16 items-center justify-between">
+
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="inline-flex h-11 items-center font-mono text-[13px] tracking-tight"

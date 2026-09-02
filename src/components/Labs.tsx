@@ -8,7 +8,7 @@ const Labs = () => (
       Personal experiments run on my own hardware. Some of them worked, some of them didn't — the
       process and the troubleshooting are the point.
     </p>
-    <div className="mt-10 space-y-2">
+    <div className="stagger mt-10 space-y-2">
       {labs.map((entry, i) => (
         <EntryItem key={entry.id} entry={entry} index={i} />
       ))}
