@@ -64,7 +64,13 @@ const Navigation = () => {
           : "bg-background md:bg-transparent"
       }`}
     >
+      <div
+        aria-hidden="true"
+        className="scroll-progress absolute inset-x-0 bottom-0 h-px bg-accent"
+        style={{ transform: `scaleX(${progress})`, opacity: scrolled ? 1 : 0 }}
+      />
       <div className="wrap flex h-16 items-center justify-between">
+
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="inline-flex h-11 items-center font-mono text-[13px] tracking-tight"
