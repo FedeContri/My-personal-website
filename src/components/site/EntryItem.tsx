@@ -8,16 +8,19 @@ const EntryItem = ({ entry, index }: { entry: Entry; index: number }) => {
   const panelId = `entry-${entry.id}`;
 
   return (
-    <article className="border-t border-border py-8 first:border-t-0 first:pt-0">
+    <article className="reveal-item group border-t border-border py-8 first:border-t-0 first:pt-0">
       <div className="flex items-baseline gap-4">
-        <span className="index-num">{num}</span>
+        <span className="index-num transition-colors duration-300 group-hover:text-accent">{num}</span>
         <span className="tag uppercase tracking-[0.14em]">{entry.label}</span>
       </div>
 
-      <h3 className="mt-3 text-2xl font-semibold sm:text-3xl">{entry.title}</h3>
+      <h3 className="mt-3 text-2xl font-semibold transition-transform duration-300 ease-out group-hover:translate-x-1 sm:text-3xl">
+        {entry.title}
+      </h3>
       <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
         {entry.summary}
       </p>
+
 
       <p className="mt-4 font-mono text-[11.5px] text-muted-foreground">
         {entry.stack.join(" · ")}

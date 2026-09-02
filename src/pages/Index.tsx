@@ -12,7 +12,7 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
+    const els = Array.from(document.querySelectorAll<HTMLElement>(".reveal, .reveal-item"));
 
     if (typeof IntersectionObserver === "undefined") {
       els.forEach((el) => el.classList.add("is-visible"));
