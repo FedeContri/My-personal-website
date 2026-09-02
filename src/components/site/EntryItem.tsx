@@ -53,7 +53,7 @@ const EntryItem = ({ entry, index }: { entry: Entry; index: number }) => {
       </div>
 
       {open && (
-        <div id={panelId} className="mt-6 space-y-6 border-l border-border pl-5">
+        <div id={panelId} className="mt-6 animate-fade-in space-y-6 border-l border-border pl-5">
           {entry.diagram && (
             <pre className="terminal whitespace-pre text-muted-foreground">{entry.diagram}</pre>
           )}
