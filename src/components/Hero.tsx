@@ -9,9 +9,13 @@ const scrollTo = (id: string) => {
 
 const Hero = () => (
   <header className="wrap pt-28 pb-16 sm:pt-40 sm:pb-28">
-    <p className="eyebrow">{profile.kicker}</p>
+    <p className="eyebrow enter" style={{ animationDelay: "40ms" }}>{profile.kicker}</p>
 
-    <h1 className="mt-6 text-[2rem] font-semibold leading-[1.12] tracking-tight sm:text-5xl">
+    <h1
+      className="enter mt-6 text-[2rem] font-semibold leading-[1.12] tracking-tight sm:text-5xl"
+      style={{ animationDelay: "120ms" }}
+    >
+
       {profile.name} — {profile.role}
     </h1>
 
