@@ -19,16 +19,18 @@ const Hero = () => (
       {profile.name} — {profile.role}
     </h1>
 
-    <p className="mt-4 max-w-xl font-mono text-[13px] text-muted-foreground">{profile.tagline}</p>
+    <p className="enter mt-4 max-w-xl font-mono text-[13px] text-muted-foreground" style={{ animationDelay: "190ms" }}>{profile.tagline}</p>
 
-    <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-      {profile.intro}
-    </p>
-    <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-      {profile.intro2}
-    </p>
+    <div className="enter" style={{ animationDelay: "250ms" }}>
+      <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
+        {profile.intro}
+      </p>
+      <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
+        {profile.intro2}
+      </p>
+    </div>
 
-    <p className="mt-5 max-w-xl text-[15px] font-medium leading-relaxed text-foreground sm:text-base">
+    <p className="enter mt-5 max-w-xl text-[15px] font-medium leading-relaxed text-foreground sm:text-base" style={{ animationDelay: "310ms" }}>
       Currently open to collaboration —{" "}
       <a href="#contact" className="link-underline">
         get in touch
@@ -36,11 +38,11 @@ const Hero = () => (
       .
     </p>
 
-    <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+    <div className="enter mt-8 flex flex-wrap items-center gap-x-6 gap-y-3" style={{ animationDelay: "370ms" }}>
       <button
         type="button"
         onClick={() => scrollTo("work")}
-        className="inline-flex min-h-[44px] items-center justify-center rounded-sm bg-primary px-5 py-2.5 font-mono text-[12.5px] text-primary-foreground transition-opacity hover:opacity-85"
+        className="inline-flex min-h-[44px] items-center justify-center rounded-sm bg-primary px-5 py-2.5 font-mono text-[12.5px] text-primary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:opacity-85"
       >
         Projects
       </button>
@@ -64,7 +66,8 @@ const Hero = () => (
         </a>
       )}
     </div>
-    <pre className="terminal mt-12 max-w-xl overflow-x-auto whitespace-pre text-muted-foreground" aria-hidden="true">{heroTerminal}</pre>
+    <pre className="terminal enter mt-12 max-w-xl overflow-x-auto whitespace-pre text-muted-foreground" style={{ animationDelay: "440ms" }} aria-hidden="true">{heroTerminal}</pre>
+
   </header>
 );
 
