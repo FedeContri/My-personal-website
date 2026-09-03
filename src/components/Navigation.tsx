@@ -27,13 +27,21 @@ const Navigation = () => {
 
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+    const { body } = document;
+    const prevOverflow = body.style.overflow;
+    const prevPaddingRight = body.style.paddingRight;
+    const scrollbar = window.innerWidth - document.documentElement.clientWidth;
+    body.style.overflow = "hidden";
+    if (scrollbar > 0) body.style.paddingRight = `${scrollbar}px`;
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = "";
+      body.style.overflow = prevOverflow;
+      body.style.paddingRight = prevPaddingRight;
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
@@ -48,12 +56,15 @@ const Navigation = () => {
 
   const go = (id: string) => {
     setOpen(false);
-    const el = document.getElementById(id);
-    if (!el) return;
-    window.scrollTo({
-      top: el.getBoundingClientRect().top + window.scrollY - 64,
-      behavior: "smooth",
-    });
+    // wait for the scroll lock to be released before scrolling
+    window.setTimeout(() => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      window.scrollTo({
+        top: el.getBoundingClientRect().top + window.scrollY - 64,
+        behavior: "smooth",
+      });
+    }, 60);
   };
 
   return (
@@ -113,6 +124,7 @@ const Navigation = () => {
           className="-mr-2 inline-flex h-11 w-11 items-center justify-center md:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
+          aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -120,7 +132,10 @@ const Navigation = () => {
       </div>
 
       {open && (
-        <div className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto overscroll-contain border-t border-border bg-background md:hidden">
+        <div
+          id="mobile-menu"
+          className="fixed inset-x-0 bottom-0 top-16 z-40 h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-border bg-background md:hidden"
+        >
           <div className="wrap flex flex-col py-4 pb-[max(2rem,env(safe-area-inset-bottom))]">
             {links.map((l) => (
               <button
