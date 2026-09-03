@@ -40,7 +40,14 @@
     --radius: 0.25rem;
 
     --rule: 30 10% 87%;
+
+    /* Elevated reading surfaces (cards, bands) */
+    --surface: 0 0% 100%;
+    --surface-2: 40 16% 96%;
+    --accent-soft: 18 82% 46%;
+    --shadow-card: 0 1px 2px hsl(220 16% 11% / 0.04), 0 8px 24px -16px hsl(220 16% 11% / 0.18);
   }
+
 
   .dark {
     --background: 220 14% 6%;
