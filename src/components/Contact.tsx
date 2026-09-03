@@ -109,7 +109,7 @@ const Contact = () => {
   return (
     <Section id="contact" eyebrow="06 / Contact" title="Let's connect.">
       <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground">
-        I'm currently open to DevOps / IT opportunities and collaborations. If you're hiring or want to talk infrastructure, Kubernetes or security labs, send a message.
+        I'm currently open to collaboration. If you want to talk infrastructure, Kubernetes or security labs, send a message.
       </p>
 
       <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
