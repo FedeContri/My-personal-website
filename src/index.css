@@ -81,7 +81,13 @@
     --radius: 0.25rem;
 
     --rule: 220 8% 18%;
+
+    --surface: 220 12% 9%;
+    --surface-2: 220 11% 11%;
+    --accent-soft: 20 88% 58%;
+    --shadow-card: 0 1px 2px hsl(0 0% 0% / 0.3), 0 10px 28px -18px hsl(0 0% 0% / 0.8);
   }
+
 }
 
 @layer base {
