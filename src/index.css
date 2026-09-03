@@ -40,14 +40,7 @@
     --radius: 0.25rem;
 
     --rule: 30 10% 87%;
-
-    /* Elevated reading surfaces (cards, bands) */
-    --surface: 0 0% 100%;
-    --surface-2: 40 16% 96%;
-    --accent-soft: 18 82% 46%;
-    --shadow-card: 0 1px 2px hsl(220 16% 11% / 0.04), 0 8px 24px -16px hsl(220 16% 11% / 0.18);
   }
-
 
   .dark {
     --background: 220 14% 6%;
@@ -81,13 +74,7 @@
     --radius: 0.25rem;
 
     --rule: 220 8% 18%;
-
-    --surface: 220 12% 9%;
-    --surface-2: 220 11% 11%;
-    --accent-soft: 20 88% 58%;
-    --shadow-card: 0 1px 2px hsl(0 0% 0% / 0.3), 0 10px 28px -18px hsl(0 0% 0% / 0.8);
   }
-
 }
 
 @layer base {
@@ -128,26 +115,12 @@
   }
 
   .section {
-    @apply py-16 sm:py-24 border-t border-border scroll-mt-20;
+    @apply py-16 sm:py-28 border-t border-border scroll-mt-20;
   }
 
-  /* Alternating tinted band — gives the page a reading rhythm
-     instead of one uninterrupted sheet of text. */
-  .section-band {
-    background-color: hsl(var(--surface-2) / 0.6);
-  }
 
   .eyebrow {
     @apply font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground;
-  }
-
-  /* Section headings: clearly above entry titles in the hierarchy */
-  .section-title {
-    @apply mt-2 text-2xl font-semibold tracking-tight sm:text-[1.75rem];
-  }
-
-  .section-lead {
-    @apply max-w-2xl text-base leading-[1.75] text-muted-foreground sm:text-[17px];
   }
 
   .index-num {
@@ -156,30 +129,6 @@
 
   .tag {
     @apply font-mono text-[11px] text-muted-foreground;
-  }
-
-  /* Compact monospace chip used for stacks, tools and skills */
-  .chip {
-    @apply inline-flex items-center rounded-sm border border-border bg-surface px-2 py-1 font-mono text-[11.5px] leading-none text-muted-foreground transition-colors;
-  }
-
-  .chip-accent {
-    border-color: hsl(var(--accent) / 0.35);
-    background-color: hsl(var(--accent) / 0.08);
-    @apply text-foreground;
-  }
-
-  .card {
-    @apply rounded-sm border border-border bg-surface transition-all duration-300;
-  }
-
-  .card-hover {
-    @apply hover:-translate-y-0.5 hover:border-foreground/20;
-    box-shadow: none;
-  }
-
-  .card-hover:hover {
-    box-shadow: var(--shadow-card);
   }
 
   .link-underline {
@@ -198,7 +147,6 @@
     @apply font-mono text-[12.5px] leading-relaxed bg-muted/50 border border-border rounded-sm p-4 overflow-x-auto;
   }
 }
-
 
 @layer utilities {
   .reveal,
