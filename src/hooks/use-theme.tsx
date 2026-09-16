@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useContext, ReactNode } from "react";
 
 type Theme = "dark" | "light";
 
@@ -8,37 +8,14 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+// Dark is the site's fixed default: always applied, independent of the
+// visitor's system preference.
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>("dark");
-
-  useEffect(() => {
-    // Check system preference
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: light)");
-    
-    const updateTheme = () => {
-      const newTheme = mediaQuery.matches ? "light" : "dark";
-      setTheme(newTheme);
-      
-      // Update document class for Tailwind dark mode
-      if (newTheme === "dark") {
-        document.documentElement.classList.add("dark");
-        document.documentElement.classList.remove("light");
-      } else {
-        document.documentElement.classList.add("light");
-        document.documentElement.classList.remove("dark");
-      }
-    };
-
-    // Initial check
-    updateTheme();
-
-    // Listen for changes
-    mediaQuery.addEventListener("change", updateTheme);
-    return () => mediaQuery.removeEventListener("change", updateTheme);
-  }, []);
+  document.documentElement.classList.add("dark");
+  document.documentElement.classList.remove("light");
 
   return (
-    <ThemeContext.Provider value={{ theme }}>
+    <ThemeContext.Provider value={{ theme: "dark" as Theme }}>
       {children}
     </ThemeContext.Provider>
   );
