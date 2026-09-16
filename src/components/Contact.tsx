@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { supabase } from "@/integrations/supabase/client";
 import Section from "@/components/site/Section";
@@ -49,6 +50,7 @@ const readSubmissions = (): number[] => {
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [consent, setConsent] = useState(false);
   const [sending, setSending] = useState(false);
   const [captchaToken, setCaptchaToken] = useState("");
   const captchaRef = useRef<HCaptcha>(null);
@@ -58,6 +60,10 @@ const Contact = () => {
     const validation = contactSchema.safeParse(form);
     if (!validation.success) {
       toast.error(validation.error.errors[0].message);
+      return;
+    }
+    if (!consent) {
+      toast.error("Please accept the privacy policy before sending.");
       return;
     }
     if (!captchaToken) {
@@ -90,6 +96,7 @@ const Contact = () => {
         localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify([...recent, Date.now()]));
         toast.success("Message sent. Thanks for reaching out.");
         setForm({ name: "", email: "", message: "" });
+        setConsent(false);
       } else {
         toast.error(data?.message || "Something went wrong.");
       }
@@ -189,6 +196,22 @@ const Contact = () => {
             onError={() => setCaptchaToken("")}
           />
         </div>
+        <label htmlFor="contact-consent" className="flex items-start gap-3 text-[13px] leading-relaxed text-muted-foreground">
+          <input
+            id="contact-consent"
+            type="checkbox"
+            checked={consent}
+            onChange={(e) => setConsent(e.target.checked)}
+            className="mt-1 h-4 w-4 shrink-0 accent-[hsl(var(--primary))]"
+          />
+          <span>
+            I agree that my name, email and message are used to reply to me, as described in the{" "}
+            <Link to="/privacy" className="link-underline">
+              privacy policy
+            </Link>
+            .
+          </span>
+        </label>
         <button
           type="submit"
           disabled={sending}
