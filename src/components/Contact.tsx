@@ -49,6 +49,7 @@ const readSubmissions = (): number[] => {
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [consent, setConsent] = useState(false);
   const [sending, setSending] = useState(false);
   const [captchaToken, setCaptchaToken] = useState("");
   const captchaRef = useRef<HCaptcha>(null);
@@ -58,6 +59,10 @@ const Contact = () => {
     const validation = contactSchema.safeParse(form);
     if (!validation.success) {
       toast.error(validation.error.errors[0].message);
+      return;
+    }
+    if (!consent) {
+      toast.error("Please accept the privacy policy before sending.");
       return;
     }
     if (!captchaToken) {
