@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { profile } from "@/lib/profile";
 
 const Footer = () => (
@@ -26,6 +27,12 @@ const Footer = () => (
         <a href={`mailto:${profile.email}`} className="inline-flex min-h-[44px] items-center transition-colors hover:text-foreground sm:min-h-0">
           Email
         </a>
+        <Link
+          to="/privacy"
+          className="inline-flex min-h-[44px] items-center transition-colors hover:text-foreground sm:min-h-0"
+        >
+          Privacy
+        </Link>
         {profile.cvUrl && (
           <a
             href={profile.cvUrl}
