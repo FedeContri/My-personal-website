@@ -419,14 +419,7 @@ export const labs: Entry[] = [
 export const skills: { group: string; items: string[]; note?: string }[] = [
   {
     group: "Languages",
-    items: [
-      "JavaScript",
-      "Bash",
-      "C/C++",
-      "Java",
-      "SQL",
-      "Go — Ardan Labs course (14 modules), no certification",
-    ],
+    items: ["JavaScript", "Bash", "C/C++", "Java", "SQL", "Go"],
   },
   {
     group: "Infrastructure",
