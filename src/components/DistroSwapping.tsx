@@ -2,7 +2,7 @@ import Section from "@/components/site/Section";
 import { distroJourney } from "@/lib/profile";
 
 const DistroSwapping = () => (
-  <Section id="distros" eyebrow="04 / Distros" title="Distro Swapping">
+  <Section id="distros" eyebrow="06 / Distros" title="Distro Swapping">
     <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground">
       I've swapped operating systems a lot. Some runs lasted a year, some two
       weeks — each one taught me something about how a system actually fits

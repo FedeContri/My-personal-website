@@ -83,13 +83,13 @@ const Index = () => {
           <Labs />
         </div>
         <div className="reveal">
-          <DistroSwapping />
+          <Experience />
         </div>
         <div className="reveal">
           <Skills />
         </div>
         <div className="reveal">
-          <Experience />
+          <DistroSwapping />
         </div>
 
         <div className="reveal">
