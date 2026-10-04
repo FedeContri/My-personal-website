@@ -48,7 +48,8 @@ const EvidenceGallery = ({ title, images }: Props) => {
                   alt={image.alt}
                   width={image.width}
                   height={image.height}
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority={index < 2 ? "high" : "auto"}
                   decoding="async"
                   className="aspect-[3/4] w-full object-cover transition-transform duration-300 group-hover:scale-[1.015]"
                 />
