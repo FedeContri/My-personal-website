@@ -1,3 +1,12 @@
+import kernelBuildAsset from "@/assets/nethunter/nexus5-nethunter-8899.jpg.asset.json";
+import kernelInstallAsset from "@/assets/nethunter/nexus5-nethunter-8864.jpg.asset.json";
+import nethunterBootAsset from "@/assets/nethunter/nexus5-nethunter-8867.jpg.asset.json";
+import libraryInspectionAsset from "@/assets/nethunter/nexus5-nethunter-8873.jpg.asset.json";
+import hookLoadAsset from "@/assets/nethunter/nexus5-nethunter-8877.jpg.asset.json";
+import managedModeAsset from "@/assets/nethunter/nexus5-nethunter-8884.jpg.asset.json";
+import nexutilAsset from "@/assets/nethunter/nexus5-nethunter-8900.jpg.asset.json";
+import driverLogsAsset from "@/assets/nethunter/nexus5-nethunter-8901.jpg.asset.json";
+
 export const profile = {
   name: "FD",
   role: "DevOps Intern & Cybersecurity Enthusiast",
@@ -62,6 +71,16 @@ export type Entry = {
   notes?: string[];
   links?: { label: string; href: string }[];
   diagram?: string;
+  evidence?: EvidenceImage[];
+};
+
+export type EvidenceImage = {
+  src: string;
+  title: string;
+  caption: string;
+  alt: string;
+  width: number;
+  height: number;
 };
 
 export const work: Entry[] = [
@@ -302,6 +321,80 @@ export const labs: Entry[] = [
           "Wireless driver and firmware troubleshooting",
           "TWRP + Magisk root (Galaxy S4)",
         ],
+      },
+    ],
+    evidence: [
+      {
+        src: kernelBuildAsset.url,
+        title: "Kernel compilation",
+        caption:
+          "The ARM kernel build compiling filesystem, networking and IOMMU objects from the NetHunter source tree. This is the host-side build stage before packaging the image.",
+        alt: "Computer terminal compiling ARM Linux kernel object files for the Nexus 5 NetHunter build",
+        width: 1440,
+        height: 1920,
+      },
+      {
+        src: kernelInstallAsset.url,
+        title: "Flashable kernel installation",
+        caption:
+          "The custom package running through the recovery installer. AnyKernel2 reports the kernel installation as complete before the remaining system changes continue.",
+        alt: "Nexus 5 recovery screen installing the NetHunter kernel with AnyKernel2",
+        width: 1440,
+        height: 1920,
+      },
+      {
+        src: nethunterBootAsset.url,
+        title: "NetHunter boots",
+        caption:
+          "The device reaches the Kali NetHunter boot screen after flashing. This verifies that the custom kernel and packaged environment booted, independently of wireless monitor-mode support.",
+        alt: "Google Nexus 5 displaying the Kali NetHunter boot screen",
+        width: 1440,
+        height: 1920,
+      },
+      {
+        src: libraryInspectionAsset.url,
+        title: "Userspace library inspection",
+        caption:
+          "Inspection of /usr/lib confirms the NetHunter environment and libettercap libraries are present while tracing the components available to the wireless toolchain.",
+        alt: "Kali terminal on Nexus 5 listing shared libraries in the userspace environment",
+        width: 1440,
+        height: 1920,
+      },
+      {
+        src: hookLoadAsset.url,
+        title: "Nexmon ioctl hook loaded",
+        caption:
+          "The copied libfakeioctl library is loaded with LD_PRELOAD. Its output reports the Nexmon ioctl hook and the radiotap address-family substitution as active.",
+        alt: "Nexus 5 terminal showing libfakeioctl loaded and the Nexmon ioctl hook active",
+        width: 1440,
+        height: 1920,
+      },
+      {
+        src: managedModeAsset.url,
+        title: "Interface remains managed",
+        caption:
+          "After repeated Wi-Fi disable and nexutil attempts, iw dev still reports wlan0 as type managed. The screenshot records the failed transition rather than a successful monitor-mode result.",
+        alt: "Nexus 5 terminal showing wlan0 still in managed mode after Nexmon commands",
+        width: 1440,
+        height: 1920,
+      },
+      {
+        src: nexutilAsset.url,
+        title: "Tooling path failure",
+        caption:
+          "The monstart helper cannot resolve nexutil even though the binary appears in /system/xbin. Running it directly still reports monitor 0, exposing a userspace path and compatibility problem during testing.",
+        alt: "Kali terminal showing nexutil command-not-found errors and monitor value zero",
+        width: 1440,
+        height: 1920,
+      },
+      {
+        src: driverLogsAsset.url,
+        title: "Driver-level diagnosis",
+        caption:
+          "Kernel logs show the Broadcom bcmdhd driver resetting wlan0 and bringing the managed interface back online. No patched monitor interface or loaded bcmdhd module appears, confirming the limit was below ordinary userspace configuration.",
+        alt: "Nexus 5 terminal displaying bcmdhd Wi-Fi reset logs and wlan0 returning online",
+        width: 1440,
+        height: 1920,
       },
     ],
   },
