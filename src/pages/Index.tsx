@@ -4,6 +4,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Work from "@/components/Work";
 import Labs from "@/components/Labs";
+import DistroSwapping from "@/components/DistroSwapping";
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 import About from "@/components/About";
@@ -80,6 +81,9 @@ const Index = () => {
         </div>
         <div className="reveal">
           <Labs />
+        </div>
+        <div className="reveal">
+          <DistroSwapping />
         </div>
         <div className="reveal">
           <Skills />

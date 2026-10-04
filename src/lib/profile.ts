@@ -543,3 +543,63 @@ export const experience = {
     "Helm",
   ],
 };
+
+/** The OS-hopping history behind the "Distro Swapping" section. */
+export type DistroStep = {
+  os: string;
+  /** Short mono status, e.g. "First install", "One year", "Planned" */
+  status: string;
+  state: "past" | "current" | "planned";
+  body: string;
+};
+
+export const distroJourney: DistroStep[] = [
+  {
+    os: "Arch Linux",
+    status: "First install",
+    state: "past",
+    body: "My first Linux install was Arch — famously every beginner's worst enemy. I got through it with the guided GUI installer, made the workflow my own, and later turned that experience into my written Arch installation guide.",
+  },
+  {
+    os: "Arch + Kali (dual boot)",
+    status: "One year",
+    state: "past",
+    body: "Arch was my daily system for about a year, with Kali Linux alongside in dual boot whenever I needed its tooling.",
+  },
+  {
+    os: "Linux Mint",
+    status: "Two weeks",
+    state: "past",
+    body: "Comfortable and easy to use, but it wasn't for me. It lasted two weeks.",
+  },
+  {
+    os: "Ubuntu",
+    status: "Days",
+    state: "past",
+    body: "Installed for a single package I couldn't get anywhere else: an ISO-modification tool for injecting scripts and edits into an image — which made it useful for clearing unsalted Windows passwords from an external USB boot. Removed it shortly after the job was done.",
+  },
+  {
+    os: "Arch + Hyprland",
+    status: "Second run",
+    state: "past",
+    body: "Back to Arch, this time with Hyprland and custom community setups like END-4, which I personalized and used as my actual daily environment.",
+  },
+  {
+    os: "Debian",
+    status: "Experiment",
+    state: "past",
+    body: "I switched to Debian without ever quite pinning down why: at every boot, starting Docker reserved the entire RAM and pushed the system to its limit. I never got to the root of that behaviour before moving on.",
+  },
+  {
+    os: "Windows",
+    status: "Current main",
+    state: "current",
+    body: "A newer PC runs Windows for compatibility with school and work software, and it is what I use for everyday tasks today.",
+  },
+  {
+    os: "Arch — or Gentoo",
+    status: "Planned",
+    state: "planned",
+    body: "Next I plan to put Arch back on another machine I have available, compiling the packages myself. The alternative is Gentoo, which I already installed successfully by following the official documentation.",
+  },
+];
