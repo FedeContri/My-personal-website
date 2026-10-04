@@ -1,11 +1,11 @@
-import kernelBuildAsset from "@/assets/nethunter/nexus5-nethunter-8899.jpg.asset.json";
-import kernelInstallAsset from "@/assets/nethunter/nexus5-nethunter-8864.jpg.asset.json";
-import nethunterBootAsset from "@/assets/nethunter/nexus5-nethunter-8867.jpg.asset.json";
-import libraryInspectionAsset from "@/assets/nethunter/nexus5-nethunter-8873.jpg.asset.json";
-import hookLoadAsset from "@/assets/nethunter/nexus5-nethunter-8877.jpg.asset.json";
-import managedModeAsset from "@/assets/nethunter/nexus5-nethunter-8884.jpg.asset.json";
-import nexutilAsset from "@/assets/nethunter/nexus5-nethunter-8900.jpg.asset.json";
-import driverLogsAsset from "@/assets/nethunter/nexus5-nethunter-8901.jpg.asset.json";
+import kernelBuildAsset from "@/assets/nethunter/nexus5-nethunter-8899.jpeg";
+import kernelInstallAsset from "@/assets/nethunter/nexus5-nethunter-8864.jpeg";
+import nethunterBootAsset from "@/assets/nethunter/nexus5-nethunter-8867.jpeg";
+import libraryInspectionAsset from "@/assets/nethunter/nexus5-nethunter-8873.jpeg";
+import hookLoadAsset from "@/assets/nethunter/nexus5-nethunter-8877.jpeg";
+import managedModeAsset from "@/assets/nethunter/nexus5-nethunter-8884.jpeg";
+import nexutilAsset from "@/assets/nethunter/nexus5-nethunter-8900.jpeg";
+import driverLogsAsset from "@/assets/nethunter/nexus5-nethunter-8901.jpeg";
 
 export const profile = {
   name: "FD",
@@ -325,7 +325,7 @@ export const labs: Entry[] = [
     ],
     evidence: [
       {
-        src: kernelBuildAsset.url,
+        src: kernelBuildAsset,
         title: "Kernel compilation",
         caption:
           "The ARM kernel build compiling filesystem, networking and IOMMU objects from the NetHunter source tree. This is the host-side build stage before packaging the image.",
@@ -334,7 +334,7 @@ export const labs: Entry[] = [
         height: 1920,
       },
       {
-        src: kernelInstallAsset.url,
+        src: kernelInstallAsset,
         title: "Flashable kernel installation",
         caption:
           "The custom package running through the recovery installer. AnyKernel2 reports the kernel installation as complete before the remaining system changes continue.",
@@ -343,7 +343,7 @@ export const labs: Entry[] = [
         height: 1920,
       },
       {
-        src: nethunterBootAsset.url,
+        src: nethunterBootAsset,
         title: "NetHunter boots",
         caption:
           "The device reaches the Kali NetHunter boot screen after flashing. This verifies that the custom kernel and packaged environment booted, independently of wireless monitor-mode support.",
@@ -352,7 +352,7 @@ export const labs: Entry[] = [
         height: 1920,
       },
       {
-        src: libraryInspectionAsset.url,
+        src: libraryInspectionAsset,
         title: "Userspace library inspection",
         caption:
           "Inspection of /usr/lib confirms the NetHunter environment and libettercap libraries are present while tracing the components available to the wireless toolchain.",
@@ -361,7 +361,7 @@ export const labs: Entry[] = [
         height: 1920,
       },
       {
-        src: hookLoadAsset.url,
+        src: hookLoadAsset,
         title: "Nexmon ioctl hook loaded",
         caption:
           "The copied libfakeioctl library is loaded with LD_PRELOAD. Its output reports the Nexmon ioctl hook and the radiotap address-family substitution as active.",
@@ -370,7 +370,7 @@ export const labs: Entry[] = [
         height: 1920,
       },
       {
-        src: managedModeAsset.url,
+        src: managedModeAsset,
         title: "Interface remains managed",
         caption:
           "After repeated Wi-Fi disable and nexutil attempts, iw dev still reports wlan0 as type managed. The screenshot records the failed transition rather than a successful monitor-mode result.",
@@ -379,7 +379,7 @@ export const labs: Entry[] = [
         height: 1920,
       },
       {
-        src: nexutilAsset.url,
+        src: nexutilAsset,
         title: "Tooling path failure",
         caption:
           "The monstart helper cannot resolve nexutil even though the binary appears in /system/xbin. Running it directly still reports monitor 0, exposing a userspace path and compatibility problem during testing.",
@@ -388,7 +388,7 @@ export const labs: Entry[] = [
         height: 1920,
       },
       {
-        src: driverLogsAsset.url,
+        src: driverLogsAsset,
         title: "Driver-level diagnosis",
         caption:
           "Kernel logs show the Broadcom bcmdhd driver resetting wlan0 and bringing the managed interface back online. No patched monitor interface or loaded bcmdhd module appears, confirming the limit was below ordinary userspace configuration.",
