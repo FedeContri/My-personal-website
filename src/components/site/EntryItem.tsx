@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowUpRight, Minus, Plus } from "lucide-react";
 import type { Entry } from "@/lib/profile";
+import EvidenceGallery from "@/components/site/EvidenceGallery";
 
 const EntryItem = ({ entry, index }: { entry: Entry; index: number }) => {
   const [open, setOpen] = useState(false);
@@ -80,6 +81,9 @@ const EntryItem = ({ entry, index }: { entry: Entry; index: number }) => {
             </div>
           ))}
 
+          {entry.evidence && (
+            <EvidenceGallery title={entry.title} images={entry.evidence} />
+          )}
 
           {entry.notes && (
             <ul className="space-y-2">

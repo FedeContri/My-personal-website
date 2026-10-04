@@ -6,7 +6,7 @@
 
 - [Home](/): Overview of FD's background, skills, projects and labs in DevOps, Linux, networking and cybersecurity.
 - [Selected Work](/#work): Hands-on projects including the WPA2 Handshake Toolkit, an Arch Linux installation guide, a Kubernetes/Nextcloud environment, a personal homelab and T1D Investigator.
-- [Labs](/#labs): Personal experiments — CCNA networking labs, Kali NetHunter on Nexus 5, Android rooting, ESP32 and Raspberry Pi.
+- [Labs](/#labs): Personal experiments — CCNA networking labs, Kali NetHunter on Nexus 5, Android rooting, ESP32 and Raspberry Pi. The Nexus 5 case study includes original field photographs documenting the custom kernel build, flashable installation, NetHunter boot, Nexmon attempts, monitor-mode failure and Broadcom driver diagnosis.
 - [Skills](/#skills): Technical skills across Linux, Docker, Kubernetes, Helm, networking, security tools and programming.
 - [About](/#about): Background and focus areas — DevOps, Linux system administration and security.
 - [Contact](/#contact): How to get in touch with FD.
