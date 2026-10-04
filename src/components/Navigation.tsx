@@ -6,8 +6,9 @@ const links = [
   { label: "About", id: "about" },
   { label: "Work", id: "work" },
   { label: "Labs", id: "labs" },
-  { label: "Distros", id: "distros" },
+  { label: "Experience", id: "experience" },
   { label: "Skills", id: "skills" },
+  { label: "Distros", id: "distros" },
 ];
 
 const Navigation = () => {

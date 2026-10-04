@@ -114,7 +114,7 @@ const Contact = () => {
     "w-full border-b border-border bg-transparent py-3 text-base sm:text-[15px] outline-none placeholder:text-muted-foreground/70 focus:border-foreground transition-colors";
 
   return (
-    <Section id="contact" eyebrow="06 / Contact" title="Let's connect.">
+    <Section id="contact" eyebrow="07 / Contact" title="Let's connect.">
       <p className="max-w-xl text-[15px] leading-relaxed text-muted-foreground">
         I'm currently open to collaboration. If you want to talk infrastructure, Kubernetes or security labs, send a message.
       </p>
