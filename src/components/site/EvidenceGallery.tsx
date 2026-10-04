@@ -17,12 +17,13 @@ type Props = {
 
 const EvidenceGallery = ({ title, images }: Props) => {
   const [selected, setSelected] = useState<EvidenceImage>();
+  const headingId = `${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-evidence`;
 
   return (
-    <section aria-labelledby={`${title}-evidence`} className="pt-2">
+    <section aria-labelledby={headingId} className="pt-2">
       <div className="border-b border-border pb-3">
         <p className="eyebrow">Field evidence / {String(images.length).padStart(2, "0")}</p>
-        <h4 id={`${title}-evidence`} className="mt-2 text-base font-semibold">
+        <h4 id={headingId} className="mt-2 text-base font-semibold">
           Build and troubleshooting log
         </h4>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
