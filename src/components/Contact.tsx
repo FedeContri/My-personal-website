@@ -19,14 +19,14 @@ const contactSchema = z.object({
   name: z
     .string()
     .trim()
-    .min(1, "Name is required")
+    .min(2, "Name must be at least 2 characters")
     .max(100, "Name must be less than 100 characters")
     .regex(/^[a-zA-ZÀ-ÿ\s'-]+$/, "Name contains invalid characters"),
   email: z.string().trim().min(1, "Email is required").max(255).email("Invalid email format"),
   message: z
     .string()
     .trim()
-    .min(1, "Message is required")
+    .min(10, "Message must be at least 10 characters")
     .max(1000, "Message must be less than 1000 characters")
     .refine((v) => !/<script|javascript:|on\w+=/i.test(v), "Message contains prohibited content"),
 });
@@ -88,7 +88,17 @@ const Contact = () => {
       });
 
       if (error) {
-        toast.error("Network error. Please try again.");
+        let msg = "Network error. Please try again.";
+        try {
+          const ctx = (error as { context?: Response }).context;
+          if (ctx && typeof ctx.json === "function") {
+            const body = await ctx.json();
+            if (body?.message) msg = body.message;
+          }
+        } catch {
+          /* keep default message */
+        }
+        toast.error(msg);
         return;
       }
 
