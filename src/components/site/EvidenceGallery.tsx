@@ -49,7 +49,6 @@ const EvidenceGallery = ({ title, images }: Props) => {
                   width={image.width}
                   height={image.height}
                   loading="eager"
-                  decoding="async"
                   className="aspect-[3/4] w-full object-cover transition-transform duration-300 group-hover:scale-[1.015]"
                 />
                 <span className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-sm border border-border bg-background/90 text-foreground opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
