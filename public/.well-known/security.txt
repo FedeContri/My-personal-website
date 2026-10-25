@@ -1,0 +1,4 @@
+Contact: mailto:fd_cybernet@proton.me
+Expires: 2027-10-25T00:00:00.000Z
+Preferred-Languages: en, it
+Canonical: https://fd-portfolio.site/.well-known/security.txt
