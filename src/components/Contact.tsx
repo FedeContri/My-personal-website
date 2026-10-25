@@ -60,7 +60,7 @@ const Contact = () => {
     e.preventDefault();
     const validation = contactSchema.safeParse(form);
     if (!validation.success) {
-      toast.error(validation.error.errors[0].message);
+      toast.error(validation.error.issues[0].message);
       return;
     }
     if (!consent) {
