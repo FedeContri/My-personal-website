@@ -53,6 +53,7 @@ const Contact = () => {
   const [consent, setConsent] = useState(false);
   const [sending, setSending] = useState(false);
   const [captchaToken, setCaptchaToken] = useState("");
+  const [captchaEnabled, setCaptchaEnabled] = useState(false);
   const captchaRef = useRef<HCaptcha>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -67,7 +68,7 @@ const Contact = () => {
       return;
     }
     if (!captchaToken) {
-      toast.error("Please complete the captcha first.");
+      toast.error(captchaEnabled ? "Please complete the captcha first." : "Load and complete the spam check first, or email directly.");
       return;
     }
     const recent = readSubmissions();
@@ -198,13 +199,42 @@ const Contact = () => {
           onChange={(e) => setForm({ ...form, message: e.target.value })}
         />
         <div className="overflow-hidden">
-          <HCaptcha
-            ref={captchaRef}
-            sitekey={HCAPTCHA_SITE_KEY}
-            onVerify={(token) => setCaptchaToken(token)}
-            onExpire={() => setCaptchaToken("")}
-            onError={() => setCaptchaToken("")}
-          />
+          {captchaEnabled ? (
+            <div className="space-y-3">
+              <HCaptcha
+                ref={captchaRef}
+                sitekey={HCAPTCHA_SITE_KEY}
+                onVerify={(token) => setCaptchaToken(token)}
+                onExpire={() => setCaptchaToken("")}
+                onError={() => setCaptchaToken("")}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  setCaptchaEnabled(false);
+                  setCaptchaToken("");
+                }}
+                className="link-underline font-mono text-[12px] text-muted-foreground"
+              >
+                Remove spam check
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-2 text-[13px] leading-relaxed text-muted-foreground">
+              <p>
+                Sending through the form needs an hCaptcha spam check, which connects your browser
+                to hCaptcha. It is not loaded until you choose it. You can also simply email{" "}
+                <a href={`mailto:${profile.email}`} className="link-underline">{profile.email}</a>.
+              </p>
+              <button
+                type="button"
+                onClick={() => setCaptchaEnabled(true)}
+                className="inline-flex min-h-[44px] items-center rounded-sm border border-border px-4 font-mono text-[12.5px] text-foreground transition-colors hover:border-foreground"
+              >
+                Load spam check
+              </button>
+            </div>
+          )}
         </div>
         <label htmlFor="contact-consent" className="flex items-start gap-3 text-[13px] leading-relaxed text-muted-foreground">
           <input
